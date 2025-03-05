@@ -1,41 +1,52 @@
 ﻿STRING 1
 {
-Just another Warcraft III map
+Player 1
 }
 
 STRING 2
 {
-Any
-}
-
-STRING 3
-{
-Nondescript
-}
-
-STRING 4
-{
-Unknown
-}
-
-STRING 5
-{
-Player 1
-}
-
-STRING 6
-{
 Force 1
 }
 
-STRING 7
+STRING 3
 // Units: n000 (Dummy), Name (Name)
 {
 Dummy
 }
 
+STRING 4
+{
+Just another Warcraft III map
+}
+
+STRING 5
+{
+Any
+}
+
+STRING 6
+{
+Nondescript
+}
+
+STRING 7
+{
+Unknown
+}
+
 STRING 8
 {
+Player 2
+}
+
+STRING 11
+{
 Player 12
+}
+
+STRING 12
+// Units: h000 (Портал), Name (Name)
+{
+Портал
 }
 
