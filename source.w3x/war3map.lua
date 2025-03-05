@@ -1,4 +1,6 @@
 gg_trg_Melee_Initialization = nil
+gg_rct_regionSpawn = nil
+gg_rct_regionEndMoveEnemy = nil
 function InitGlobals()
 end
 
@@ -9,7 +11,52 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("h000"), 8576.0, -1216.0, 270.000, FourCC("h000"))
+u = BlzCreateUnitWithSkin(p, FourCC("h000"), 8128.0, -960.0, 270.000, FourCC("h000"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7488.0, -5440.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7424.0, -5184.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7424.0, -4928.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9088.0, -5056.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -4800.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -4544.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -4352.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -4096.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -3840.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7296.0, -4608.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7232.0, -4352.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7232.0, -4096.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -5760.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8832.0, -5504.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8832.0, -5248.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7296.0, -1856.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7424.0, -3904.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7360.0, -3648.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7232.0, -3072.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7168.0, -2816.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7168.0, -2560.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7360.0, -3392.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7360.0, -2368.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7296.0, -2112.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7168.0, -1536.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7104.0, -1280.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7104.0, -1024.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -1856.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -2368.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -2112.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9088.0, -3072.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -2816.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -2560.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -3648.0, 270.000, FourCC("hgtw"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -3392.0, 270.000, FourCC("hgtw"))
+end
+
+function CreateUnitsForPlayer0()
+local p = Player(0)
+local u
+local unitID
+local t
+local life
+
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 7215.8, -5419.4, 152.627, FourCC("hpea"))
 end
 
 function CreatePlayerBuildings()
@@ -17,6 +64,7 @@ CreateBuildingsForPlayer0()
 end
 
 function CreatePlayerUnits()
+CreateUnitsForPlayer0()
 end
 
 function CreateAllUnits()
@@ -24,15 +72,15 @@ CreatePlayerBuildings()
 CreatePlayerUnits()
 end
 
+function CreateRegions()
+local we
+
+gg_rct_regionSpawn = Rect(7872.0, -5696.0, 8480.0, -5184.0)
+gg_rct_regionEndMoveEnemy = Rect(7968.0, -1280.0, 8224.0, -1120.0)
+end
+
 function Trig_Melee_Initialization_Actions()
-MeleeStartingVisibility()
-MeleeStartingHeroLimit()
-MeleeGrantHeroItems()
-MeleeStartingResources()
-MeleeClearExcessUnits()
-MeleeStartingUnits()
-MeleeStartingAI()
-MeleeInitVictoryDefeat()
+SetPlayerFlagBJ(PLAYER_STATE_GIVES_BOUNTY, false, Player(11))
 end
 
 function InitTrig_Melee_Initialization()
@@ -88,6 +136,7 @@ NewSoundEnvironment("Default")
 SetAmbientDaySound("LordaeronSummerDay")
 SetAmbientNightSound("LordaeronSummerNight")
 SetMapMusic("Music", true, 0)
+CreateRegions()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()
