@@ -1,0 +1,41 @@
+﻿STRING 1
+{
+Just another Warcraft III map
+}
+
+STRING 2
+{
+Any
+}
+
+STRING 3
+{
+Nondescript
+}
+
+STRING 4
+{
+Unknown
+}
+
+STRING 5
+{
+Player 1
+}
+
+STRING 6
+{
+Force 1
+}
+
+STRING 7
+// Units: n000 (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 8
+{
+Player 12
+}
+
