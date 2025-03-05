@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Source.Models;
+using System;
 using WCSharp.Api;
 using WCSharp.Events;
 using WCSharp.Shared;
@@ -36,21 +37,20 @@ namespace Source
 				PlayerUnitEvents.EnableDebug();
 				SyncSystem.EnableDebug();
 				Delay.EnableDebug();
+
+				player enemyPlagyer = player.Create(1);
+				enemyPlagyer.Color = playercolor.Brown;
 #endif
+                EnemyWave wave = new(new System.Collections.Generic.Dictionary<string, int>
+                    {
+                        {"hfoo", 5 }
+                    });
 
-				// Both styles compile to the same output
-				// WCSharp style, left footman
-				var u = unit.Create(player.Create(11), FourCC("hfoo"), -200, 0);
-				u.MaxMana = 250;
-				u.MaxLife += 700;
 
-				// War3Api style, right footman
-				u = CreateUnit(Player(0), FourCC("hfoo"), 200, 0, 270);
-				BlzSetUnitMaxMana(u, 250);
-				BlzSetUnitMaxHP(u, BlzGetUnitMaxHP(u) + 700);
 
-				Console.WriteLine("Hello, Azeroth.");
-			}
+                wave.Turn();
+
+            }
 			catch (Exception ex)
 			{
 				DisplayTextToPlayer(GetLocalPlayer(), 0, 0, ex.Message);
