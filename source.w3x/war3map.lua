@@ -2,6 +2,28 @@ gg_trg_Melee_Initialization = nil
 function InitGlobals()
 end
 
+function CreateBuildingsForPlayer0()
+local p = Player(0)
+local u
+local unitID
+local t
+local life
+
+u = BlzCreateUnitWithSkin(p, FourCC("h000"), 8576.0, -1216.0, 270.000, FourCC("h000"))
+end
+
+function CreatePlayerBuildings()
+CreateBuildingsForPlayer0()
+end
+
+function CreatePlayerUnits()
+end
+
+function CreateAllUnits()
+CreatePlayerBuildings()
+CreatePlayerUnits()
+end
+
 function Trig_Melee_Initialization_Actions()
 MeleeStartingVisibility()
 MeleeStartingHeroLimit()
@@ -66,6 +88,7 @@ NewSoundEnvironment("Default")
 SetAmbientDaySound("LordaeronSummerDay")
 SetAmbientNightSound("LordaeronSummerNight")
 SetMapMusic("Music", true, 0)
+CreateAllUnits()
 InitBlizzard()
 InitGlobals()
 InitCustomTriggers()

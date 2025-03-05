@@ -4,6 +4,6 @@ namespace Source.Models
 {
     public static class MapConfig
     {
-        public static player EnemyPlayerWave => Player(1);
+        public static player EnemyPlayerWave => Player(0);
     }
 }

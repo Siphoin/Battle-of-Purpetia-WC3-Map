@@ -28,7 +28,10 @@ namespace Source.Models
         {
             string id = Units.Dequeue();
             var newUnit = unit.Create(MapConfig.EnemyPlayerWave, FourCC(id), 0, 0);
-            unit.Create(Player(0), FourCC(id), 0, 0);
+            var portal = Portal.GetPortal();
+            float x = portal.X;
+            float y = portal.Y;
+            IssuePointOrder(newUnit, "attack", x, y);
         }
     }
 }
