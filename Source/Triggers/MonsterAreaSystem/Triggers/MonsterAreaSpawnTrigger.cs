@@ -13,8 +13,8 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
 {
     public class MonsterAreaSpawnTrigger : TriggerInstance
     {
-        public static event Action<unit, item> OnDropItem;
-        private static int _currentForce = -1;
+        public static event Action<unit, unit, item> OnDropItem;
+        private static int _currentForce = -4;
         private const int MULTIPLIER_FORCE_PER_LEVEL_PLAYER = 5;
         private Dictionary<string, int> MonstersList { get; set; }
 
@@ -28,10 +28,9 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             MonstersList = monsterAreaSpawningData.MonstersList;
             Rectangle = monsterAreaSpawningData.Region;
             MonstersListCached = new();
-            HeroSpawnTrigger.OnHeroNewLevel += HeroSpawnTrigger_OnHeroNewLevel;
         }
 
-        private void HeroSpawnTrigger_OnHeroNewLevel(unit unit)
+        private void OnHeroNewLevel()
         {
             _currentForce++;
         }
@@ -45,6 +44,12 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
 
         private void SpawnStart ()
         {
+            for (int i = 0; i < player.Count; i++)
+            {
+                trigger triggerLevelUpHero = trigger.Create();
+                triggerLevelUpHero.RegisterPlayerUnitEvent(Player(i), EVENT_PLAYER_HERO_LEVEL);
+                triggerLevelUpHero.AddAction(OnHeroNewLevel);
+            }
             int countUnits = 0;
 
             foreach (var monster in MonstersList)
@@ -94,7 +99,6 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             Console.WriteLine($"respawn new unit monster");
 #endif
             PlayerUnitEvents.Unregister(UnitEvent.Dies, () => MonsterDie(unit), unit);
-            DropItem(unit);
             if (!MonstersListCached.TryGetValue(GetUnitTypeId(unit), out int count))
             {
                 MonstersListCached.Add(GetUnitTypeId(unit), 1);
@@ -119,19 +123,22 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             });
 
             respawnTrigger.Execute();
+            DropItem();
         }
 
-        private void DropItem(unit unit)
+        private void DropItem()
         {
+            var killedUnit = GetDyingUnit();
+            var killer = GetKillingUnit();
             var chance = GetRandomReal(0, 500);
 
             if (chance >= 50)
             {
-                var itemId = ChooseRandomItem(unit.Level - 1);
-                var item = CreateItem(itemId, unit.X, unit.Y);
-                UnitAddItem(unit, item);
+                var itemId = ChooseRandomItem(killedUnit.Level - 1);
+                var item = CreateItem(itemId, killedUnit.X, killedUnit.Y);
+                UnitAddItem(killedUnit, item);
 
-                OnDropItem?.Invoke(unit, item);
+                OnDropItem?.Invoke(killer, killedUnit, item);
             }
         }
 
@@ -149,6 +156,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             unit.GoldBountyAwardedBase += _currentForce;
             unit.MaxLife += addLife;
             unit.Life = unit.MaxLife;
+            
         }
     }
 }

@@ -154,7 +154,7 @@ namespace Source.Triggers.HeroTriggers
                 int indexMonster = GetRandomInt(0, monstersList.Count - 1);
                 var monster = monstersList[indexMonster];
                 IssuePointOrder(Hero, "attack", monster.X, monster.Y);
-                Console.WriteLine(GetUnitCurrentOrder(Hero));
+
                 DestroyGroup(monsters);
                 _attackTarget = monster;
             }
@@ -177,12 +177,14 @@ namespace Source.Triggers.HeroTriggers
             MonsterAreaSpawnTrigger.OnDropItem += MonsterAreaSpawnTrigger_OnDropItem;
         }
 
-        private void MonsterAreaSpawnTrigger_OnDropItem(unit unit, item item)
+        private void MonsterAreaSpawnTrigger_OnDropItem(unit killer, unit unit, item item)
         {
-            if (_attackTarget == unit)
+            if (killer == Hero)
             {
+#if DEBUG
+                Console.WriteLine("AI Get Item");
+#endif
                 UnitAddItem(Hero, item);
-                RemoveItem(item);
             }
         }
     }

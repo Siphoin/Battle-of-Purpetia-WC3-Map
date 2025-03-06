@@ -10,7 +10,7 @@ namespace Source.Triggers.HeroTriggers.Categories
         protected override IEnumerable<TriggerInstance> GetAllTriggers()
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 7; i++)
             {
                 var p = Player(i);
                 if (p.Controller == mapcontrol.None || p == player.NeutralPassive || p == player.NeutralAggressive || p == MapConfig.MonsterPlayer)
