@@ -11,6 +11,7 @@ namespace Source.Triggers.HeroTriggers
 {
     public class HeroSpawnTrigger : TriggerInstance
     {
+        public static event Action<unit> OnHeroNewLevel;
         private player PlayerOwner { get; set; }
         private string IdHeroUnit { get; set; }
         public unit Hero { get;  private set; }
@@ -28,10 +29,8 @@ namespace Source.Triggers.HeroTriggers
             {
                 Hero = unit.Create(PlayerOwner, FourCC(IdHeroUnit), 0, 0);
                 PlayerUnitEvents.Register(UnitEvent.Dies, HeroRespawn, Hero);
-                if (Hero.Owner == player.LocalPlayer)
-                {
-                    SetCameraTargetController(Hero, 0, 0, false);
-                }
+                PlayerUnitEvents.Register(HeroEvent.Levels, () => OnHeroNewLevel?.Invoke(Hero), Hero);
+                LockCamera();
             });
 
             return newTrigger;
@@ -41,6 +40,11 @@ namespace Source.Triggers.HeroTriggers
         {
             var region = Regions.HeroSpawn;
             ReviveHero(Hero, region.Center.X, region.Center.Y, false);
+            LockCamera();
+        }
+
+        private void LockCamera()
+        {
             if (Hero.Owner == player.LocalPlayer)
             {
                 SetCameraTargetController(Hero, 0, 0, false);

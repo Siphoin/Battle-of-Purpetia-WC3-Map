@@ -15,7 +15,6 @@ namespace Source.Triggers.HeroTriggers
 {
     public class AIHeroTrigger : TriggerInstance
     {
-        private const int CHANCE_GET_ITEM_FROM_CORPSE = 70;
         private const int _LOW_HEALTH_TO_FOUNTAIN = 150;
         private unit _attackTarget;
         private group _groupFountainsLifes;
@@ -180,8 +179,7 @@ namespace Source.Triggers.HeroTriggers
 
         private void MonsterAreaSpawnTrigger_OnDropItem(unit unit, item item)
         {
-            int chance = GetRandomInt(0, 100);
-            if (_attackTarget == unit && chance >= CHANCE_GET_ITEM_FROM_CORPSE)
+            if (_attackTarget == unit)
             {
                 UnitAddItem(Hero, item);
                 RemoveItem(item);

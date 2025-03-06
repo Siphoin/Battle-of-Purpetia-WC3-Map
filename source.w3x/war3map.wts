@@ -56,3 +56,13 @@ STRING 14
 Мечник
 }
 
+STRING 15
+{
+Player 3
+}
+
+STRING 16
+{
+Player 4
+}
+

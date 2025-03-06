@@ -1,6 +1,7 @@
 ﻿using Source.Data;
 using Source.Models;
 using Source.Triggers.Base;
+using Source.Triggers.HeroTriggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
     public class MonsterAreaSpawnTrigger : TriggerInstance
     {
         public static event Action<unit, item> OnDropItem;
+        private static int _currentForce = -1;
+        private const int MULTIPLIER_FORCE_PER_LEVEL_PLAYER = 5;
         private Dictionary<string, int> MonstersList { get; set; }
 
         private Dictionary<int, int> MonstersListCached { get; set; }
@@ -25,6 +28,12 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             MonstersList = monsterAreaSpawningData.MonstersList;
             Rectangle = monsterAreaSpawningData.Region;
             MonstersListCached = new();
+            HeroSpawnTrigger.OnHeroNewLevel += HeroSpawnTrigger_OnHeroNewLevel;
+        }
+
+        private void HeroSpawnTrigger_OnHeroNewLevel(unit unit)
+        {
+            _currentForce++;
         }
 
         public override trigger GetTrigger()
@@ -74,6 +83,8 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
                 MonstersListCached[FourCC(unitType)] = count + 1;
             }
 
+            CalculatePowerUnit(newUnit);
+
             PlayerUnitEvents.Register(UnitEvent.Dies, () => MonsterDie(newUnit), newUnit);
         }
 
@@ -110,7 +121,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             respawnTrigger.Execute();
         }
 
-        private static void DropItem(unit unit)
+        private void DropItem(unit unit)
         {
             var chance = GetRandomReal(0, 500);
 
@@ -122,6 +133,22 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
 
                 OnDropItem?.Invoke(unit, item);
             }
+        }
+
+        private void CalculatePowerUnit (unit unit)
+        {
+            if (_currentForce < 2)
+            {
+                return;
+            }
+
+            int addLife = ((int)unit.Life * 10 / 100) * _currentForce;
+            var addDamage = (unit.AttackBaseDamage1 * 10 / 100) * _currentForce;
+            unit.AttackBaseDamage1 += addDamage;
+            unit.AttackBaseDamage2 += addDamage;
+            unit.GoldBountyAwardedBase += _currentForce;
+            unit.MaxLife += addLife;
+            unit.Life = unit.MaxLife;
         }
     }
 }
