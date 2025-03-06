@@ -1,28 +1,28 @@
-gg_trg_Melee_Initialization = nil
 gg_rct_RegionMurlocSpawn = nil
 gg_rct_RegionUndeadSpawn = nil
-gg_rct_Region_002 = nil
+gg_rct_HeroSpawn = nil
+gg_trg_Melee_Initialization = nil
 function InitGlobals()
 end
 
-function CreateUnitsForPlayer0()
-local p = Player(0)
+function CreateNeutralPassiveBuildings()
+local p = Player(PLAYER_NEUTRAL_PASSIVE)
 local u
 local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("Harf"), 1650.0, -2288.9, 91.134, FourCC("Harf"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 768.0, 960.0, 270.000, FourCC("nfoh"))
 end
 
 function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
-CreateUnitsForPlayer0()
 end
 
 function CreateAllUnits()
+CreateNeutralPassiveBuildings()
 CreatePlayerBuildings()
 CreatePlayerUnits()
 end
@@ -31,12 +31,12 @@ function CreateRegions()
 local we
 
 gg_rct_RegionMurlocSpawn = Rect(-1856.0, -928.0, 320.0, 576.0)
-gg_rct_RegionUndeadSpawn = Rect(2240.0, -3072.0, 4000.0, -1696.0)
-gg_rct_Region_002 = Rect(3392.0, -2432.0, 3424.0, -2400.0)
+gg_rct_RegionUndeadSpawn = Rect(2240.0, -3040.0, 4000.0, -1696.0)
+gg_rct_HeroSpawn = Rect(1792.0, -640.0, 2144.0, -320.0)
 end
 
 function Trig_Melee_Initialization_Actions()
-SetPlayerFlagBJ(PLAYER_STATE_GIVES_BOUNTY, false, Player(11))
+SelectHeroSkill(GetTriggerUnit(), FourCC("AHbz"))
 end
 
 function InitTrig_Melee_Initialization()

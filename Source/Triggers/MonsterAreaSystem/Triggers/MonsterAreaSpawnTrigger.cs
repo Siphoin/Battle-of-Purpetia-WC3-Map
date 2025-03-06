@@ -12,7 +12,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
 {
     public class MonsterAreaSpawnTrigger : TriggerInstance
     {
-
+        public static event Action<unit, item> OnDropItem;
         private Dictionary<string, int> MonstersList { get; set; }
 
         private Dictionary<int, int> MonstersListCached { get; set; }
@@ -62,6 +62,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             var position = Rectangle.GetRandomPoint();
 
             var newUnit = unit.Create(MapConfig.MonsterPlayer, FourCC(unitType), position.X, position.Y, randomAngle);
+            newUnit.CanSleep = true;
 
             if (!MonstersListCached.TryGetValue(FourCC(unitType), out int count))
             {
@@ -74,18 +75,15 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             }
 
             PlayerUnitEvents.Register(UnitEvent.Dies, () => MonsterDie(newUnit), newUnit);
-
-#if DEBUG
-            Console.WriteLine($"cached new unit monster: {newUnit.Name} current Count: {MonstersListCached[FourCC(unitType)]}");
-#endif
         }
 
         private void MonsterDie(unit unit)
         {
 #if DEBUG
-            Console.WriteLine($"respawn new unit monster: {unit.Name}");
+            Console.WriteLine($"respawn new unit monster");
 #endif
             PlayerUnitEvents.Unregister(UnitEvent.Dies, () => MonsterDie(unit), unit);
+            DropItem(unit);
             if (!MonstersListCached.TryGetValue(GetUnitTypeId(unit), out int count))
             {
                 MonstersListCached.Add(GetUnitTypeId(unit), 1);
@@ -110,6 +108,20 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             });
 
             respawnTrigger.Execute();
+        }
+
+        private static void DropItem(unit unit)
+        {
+            var chance = GetRandomReal(0, 500);
+
+            if (chance >= 50)
+            {
+                var itemId = ChooseRandomItem(unit.Level - 1);
+                var item = CreateItem(itemId, unit.X, unit.Y);
+                UnitAddItem(unit, item);
+
+                OnDropItem?.Invoke(unit, item);
+            }
         }
     }
 }

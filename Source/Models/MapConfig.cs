@@ -6,5 +6,11 @@ namespace Source.Models
     {
         public static player MonsterPlayer => Player(11);
         public static float DelayRespawnMonster => 5;
+
+        public static int GetRandomOrderAttackAI ()
+        {
+            int value = GetRandomInt(2, 6);
+            return value;
+        }
     }
 }

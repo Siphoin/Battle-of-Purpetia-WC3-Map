@@ -13,7 +13,8 @@ namespace Source.Triggers.MonsterAreaSystem.Categories
             var monsterAreas = MonsterAreaSpawningDataContainer.GetData();
 
             List<TriggerInstance> triggers = new List<TriggerInstance>();
-
+            MonstersInitTrigger monstersInitTrigger = new MonstersInitTrigger();
+            triggers.Add(monstersInitTrigger);
             foreach (var area in monsterAreas)
             {
                 MonsterAreaSpawnTrigger monsterAreaSpawnTrigger = new(area);

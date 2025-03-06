@@ -13,10 +13,25 @@ namespace Source.Data
                     MonstersList = new()
                     {
                         {"ugho", 5 },
-                        {"uabo", 2 }
+                        {"uabo", 2 },
+                        {"nzom", 6 }
+                        
 
                     },
                     Region = Regions.RegionUndeadSpawn
+                },
+
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"nmrr", 8 },
+                        {"nmrl", 2 },
+                        {"nmpg", 6 }
+
+
+                    },
+                    Region = Regions.RegionMurlocSpawn
                 }
             };
 

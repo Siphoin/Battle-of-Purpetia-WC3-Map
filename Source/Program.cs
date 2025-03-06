@@ -1,5 +1,7 @@
 ﻿using Source.Models;
 using Source.Triggers.Base;
+using Source.Triggers.CameraTriggers.Categories;
+using Source.Triggers.HeroTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
 using System;
 using System.Linq;
@@ -50,6 +52,8 @@ namespace Source
 		{
 			var categories = new TriggerCategory[]
 			{
+				new HeroTriggersCategory(),
+				new CameraTriggersCategory(),
 				new MonsterTriggersCategory(),
 			};
 

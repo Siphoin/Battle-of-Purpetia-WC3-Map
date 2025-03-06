@@ -44,3 +44,15 @@ STRING 11
 Player 12
 }
 
+STRING 13
+// Units: H000 (Мечник), Name (Name)
+{
+Мечник
+}
+
+STRING 14
+// Units: H000 (Мечник), Propernames (Proper Names)
+{
+Мечник
+}
+
