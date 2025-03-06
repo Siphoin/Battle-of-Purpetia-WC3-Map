@@ -5,7 +5,8 @@ using WCSharp.Shared.Data;
 /// </summary>
 public static class Regions
 {
-	public static Rectangle regionSpawn { get; set; } = new Rectangle(7872f, -5696f, 8480f, -5184f);
-	public static Rectangle regionEndMoveEnemy { get; set; } = new Rectangle(7968f, -1280f, 8224f, -1120f);
+	public static Rectangle RegionMurlocSpawn { get; set; } = new Rectangle(-1856f, -928f, 320f, 576f);
+	public static Rectangle RegionUndeadSpawn { get; set; } = new Rectangle(2240f, -3072f, 4000f, -1696f);
+	public static Rectangle Region_002 { get; set; } = new Rectangle(3392f, -2432f, 3424f, -2400f);
 
 }

@@ -1,52 +1,8 @@
 gg_trg_Melee_Initialization = nil
-gg_rct_regionSpawn = nil
-gg_rct_regionEndMoveEnemy = nil
+gg_rct_RegionMurlocSpawn = nil
+gg_rct_RegionUndeadSpawn = nil
+gg_rct_Region_002 = nil
 function InitGlobals()
-end
-
-function CreateBuildingsForPlayer0()
-local p = Player(0)
-local u
-local unitID
-local t
-local life
-
-u = BlzCreateUnitWithSkin(p, FourCC("h000"), 8128.0, -960.0, 270.000, FourCC("h000"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7488.0, -5440.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7424.0, -5184.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7424.0, -4928.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9088.0, -5056.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -4800.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -4544.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -4352.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -4096.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -3840.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7296.0, -4608.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7232.0, -4352.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7232.0, -4096.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -5760.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8832.0, -5504.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8832.0, -5248.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7296.0, -1856.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7424.0, -3904.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7360.0, -3648.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7232.0, -3072.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7168.0, -2816.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7168.0, -2560.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7360.0, -3392.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7360.0, -2368.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7296.0, -2112.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7168.0, -1536.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7104.0, -1280.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 7104.0, -1024.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -1856.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -2368.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8896.0, -2112.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9088.0, -3072.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -2816.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 9024.0, -2560.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -3648.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 8960.0, -3392.0, 270.000, FourCC("hgtw"))
 end
 
 function CreateUnitsForPlayer0()
@@ -56,11 +12,10 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 7215.8, -5419.4, 152.627, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("Harf"), 1650.0, -2288.9, 91.134, FourCC("Harf"))
 end
 
 function CreatePlayerBuildings()
-CreateBuildingsForPlayer0()
 end
 
 function CreatePlayerUnits()
@@ -75,8 +30,9 @@ end
 function CreateRegions()
 local we
 
-gg_rct_regionSpawn = Rect(7872.0, -5696.0, 8480.0, -5184.0)
-gg_rct_regionEndMoveEnemy = Rect(7968.0, -1280.0, 8224.0, -1120.0)
+gg_rct_RegionMurlocSpawn = Rect(-1856.0, -928.0, 320.0, 576.0)
+gg_rct_RegionUndeadSpawn = Rect(2240.0, -3072.0, 4000.0, -1696.0)
+gg_rct_Region_002 = Rect(3392.0, -2432.0, 3424.0, -2400.0)
 end
 
 function Trig_Melee_Initialization_Actions()
