@@ -1,0 +1,173 @@
+﻿STRING 1
+{
+Player 1
+}
+
+STRING 2
+{
+Force 1
+}
+
+STRING 3
+// Units: n000 (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 4
+{
+Just another Warcraft III map
+}
+
+STRING 5
+{
+Any
+}
+
+STRING 6
+{
+Nondescript
+}
+
+STRING 7
+{
+Unknown
+}
+
+STRING 8
+{
+Player 2
+}
+
+STRING 11
+{
+Player 12
+}
+
+STRING 13
+// Units: H000 (Мечник), Name (Name)
+{
+Мечник
+}
+
+STRING 14
+// Units: H000 (Мечник), Propernames (Proper Names)
+{
+Мечник
+}
+
+STRING 15
+{
+Player 3
+}
+
+STRING 16
+{
+Player 4
+}
+
+STRING 17
+{
+Player 5
+}
+
+STRING 18
+{
+Player 6
+}
+
+STRING 19
+{
+Player 7
+}
+
+STRING 20
+// Units: H000 (Мечник), Hotkey (Hotkey)
+{
+S
+}
+
+STRING 21
+// Units: H001 (Магистр), Name (Name)
+{
+Магистр
+}
+
+STRING 22
+// Units: H001 (Магистр), Propernames (Proper Names)
+{
+Магистр
+}
+
+STRING 23
+// Units: H001 (Магистр), Hotkey (Hotkey)
+{
+M
+}
+
+STRING 24
+// Units: VHer (Вампир), Propernames (Proper Names)
+{
+Вампир
+}
+
+STRING 25
+// Units: VHer (Вампир), Name (Name)
+{
+Вампир
+}
+
+STRING 26
+// Units: VHer (Вампир), Hotkey (Hotkey)
+{
+V
+}
+
+STRING 27
+// Abilities: ABlm (Жажда крови), Untip (Tooltip - Turn Off)
+{
+|cffc3dbffПКМ – отключить автоприменение.|r
+}
+
+STRING 28
+// Abilities: ABlm (Жажда крови), Untip (Tooltip - Turn Off)
+{
+|cffc3dbffПКМ – отключить автоприменение.|r
+}
+
+STRING 29
+// Abilities: ABlm (Жажда крови), Ubertip (Tooltip - Normal - Extended)
+{
++<Ablo,DataA2,%>% к скорости атаки и +<Ablo,DataB2,%>% к скорости передвижения самурая. |nВремя действия: <Ablo,Dur2> сек.
+}
+
+STRING 30
+// Abilities: ABlm (Жажда крови), Ubertip (Tooltip - Normal - Extended)
+{
++<Ablo,DataA3,%>% к скорости атаки и +<Ablo,DataB3,%>% к скорости передвижения самурая. |nВремя действия: <Ablo,Dur3> сек.
+}
+
+STRING 31
+// Abilities: ABlm (Жажда крови), Ubertip (Tooltip - Normal - Extended)
+{
++<Ablo,DataA1,%>% к скорости атаки и +<Ablo,DataB1,%>% к скорости передвижения самурая. |nВремя действия: <Ablo,Dur1> сек.
+}
+
+STRING 32
+// Units: O000 (Самурай), Propernames (Proper Names)
+{
+Самурай
+}
+
+STRING 33
+// Units: O000 (Самурай), Name (Name)
+{
+Самурай
+}
+
+STRING 34
+// Units: O000 (Самурай), Hotkey (Hotkey)
+{
+S
+}
+
