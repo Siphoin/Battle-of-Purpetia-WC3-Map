@@ -4,19 +4,15 @@ using Source.Triggers.MonsterAreaSystem.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using WCSharp.Api;
 using WCSharp.Events;
-using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.HeroTriggers
 {
     public class AIHeroTrigger : TriggerInstance
     {
-        private const int LOW_HEALTH_TO_FOUNTAIN = 20;
+        private const int LOW_HEALTH_TO_FOUNTAIN = 75;
         private unit _attackTarget;
         private group _groupFountainsLifes;
         private bool _coomandsEnabled = true;
@@ -54,7 +50,7 @@ namespace Source.Triggers.HeroTriggers
                     MainTimer.Start(7, true, AICommand);
 
                     TimerCheckHealth = timer.Create();
-                    TimerCheckHealth.Start(2, true, CheckHealth);
+                    TimerCheckHealth.Start(1, true, CheckHealth);
 
                     PlayerUnitEvents.Register(HeroEvent.Levels, LearnSpell, Hero);
 
@@ -95,8 +91,6 @@ namespace Source.Triggers.HeroTriggers
                 if (GetUnitTypeId(item) == FourCC("nfoh"))
                 {
                     _groupFountainsLifes.Add(item);
-
-                    Console.WriteLine(item.Name);
                 }
             }
 
@@ -141,9 +135,6 @@ namespace Source.Triggers.HeroTriggers
                     case 0:
                         AttackMonsters();
                         break;
-                    case 1:
-                        SelectNewPointCreeping();
-                        break;
                     default:
                         break;
                 }
@@ -178,33 +169,6 @@ namespace Source.Triggers.HeroTriggers
             _attackTarget = monster;
         }
 
-        private void SelectNewPointCreeping ()
-        {
-            int regionIndex = GetRandomInt(1, 4);
-            Rectangle region = null;
-            switch (regionIndex)
-            {
-                case 1:
-                    region = Regions.RegionMurlocSpawn;
-                    break;
-                    case 2:
-                    region = Regions.RegionUndeadSpawn;
-                    break;
-                    case 3:
-                    region = Regions.RegionUndeadSpawnZombieMore;
-                    break;
-                    case 4:
-                    region = Regions.RegionUndeadSpawnDemons;
-                    break;
-                default:
-                    AttackRandomMonster();
-                    return;
-            }
-
-            var point = region.Center;
-            IssuePointOrder(Hero, "attack", point.X, point.Y);
-        }
-
         public AIHeroTrigger(unit hero)
         {
             if (hero == null)
@@ -237,6 +201,5 @@ namespace Source.Triggers.HeroTriggers
     public enum AICommandType
     {
         MonsterAttack,
-        SelectNewPointCreeping,
     }
 }

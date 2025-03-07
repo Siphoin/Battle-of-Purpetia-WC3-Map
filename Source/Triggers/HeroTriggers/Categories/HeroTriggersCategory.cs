@@ -10,6 +10,9 @@ namespace Source.Triggers.HeroTriggers.Categories
         protected override IEnumerable<TriggerInstance> GetAllTriggers()
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
+            HeroSelectMenuTrigger heroSelectMenuTrigger = new HeroSelectMenuTrigger();
+            triggers.Add(heroSelectMenuTrigger);
+            /*
             for (int i = 0; i < 2; i++)
             {
                 var p = Player(i);
@@ -36,6 +39,8 @@ namespace Source.Triggers.HeroTriggers.Categories
 
                     
                 }
+
+            */
             
 
            

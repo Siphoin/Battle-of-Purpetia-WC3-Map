@@ -16,6 +16,8 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
         public static event Action<unit, unit, item> OnDropItem;
         private static int _currentForce = -4;
         private const int MULTIPLIER_FORCE_PER_LEVEL_PLAYER = 5;
+        private const int IMFERNAL_TIME_DIE = 250;
+
         private Dictionary<string, int> MonstersList { get; set; }
 
         private Dictionary<int, int> MonstersListCached { get; set; }
@@ -172,7 +174,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             triggerDie.AddAction(() =>
             {
                 var t = CreateTimer();
-                TimerStart(t, 60, false, () =>
+                TimerStart(t, IMFERNAL_TIME_DIE, false, () =>
                 {
                     DestroyTimer(t);
                     unit.Kill();

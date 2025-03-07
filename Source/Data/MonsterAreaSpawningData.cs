@@ -4,7 +4,6 @@ using WCSharp.Shared.Data;
 
 namespace Source.Data
 {
-    [Serializable]
     public struct MonsterAreaSpawningData
     {
 

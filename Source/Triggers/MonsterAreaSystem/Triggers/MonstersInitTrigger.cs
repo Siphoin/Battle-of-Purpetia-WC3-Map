@@ -1,5 +1,7 @@
 ﻿using Source.Triggers.Base;
+using System;
 using WCSharp.Api;
+using static WCSharp.Api.Common;
 namespace Source.Triggers.MonsterAreaSystem.Triggers
 {
     public class MonstersInitTrigger : TriggerInstance
@@ -11,9 +13,10 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             {
                 var monsterSlot = player.Create(11);
                 monsterSlot.Color = playercolor.Brown;
-                monsterSlot.Controller = mapcontrol.Computer;
-                monsterSlot.Name = "Monsters";
+                SetPlayerController(monsterSlot, MAP_CONTROL_COMPUTER);
+                StartMeleeAI(monsterSlot, "AIMonsers.ai");
                 monsterSlot.SetState(playerstate.GivesBounty, 1);
+                Console.WriteLine(monsterSlot.Name);
             });
             return newTrigger;
         }

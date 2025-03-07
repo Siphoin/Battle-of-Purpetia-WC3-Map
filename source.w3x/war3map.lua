@@ -42,6 +42,7 @@ gg_rct_RegionUndeadSpawnDemons = Rect(4480.0, -864.0, 6048.0, 320.0)
 end
 
 function Trig_Melee_Initialization_Actions()
+StartMeleeAI(Player(10), "AI.ai")
 end
 
 function InitTrig_Melee_Initialization()
