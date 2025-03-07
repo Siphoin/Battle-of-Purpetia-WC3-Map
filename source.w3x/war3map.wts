@@ -81,3 +81,27 @@ STRING 19
 Player 7
 }
 
+STRING 20
+// Units: H000 (Мечник), Hotkey (Hotkey)
+{
+S
+}
+
+STRING 21
+// Units: H001 (Магистр), Name (Name)
+{
+Магистр
+}
+
+STRING 22
+// Units: H001 (Магистр), Propernames (Proper Names)
+{
+Магистр
+}
+
+STRING 23
+// Units: H001 (Магистр), Hotkey (Hotkey)
+{
+M
+}
+

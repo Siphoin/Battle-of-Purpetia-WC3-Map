@@ -10,20 +10,14 @@ namespace Source.Data
             {
                 new HeroSelectMenuData
                 {
-                    IconPath = "ReplaceableTextures/CommandButtons/BTNHeroPaladin.blp",
+                    IconPath = "ReplaceableTextures/CommandButtons/BTNArthas.blp",
                     HeroId = "H000:Harf"
                 },
 
-                                new HeroSelectMenuData
+               new HeroSelectMenuData
                 {
-                    IconPath = "ReplaceableTextures/CommandButtons/BTNHeroPaladin.blp",
-                    HeroId = "H000:Harf"
-                },
-
-                                                new HeroSelectMenuData
-                {
-                    IconPath = "ReplaceableTextures/CommandButtons/BTNHeroPaladin.blp",
-                    HeroId = "H000:Harf"
+                    IconPath = "ReplaceableTextures/CommandButtons/BTNHeroArchMage.blp",
+                    HeroId = "H001:Hamg"
                 },
             };
 

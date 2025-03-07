@@ -27,11 +27,20 @@ namespace Source.Triggers.HeroTriggers
                 "AHad",
                 "AHhb",
                 "AHre"
-            }  }
+            }  },
+
+               {"Магистр", new string[] {
+                "AHwe",
+                "AHbz",
+                "AHhab",
+                "AHmt"
+            }  },
         };
 
 
         #endregion
+
+
         private unit Hero {  get; set; }
         private trigger AiTrigger { get; set; }
         private timer MainTimer { get; set; }

@@ -15,6 +15,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
                 monsterSlot.Color = playercolor.Brown;
                 SetPlayerController(monsterSlot, MAP_CONTROL_COMPUTER);
                 StartMeleeAI(monsterSlot, "AIMonsers.ai");
+                monsterSlot.Name = "Monsters";
                 monsterSlot.SetState(playerstate.GivesBounty, 1);
                 Console.WriteLine(monsterSlot.Name);
             });

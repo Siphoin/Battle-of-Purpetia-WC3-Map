@@ -93,24 +93,27 @@ namespace Source.Triggers.HeroTriggers
         private void TurnAI ()
         {
             var heroes = HeroSelectMenuDataContainer.GetHeroSelectButtons().ToArray();
-            player p = Player(1);
+            for (int i = 1; i < 5; i++)
+            {
+                player p = Player(i);
 
-                    if (p.Controller == mapcontrol.Computer)
+                if (p.Controller == mapcontrol.Computer)
+                {
+                    int indexHero = GetRandomInt(0, heroes.Length - 1);
+                    var hero = heroes[indexHero];
+                    HeroSpawnTrigger heroSpawnTrigger = new(p, hero.HeroId);
+                    heroSpawnTrigger.GetTrigger().Execute();
+                    var t = CreateTimer();
+                    TimerStart(t, 0.3f, false, () =>
                     {
-                        int indexHero = GetRandomInt(0, heroes.Length - 1);
-                        var hero = heroes[indexHero];
-                        HeroSpawnTrigger heroSpawnTrigger = new(p, hero.HeroId);
-                        heroSpawnTrigger.GetTrigger().Execute();
-                        var t = CreateTimer();
-                        TimerStart(t, 0.3f, false, () =>
-                        {
-                            AIHeroTrigger aIHeroTrigger = new(heroSpawnTrigger.Hero);
-                            aIHeroTrigger.GetTrigger().Execute();
-                            DestroyTimer(t);
-                        });
+                        AIHeroTrigger aIHeroTrigger = new(heroSpawnTrigger.Hero);
+                        aIHeroTrigger.GetTrigger().Execute();
+                        DestroyTimer(t);
+                    });
 
-                StartMeleeAI(p, "HeroAICustom.ai");
-                Console.WriteLine(p.Name);
+                   StartCampaignAI(p, "HeroAICustom.ai");
+                    Console.WriteLine(p.Name);
+                }
             }
             }
         }
