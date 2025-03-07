@@ -105,3 +105,69 @@ STRING 23
 M
 }
 
+STRING 24
+// Units: VHer (Вампир), Propernames (Proper Names)
+{
+Вампир
+}
+
+STRING 25
+// Units: VHer (Вампир), Name (Name)
+{
+Вампир
+}
+
+STRING 26
+// Units: VHer (Вампир), Hotkey (Hotkey)
+{
+V
+}
+
+STRING 27
+// Abilities: ABlm (Жажда крови), Untip (Tooltip - Turn Off)
+{
+|cffc3dbffПКМ – отключить автоприменение.|r
+}
+
+STRING 28
+// Abilities: ABlm (Жажда крови), Untip (Tooltip - Turn Off)
+{
+|cffc3dbffПКМ – отключить автоприменение.|r
+}
+
+STRING 29
+// Abilities: ABlm (Жажда крови), Ubertip (Tooltip - Normal - Extended)
+{
++<Ablo,DataA2,%>% к скорости атаки и +<Ablo,DataB2,%>% к скорости передвижения самурая. |nВремя действия: <Ablo,Dur2> сек.
+}
+
+STRING 30
+// Abilities: ABlm (Жажда крови), Ubertip (Tooltip - Normal - Extended)
+{
++<Ablo,DataA3,%>% к скорости атаки и +<Ablo,DataB3,%>% к скорости передвижения самурая. |nВремя действия: <Ablo,Dur3> сек.
+}
+
+STRING 31
+// Abilities: ABlm (Жажда крови), Ubertip (Tooltip - Normal - Extended)
+{
++<Ablo,DataA1,%>% к скорости атаки и +<Ablo,DataB1,%>% к скорости передвижения самурая. |nВремя действия: <Ablo,Dur1> сек.
+}
+
+STRING 32
+// Units: O000 (Самурай), Propernames (Proper Names)
+{
+Самурай
+}
+
+STRING 33
+// Units: O000 (Самурай), Name (Name)
+{
+Самурай
+}
+
+STRING 34
+// Units: O000 (Самурай), Hotkey (Hotkey)
+{
+S
+}
+

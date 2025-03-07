@@ -19,6 +19,18 @@ namespace Source.Data
                     IconPath = "ReplaceableTextures/CommandButtons/BTNHeroArchMage.blp",
                     HeroId = "H001:Hamg"
                 },
+
+                new HeroSelectMenuData
+                {
+                    IconPath = "ReplaceableTextures/CommandButtons/BTNHeroDreadLord.blp",
+                    HeroId = "VHer:Udre"
+                },
+
+                new HeroSelectMenuData
+                {
+                    IconPath = "ReplaceableTextures/CommandButtons/BTNHeroBlademaster.blp",
+                    HeroId = "O000:Obla"
+                },
             };
 
             return heroes;

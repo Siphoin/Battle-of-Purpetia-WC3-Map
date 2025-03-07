@@ -67,10 +67,15 @@ namespace Source.Triggers.HeroTriggers
 
         private void LockCamera()
         {
+#if DEBUG
+            return;
+
+#else
             if (IsLocalHero)
             {
                 SetCameraTargetController(Hero, 0, 0, false);
             }
+#endif
         }
     }
 }

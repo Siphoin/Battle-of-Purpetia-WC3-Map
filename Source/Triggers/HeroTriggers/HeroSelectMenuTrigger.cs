@@ -93,9 +93,19 @@ namespace Source.Triggers.HeroTriggers
         private void TurnAI ()
         {
             var heroes = HeroSelectMenuDataContainer.GetHeroSelectButtons().ToArray();
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < player.MaxPlayerSlots; i++)
             {
                 player p = Player(i);
+
+                if (p == player.NeutralExtra || p == MapConfig.MonsterPlayer || p == player.NeutralAggressive || p == player.NeutralVictim || p == player.NeutralPassive)
+                {
+                    continue;
+                }
+
+                if (p.SlotState == playerslotstate.Empty)
+                {
+                    continue;
+                }
 
                 if (p.Controller == mapcontrol.Computer)
                 {
@@ -110,8 +120,6 @@ namespace Source.Triggers.HeroTriggers
                         aIHeroTrigger.GetTrigger().Execute();
                         DestroyTimer(t);
                     });
-
-                   StartCampaignAI(p, "HeroAICustom.ai");
                     Console.WriteLine(p.Name);
                 }
             }

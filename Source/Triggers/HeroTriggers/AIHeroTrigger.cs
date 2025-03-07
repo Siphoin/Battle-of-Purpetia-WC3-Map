@@ -23,17 +23,31 @@ namespace Source.Triggers.HeroTriggers
         private Dictionary<string, string[]> _abilityList = new()
         {
             {"Мечник", new string[] {
-                "Ahds",
+                "AHds",
                 "AHad",
                 "AHhb",
                 "AHre"
             }  },
 
                {"Магистр", new string[] {
-                "AHwe",
                 "AHbz",
+                "AHwe",
                 "AHhab",
                 "AHmt"
+            }  },
+
+               {"Вампир", new string[] {
+                "AUavl",
+                "AUcs",
+                "AUs",
+                "AUin"
+            }  },
+
+               {"Самурай", new string[] {
+                "ABlm:Ablo",
+                "AOwk",
+                "AOcr",
+                "AOww"
             }  },
         };
 
@@ -62,6 +76,10 @@ namespace Source.Triggers.HeroTriggers
                     TimerCheckHealth.Start(1, true, CheckHealth);
 
                     PlayerUnitEvents.Register(HeroEvent.Levels, LearnSpell, Hero);
+
+                    LearnSpell();
+
+
 
                     FindFountainsLifes();
 
