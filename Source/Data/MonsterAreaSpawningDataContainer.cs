@@ -32,7 +32,34 @@ namespace Source.Data
 
                     },
                     Region = Regions.RegionMurlocSpawn
-                }
+                },
+
+               new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"uske", 15 },
+                        {"nzom", 17 },
+                        {"unec", 4 }
+
+
+                    },
+                    Region = Regions.RegionUndeadSpawnZombieMore
+                },
+
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"ninf", 5 },
+                        {"nfgu", 7 },
+                        {"nerd", 3 },
+
+
+                    },
+                    Region = Regions.RegionUndeadSpawnDemons
+                },
+
             };
 
             return data;

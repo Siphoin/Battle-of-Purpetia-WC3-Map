@@ -91,6 +91,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             CalculatePowerUnit(newUnit);
 
             PlayerUnitEvents.Register(UnitEvent.Dies, () => MonsterDie(newUnit), newUnit);
+            InfernalTimeDie(newUnit);
         }
 
         private void MonsterDie(unit unit)
@@ -132,7 +133,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             var killer = GetKillingUnit();
             var chance = GetRandomReal(0, 500);
 
-            if (chance >= 50)
+            if (chance >= 450)
             {
                 var itemId = ChooseRandomItem(killedUnit.Level - 1);
                 var item = CreateItem(itemId, killedUnit.X, killedUnit.Y);
@@ -158,5 +159,33 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             unit.Life = unit.MaxLife;
             
         }
+
+        #region SpecialEvents
+        private void InfernalTimeDie (unit unit)
+        {
+            if (GetUnitTypeId(unit) != FourCC("ninf"))
+            {
+                return;
+            }
+            Console.WriteLine("Infernal die activated");
+            trigger triggerDie = trigger.Create();
+            triggerDie.AddAction(() =>
+            {
+                var t = CreateTimer();
+                TimerStart(t, 60, false, () =>
+                {
+                    DestroyTimer(t);
+                    unit.Kill();
+                    DestroyTrigger(triggerDie);
+
+#if DEBUG
+                    Console.WriteLine("Infernal die finished");
+#endif
+                });
+            });
+
+            triggerDie.Execute();
+        }
+        #endregion
     }
 }

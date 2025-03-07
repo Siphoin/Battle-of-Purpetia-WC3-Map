@@ -4,7 +4,7 @@ namespace Source.Models
 {
     public static class MapConfig
     {
-        public static player MonsterPlayer => Player(11);
+        public static player MonsterPlayer => player.NeutralAggressive;
         public static float DelayRespawnMonster => 5;
 
         public static int GetRandomOrderAttackAI ()

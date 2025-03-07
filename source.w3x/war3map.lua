@@ -1,6 +1,8 @@
 gg_rct_RegionMurlocSpawn = nil
 gg_rct_RegionUndeadSpawn = nil
 gg_rct_HeroSpawn = nil
+gg_rct_RegionUndeadSpawnZombieMore = nil
+gg_rct_RegionUndeadSpawnDemons = nil
 gg_trg_Melee_Initialization = nil
 function InitGlobals()
 end
@@ -32,9 +34,11 @@ end
 function CreateRegions()
 local we
 
-gg_rct_RegionMurlocSpawn = Rect(-1856.0, -928.0, 320.0, 576.0)
-gg_rct_RegionUndeadSpawn = Rect(2240.0, -3040.0, 4000.0, -1696.0)
-gg_rct_HeroSpawn = Rect(1792.0, -640.0, 2144.0, -320.0)
+gg_rct_RegionMurlocSpawn = Rect(-3680.0, -2048.0, -2368.0, -960.0)
+gg_rct_RegionUndeadSpawn = Rect(2432.0, -2880.0, 4000.0, -1696.0)
+gg_rct_HeroSpawn = Rect(-9024.0, -4800.0, 3040.0, 6752.0)
+gg_rct_RegionUndeadSpawnZombieMore = Rect(4384.0, 2400.0, 5952.0, 3584.0)
+gg_rct_RegionUndeadSpawnDemons = Rect(4480.0, -864.0, 6048.0, 320.0)
 end
 
 function Trig_Melee_Initialization_Actions()
@@ -42,7 +46,6 @@ end
 
 function InitTrig_Melee_Initialization()
 gg_trg_Melee_Initialization = CreateTrigger()
-TriggerRegisterPlayerUnitEventSimple(gg_trg_Melee_Initialization, Player(0), EVENT_PLAYER_HERO_LEVEL)
 TriggerAddAction(gg_trg_Melee_Initialization, Trig_Melee_Initialization_Actions)
 end
 

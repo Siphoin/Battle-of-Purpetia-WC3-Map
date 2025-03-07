@@ -9,16 +9,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using WCSharp.Api;
 using WCSharp.Events;
+using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.HeroTriggers
 {
     public class AIHeroTrigger : TriggerInstance
     {
-        private const int _LOW_HEALTH_TO_FOUNTAIN = 150;
+        private const int LOW_HEALTH_TO_FOUNTAIN = 20;
         private unit _attackTarget;
         private group _groupFountainsLifes;
         private bool _coomandsEnabled = true;
+        private AICommandType _currentCommand;
 
         #region Ability
 
@@ -49,14 +51,16 @@ namespace Source.Triggers.HeroTriggers
                 AiTrigger.AddAction(() =>
                 {
                     MainTimer = timer.Create();
-                    MainTimer.Start(4, true, AICommand);
+                    MainTimer.Start(7, true, AICommand);
 
                     TimerCheckHealth = timer.Create();
-                    TimerCheckHealth.Start(0.5f, true, CheckHealth);
+                    TimerCheckHealth.Start(2, true, CheckHealth);
 
                     PlayerUnitEvents.Register(HeroEvent.Levels, LearnSpell, Hero);
 
                     FindFountainsLifes();
+
+                    
                 });
                 AiTrigger.Execute();
                 newTrigger.Dispose();
@@ -67,9 +71,9 @@ namespace Source.Triggers.HeroTriggers
 
         private void CheckHealth()
         {
-            _coomandsEnabled = Hero.Life > _LOW_HEALTH_TO_FOUNTAIN;
+            _coomandsEnabled = Hero.Life > LOW_HEALTH_TO_FOUNTAIN;
             var currentOrder = GetUnitCurrentOrder(Hero);
-            if (Hero.Life <= _LOW_HEALTH_TO_FOUNTAIN && currentOrder != Constants.ORDER_MOVE)
+            if (Hero.Life <= LOW_HEALTH_TO_FOUNTAIN && currentOrder != Constants.ORDER_MOVE)
             {
                 var fountains = _groupFountainsLifes.ToList();
 
@@ -128,7 +132,7 @@ namespace Source.Triggers.HeroTriggers
         {
             if (_coomandsEnabled)
             {
-                var commands = Enum.GetValues(typeof(AICommandType));
+                var commands = (AICommandType[])Enum.GetValues(typeof(AICommandType));
 
                 int indexCommand = GetRandomInt(0, commands.Length - 1);
 
@@ -137,9 +141,18 @@ namespace Source.Triggers.HeroTriggers
                     case 0:
                         AttackMonsters();
                         break;
+                    case 1:
+                        SelectNewPointCreeping();
+                        break;
                     default:
                         break;
                 }
+
+                _currentCommand = commands[indexCommand];
+
+#if DEBUG
+                Console.WriteLine($"AI {Hero.Owner.Id} set command {_currentCommand}");
+#endif
             }
         }
 
@@ -148,16 +161,48 @@ namespace Source.Triggers.HeroTriggers
             var currentOrder = GetUnitCurrentOrder(Hero);
             if (currentOrder != Constants.ORDER_ATTACK && currentOrder != Constants.ORDER_MOVE && currentOrder != Constants.ORDER_STAND_DOWN)
             {
-                var monsters = group.Create();
-                GroupEnumUnitsOfPlayer(monsters, MapConfig.MonsterPlayer, null);
-                var monstersList = monsters.ToList();
-                int indexMonster = GetRandomInt(0, monstersList.Count - 1);
-                var monster = monstersList[indexMonster];
-                IssuePointOrder(Hero, "attack", monster.X, monster.Y);
-
-                DestroyGroup(monsters);
-                _attackTarget = monster;
+                AttackRandomMonster();
             }
+        }
+
+        private void AttackRandomMonster()
+        {
+            var monsters = group.Create();
+            GroupEnumUnitsOfPlayer(monsters, MapConfig.MonsterPlayer, null);
+            var monstersList = monsters.ToList();
+            int indexMonster = GetRandomInt(0, monstersList.Count - 1);
+            var monster = monstersList[indexMonster];
+            IssuePointOrder(Hero, "attack", monster.X, monster.Y);
+
+            DestroyGroup(monsters);
+            _attackTarget = monster;
+        }
+
+        private void SelectNewPointCreeping ()
+        {
+            int regionIndex = GetRandomInt(1, 4);
+            Rectangle region = null;
+            switch (regionIndex)
+            {
+                case 1:
+                    region = Regions.RegionMurlocSpawn;
+                    break;
+                    case 2:
+                    region = Regions.RegionUndeadSpawn;
+                    break;
+                    case 3:
+                    region = Regions.RegionUndeadSpawnZombieMore;
+                    break;
+                    case 4:
+                    region = Regions.RegionUndeadSpawnDemons;
+                    break;
+                default:
+                    AttackRandomMonster();
+                    return;
+            }
+
+            var point = region.Center;
+            IssuePointOrder(Hero, "attack", point.X, point.Y);
         }
 
         public AIHeroTrigger(unit hero)
@@ -192,5 +237,6 @@ namespace Source.Triggers.HeroTriggers
     public enum AICommandType
     {
         MonsterAttack,
+        SelectNewPointCreeping,
     }
 }

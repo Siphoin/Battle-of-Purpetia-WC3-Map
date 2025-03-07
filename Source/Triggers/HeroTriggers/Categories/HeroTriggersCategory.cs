@@ -10,19 +10,19 @@ namespace Source.Triggers.HeroTriggers.Categories
         protected override IEnumerable<TriggerInstance> GetAllTriggers()
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 2; i++)
             {
                 var p = Player(i);
-                if (p.Controller == mapcontrol.None || p == player.NeutralPassive || p == player.NeutralAggressive || p == MapConfig.MonsterPlayer)
+                if (p == player.NeutralPassive || p == player.NeutralAggressive || p == MapConfig.MonsterPlayer)
                 {
                     continue;
                 }
                 HeroSpawnTrigger heroSpawnTrigger = new(player.Create(i), "H000:Harf");
-
                 triggers.Add(heroSpawnTrigger);
 
                 if (p.Controller == mapcontrol.Computer)
                 {
+                    StartMeleeAI(p, "map.ai");
                     var t = CreateTimer();
                     TimerStart(t, 0.3f, false, () =>
                     {
@@ -32,10 +32,11 @@ namespace Source.Triggers.HeroTriggers.Categories
                     });
 
                     p.Name = $"AI {i + 1}";
+                }
 
                     
                 }
-            }
+            
 
            
             return triggers;
