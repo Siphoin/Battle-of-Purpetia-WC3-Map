@@ -171,3 +171,141 @@ STRING 34
 S
 }
 
+STRING 35
+// Doodads: D000 (Храм), Name (Name)
+{
+Храм
+}
+
+STRING 36
+// Doodads: D001 (Бокс), Name (Name)
+{
+Бокс
+}
+
+STRING 37
+// Doodads: D002 (Мелкие камни), Name (Name)
+{
+Мелкие камни
+}
+
+STRING 38
+// Doodads: D003 (Висп), Name (Name)
+{
+Висп
+}
+
+STRING 39
+// Doodads: D005 (Оранж), Name (Name)
+{
+Оранж
+}
+
+STRING 40
+// Doodads: D006 (Хижина мурлоков 1), Name (Name)
+{
+Хижина мурлоков 1
+}
+
+STRING 41
+// Doodads: D007 (Хижина мурлоков 2), Name (Name)
+{
+Хижина мурлоков 2
+}
+
+STRING 42
+// Doodads: D008 (Ферма), Name (Name)
+{
+Ферма
+}
+
+STRING 43
+// Doodads: D009 (Кузница), Name (Name)
+{
+Кузница
+}
+
+STRING 44
+// Doodads: D00A (Мастерская), Name (Name)
+{
+Мастерская
+}
+
+STRING 45
+// Doodads: D00B (Дом гнолла 1), Name (Name)
+{
+Дом гнолла 1
+}
+
+STRING 46
+// Doodads: D00C (Дом гнолла 2), Name (Name)
+{
+Дом гнолла 2
+}
+
+STRING 47
+// Doodads: D00D (Шатер 1), Name (Name)
+{
+Шатер 1
+}
+
+STRING 48
+// Doodads: D00E (Шатер 2), Name (Name)
+{
+Шатер 2
+}
+
+STRING 49
+// Units: h002 (Стражник), Name (Name)
+{
+Стражник
+}
+
+STRING 50
+// Doodads: D00F (Грин), Name (Name)
+{
+Грин
+}
+
+STRING 51
+// Doodads: D00G (Лесопилка), Name (Name)
+{
+Лесопилка
+}
+
+STRING 52
+// Doodads: D00H (Верфб), Name (Name)
+{
+Верфб
+}
+
+STRING 53
+// Doodads: D00I (Мастерская гопников), Name (Name)
+{
+Мастерская гопников
+}
+
+STRING 54
+// Doodads: D00J (Колян), Name (Name)
+{
+Колян
+}
+
+STRING 55
+// Doodads: D00K (Башня орков), Name (Name)
+{
+Башня орков
+}
+
+STRING 56
+// Doodads: D00L (Лавка гоблина), Name (Name)
+{
+Лавка гоблина
+}
+
+STRING 57
+// Doodads: D00M (Лодка), Name (Name)
+{
+Лодка
+}
+

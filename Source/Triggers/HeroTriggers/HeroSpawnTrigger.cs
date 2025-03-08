@@ -1,4 +1,5 @@
 ﻿using Source.Triggers.Base;
+using Source.Triggers.GUITriggers.Triggers;
 using WCSharp.Api;
 using WCSharp.Events;
 using static WCSharp.Api.Common;
@@ -28,6 +29,13 @@ namespace Source.Triggers.HeroTriggers
                 Hero = unit.Create(PlayerOwner, FourCC(IdHeroUnit), point.X, point.Y);
                 PlayerUnitEvents.Register(UnitEvent.Dies, HeroRespawn, Hero);
                 LockCamera();
+                BlzFrameSetVisible(originframetype.HeroButtonIndicator.GetOriginFrame(0), false);
+
+                if (Hero.Owner == player.LocalPlayer)
+                {
+                    GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
+                    heroWidgetTrigger.GetTrigger().Execute();
+                }
             });
 
             return newTrigger;

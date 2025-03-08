@@ -1,4 +1,5 @@
 ﻿using Source.Triggers.Base;
+using Source.Triggers.GUITriggers.Triggers;
 using System.Collections.Generic;
 
 namespace Source.Triggers.CameraTriggers.Categories

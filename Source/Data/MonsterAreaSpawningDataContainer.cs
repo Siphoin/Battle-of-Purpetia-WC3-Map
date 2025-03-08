@@ -18,7 +18,8 @@ namespace Source.Data
                         
 
                     },
-                    Region = Regions.RegionUndeadSpawn
+                    Region = Regions.RegionUndeadSpawn,
+                    Level = 1
                 },
 
                 new ()
@@ -31,20 +32,22 @@ namespace Source.Data
 
 
                     },
-                    Region = Regions.RegionMurlocSpawn
+                    Region = Regions.RegionMurlocSpawn,
+                    Level = 1
                 },
 
                new ()
                 {
                     MonstersList = new()
                     {
-                        {"uske", 15 },
-                        {"nzom", 17 },
+                        {"uske", 3 },
+                        {"nzom", 5 },
                         {"unec", 4 }
 
 
                     },
-                    Region = Regions.RegionUndeadSpawnZombieMore
+                    Region = Regions.RegionUndeadSpawnZombieMore,
+                    Level = 5
                 },
 
                 new ()
@@ -57,7 +60,8 @@ namespace Source.Data
 
 
                     },
-                    Region = Regions.RegionUndeadSpawnDemons
+                    Region = Regions.RegionUndeadSpawnDemons,
+                    Level = 8
                 },
 
             };

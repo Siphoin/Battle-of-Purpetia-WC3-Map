@@ -3,7 +3,7 @@ gg_rct_RegionUndeadSpawn = nil
 gg_rct_HeroSpawn = nil
 gg_rct_RegionUndeadSpawnZombieMore = nil
 gg_rct_RegionUndeadSpawnDemons = nil
-gg_trg_Melee_Initialization = nil
+gg_rct_NoViolanceArea = nil
 function InitGlobals()
 end
 
@@ -14,9 +14,25 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 768.0, 960.0, 270.000, FourCC("nfoh"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -1152.0, -1600.0, 270.000, FourCC("nfoh"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 3456.0, 1536.0, 270.000, FourCC("nfoh"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -1536.0, 896.0, 270.000, FourCC("nfoh"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 768.0, -1408.0, 270.000, FourCC("nfoh"))
+end
+
+function CreateNeutralPassive()
+local p = Player(PLAYER_NEUTRAL_PASSIVE)
+local u
+local unitID
+local t
+local life
+
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), 1879.1, -636.9, 355.343, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), 1859.0, 109.2, 353.793, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -23.0, 2031.7, 114.331, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -756.0, 2023.4, 76.760, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -2631.3, 128.0, 204.587, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -2601.3, -665.5, 161.088, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -803.0, -2515.5, 271.344, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), 49.4, -2510.8, 267.701, FourCC("h002"))
 end
 
 function CreatePlayerBuildings()
@@ -28,30 +44,19 @@ end
 function CreateAllUnits()
 CreateNeutralPassiveBuildings()
 CreatePlayerBuildings()
+CreateNeutralPassive()
 CreatePlayerUnits()
 end
 
 function CreateRegions()
 local we
 
-gg_rct_RegionMurlocSpawn = Rect(-3680.0, -2048.0, -2368.0, -960.0)
-gg_rct_RegionUndeadSpawn = Rect(2432.0, -2880.0, 4000.0, -1696.0)
-gg_rct_HeroSpawn = Rect(-9024.0, -4800.0, 3040.0, 6752.0)
-gg_rct_RegionUndeadSpawnZombieMore = Rect(4384.0, 2400.0, 5952.0, 3584.0)
-gg_rct_RegionUndeadSpawnDemons = Rect(4480.0, -864.0, 6048.0, 320.0)
-end
-
-function Trig_Melee_Initialization_Actions()
-StartMeleeAI(Player(10), "AI.ai")
-end
-
-function InitTrig_Melee_Initialization()
-gg_trg_Melee_Initialization = CreateTrigger()
-TriggerAddAction(gg_trg_Melee_Initialization, Trig_Melee_Initialization_Actions)
-end
-
-function InitCustomTriggers()
-InitTrig_Melee_Initialization()
+gg_rct_RegionMurlocSpawn = Rect(-9824.0, -6336.0, -7488.0, -5024.0)
+gg_rct_RegionUndeadSpawn = Rect(-1600.0, -7616.0, 320.0, -5216.0)
+gg_rct_HeroSpawn = Rect(-896.0, -736.0, 96.0, 224.0)
+gg_rct_RegionUndeadSpawnZombieMore = Rect(5920.0, 5088.0, 8000.0, 7296.0)
+gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4832.0, -4096.0, 7232.0)
+gg_rct_NoViolanceArea = Rect(-3296.0, -2944.0, 2240.0, 1856.0)
 end
 
 function InitCustomPlayerSlots()
@@ -138,17 +143,16 @@ SetEnemyStartLocPrio(7, 1, 3, MAP_LOC_PRIO_LOW)
 end
 
 function main()
-SetCameraBounds(-9472.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -9728.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 9472.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 9216.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -9472.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 9216.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 9472.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -9728.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+SetCameraBounds(-10112.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -10240.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 10112.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 9856.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -10112.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 9856.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 10112.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -10240.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
 SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
 NewSoundEnvironment("Default")
-SetAmbientDaySound("LordaeronSummerDay")
-SetAmbientNightSound("LordaeronSummerNight")
+SetAmbientDaySound("CityScapeDay")
+SetAmbientNightSound("CityScapeNight")
 SetMapMusic("Music", true, 0)
 CreateRegions()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()
-InitCustomTriggers()
 end
 
 function config()
@@ -157,14 +161,14 @@ SetMapDescription("TRIGSTR_006")
 SetPlayers(8)
 SetTeams(8)
 SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
-DefineStartLocation(0, -2496.0, 4160.0)
-DefineStartLocation(1, -7808.0, 1984.0)
-DefineStartLocation(2, -4480.0, 8256.0)
-DefineStartLocation(3, 832.0, 2368.0)
-DefineStartLocation(4, -3328.0, 8320.0)
-DefineStartLocation(5, -9088.0, -128.0)
-DefineStartLocation(6, 6848.0, 960.0)
-DefineStartLocation(7, -5376.0, 7680.0)
+DefineStartLocation(0, -384.0, -256.0)
+DefineStartLocation(1, -384.0, -256.0)
+DefineStartLocation(2, -384.0, -256.0)
+DefineStartLocation(3, -384.0, -256.0)
+DefineStartLocation(4, -384.0, -256.0)
+DefineStartLocation(5, -384.0, -256.0)
+DefineStartLocation(6, -384.0, -256.0)
+DefineStartLocation(7, -384.0, -256.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()

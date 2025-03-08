@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
+using static WCSharp.Api.Common;
 namespace Source.Data
 {
     public static class HeroSelectMenuDataContainer
@@ -34,6 +35,11 @@ namespace Source.Data
             };
 
             return heroes;
+        }
+
+        public static HeroSelectMenuData GetDataByIdUnit (int id)
+        {
+            return GetHeroSelectButtons().Single(x => FourCC(x.IconPath) == id);
         }
     }
 }

@@ -152,10 +152,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
                 return;
             }
 
-            int addLife = ((int)unit.Life * 10 / 100) * _currentForce;
-            var addDamage = (unit.AttackBaseDamage1 * 10 / 100) * _currentForce;
-            unit.AttackBaseDamage1 += addDamage;
-            unit.AttackBaseDamage2 += addDamage;
+            int addLife = ((int)unit.Life * 3 / 100) * _currentForce;
             unit.GoldBountyAwardedBase += _currentForce;
             unit.MaxLife += addLife;
             unit.Life = unit.MaxLife;

@@ -1,4 +1,4 @@
-﻿using Source.Models;
+﻿using Source.Data;
 using Source.Triggers.Base;
 using Source.Triggers.MonsterAreaSystem.Triggers;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WCSharp.Api;
 using WCSharp.Events;
+using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.HeroTriggers
@@ -13,9 +14,9 @@ namespace Source.Triggers.HeroTriggers
     public class AIHeroTrigger : TriggerInstance
     {
         private const int LOW_HEALTH_TO_FOUNTAIN = 75;
-        private unit _attackTarget;
         private group _groupFountainsLifes;
         private bool _coomandsEnabled = true;
+        private bool _onTown = true;
         private AICommandType _currentCommand;
 
         #region Ability
@@ -76,6 +77,23 @@ namespace Source.Triggers.HeroTriggers
                     TimerCheckHealth.Start(1, true, CheckHealth);
 
                     PlayerUnitEvents.Register(HeroEvent.Levels, LearnSpell, Hero);
+                    trigger enterTownTrigger = trigger.Create();
+
+                    enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceArea.Region);
+
+                    enterTownTrigger.AddAction(() =>
+                    {
+                        _onTown = true;
+                    });
+
+                    trigger exitTownTrigger = trigger.Create();
+
+                    exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceArea.Region);
+
+                    exitTownTrigger.AddAction(() =>
+                    {
+                        _onTown = false;
+                    });
 
                     LearnSpell();
 
@@ -162,8 +180,6 @@ namespace Source.Triggers.HeroTriggers
                     case 0:
                         AttackMonsters();
                         break;
-                    default:
-                        break;
                 }
 
                 _currentCommand = commands[indexCommand];
@@ -182,18 +198,13 @@ namespace Source.Triggers.HeroTriggers
                 AttackRandomMonster();
             }
         }
-
         private void AttackRandomMonster()
         {
-            var monsters = group.Create();
-            GroupEnumUnitsOfPlayer(monsters, MapConfig.MonsterPlayer, null);
-            var monstersList = monsters.ToList();
-            int indexMonster = GetRandomInt(0, monstersList.Count - 1);
-            var monster = monstersList[indexMonster];
-            IssuePointOrder(Hero, "attack", monster.X, monster.Y);
-
-            DestroyGroup(monsters);
-            _attackTarget = monster;
+            var areas = MonsterAreaSpawningDataContainer.GetData().Where(x => x.Level <= Hero.Level).ToArray();
+            var indexPoint = GetRandomInt(0, areas.Length - 1);
+            var area = areas[indexPoint];
+            var point = area.Region.GetRandomPoint();
+            IssuePointOrder(Hero, "attack", point.X, point.Y);
         }
 
         public AIHeroTrigger(unit hero)

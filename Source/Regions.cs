@@ -5,10 +5,11 @@ using WCSharp.Shared.Data;
 /// </summary>
 public static class Regions
 {
-	public static Rectangle RegionMurlocSpawn { get; set; } = new Rectangle(-3680f, -2048f, -2368f, -960f);
-	public static Rectangle RegionUndeadSpawn { get; set; } = new Rectangle(2432f, -2880f, 4000f, -1696f);
-	public static Rectangle HeroSpawn { get; set; } = new Rectangle(-9024f, -4800f, 3040f, 6752f);
-	public static Rectangle RegionUndeadSpawnZombieMore { get; set; } = new Rectangle(4384f, 2400f, 5952f, 3584f);
-	public static Rectangle RegionUndeadSpawnDemons { get; set; } = new Rectangle(4480f, -864f, 6048f, 320f);
+	public static Rectangle RegionMurlocSpawn { get; set; } = new Rectangle(-9824f, -6336f, -7488f, -5024f);
+	public static Rectangle RegionUndeadSpawn { get; set; } = new Rectangle(-1600f, -7616f, 320f, -5216f);
+	public static Rectangle HeroSpawn { get; set; } = new Rectangle(-896f, -736f, 96f, 224f);
+	public static Rectangle RegionUndeadSpawnZombieMore { get; set; } = new Rectangle(5920f, 5088f, 8000f, 7296f);
+	public static Rectangle RegionUndeadSpawnDemons { get; set; } = new Rectangle(-5792f, 4832f, -4096f, 7232f);
+	public static Rectangle NoViolanceArea { get; set; } = new Rectangle(-3296f, -2944f, 2240f, 1856f);
 
 }
