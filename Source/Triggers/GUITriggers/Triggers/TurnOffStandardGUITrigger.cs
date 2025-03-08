@@ -1,11 +1,5 @@
 ﻿using Source.Triggers.Base;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Drawing;
 using WCSharp.Api;
-using static System.Formats.Asn1.AsnWriter;
-using static System.Net.Mime.MediaTypeNames;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.GUITriggers.Triggers
 {
@@ -14,7 +8,8 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         private static originframetype[] _targeHideFrames = new originframetype[]
         {
-          originframetype.HeroBar,
+          originframetype.HeroLifeBar,
+          originframetype.HeroManaBar,
 
         };
         public override trigger GetTrigger()

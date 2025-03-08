@@ -10,6 +10,15 @@ namespace Source.Triggers.GUITriggers.Triggers
 {
     public class GUIHeroWidgetTrigger : TriggerInstance
     {
+        private const float TIME_UPDATE = 0.47f;
+        private framehandle _hpBar;
+        private framehandle _manaBar;
+        private framehandle _iconHero;
+
+        private float _lastHealth;
+
+        private float _lastMana;
+
         public unit Hero { get; private set; }
         public GUIHeroWidgetTrigger(unit hero)
         {
@@ -26,27 +35,66 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         private void CreateWidget()
         {
+            var heroBar = BlzGetOriginFrame(originframetype.HeroBar, 0);
+            BlzFrameSetSize(heroBar, heroBar.Width * 2f, heroBar.Height * 2f);
             BlzLoadTOCFile("war3mapimported\\myBar.toc");
-            var bar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 1); //Create Bar at createContext 1
-   var bar2 = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 2); //createContext 2
-  var bar4 = BlzCreateSimpleFrame("MyBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 4); //createContext 4, other names so would not be needed.
-    BlzFrameSetAbsPoint(bar, FRAMEPOINT_CENTER, 0.5f, 0.3f); // pos the bar
-    BlzFrameSetPoint(bar2, FRAMEPOINT_TOP, bar, FRAMEPOINT_BOTTOM, 0.0f, 0.0f); // pos bar2 below bar
-    BlzFrameSetPoint(bar4, FRAMEPOINT_BOTTOM, bar, FRAMEPOINT_TOP, 0.0f, 0.0f); // pos bar4 above bar
-    BlzFrameSetSize(bar4, 0.04f, 0.04f); //change the size of bar4
+             _hpBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 1); //Create Bar at createContext 1
+            _manaBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 2); //createContext 2ro = BlzCreateSimpleFrame("MyBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 4); //createContext 4, other names so would not be needed.
+            BlzFrameSetAbsPoint(_hpBar, FRAMEPOINT_CENTER, -0.035f, 0.56f); // pos the bar
+            BlzFrameSetSize(_hpBar, 0.1f, 0.01f); // pos the ba
+            BlzFrameSetPoint(_manaBar, FRAMEPOINT_TOP, _hpBar, FRAMEPOINT_BOTTOM, 0f, 0f); // pos bar2 below bar
+            BlzFrameSetSize(_manaBar, 0.1f, 0.01f); // pos the ba
+            BlzFrameSetPoint(_iconHero, FRAMEPOINT_BOTTOM, _hpBar, FRAMEPOINT_TOP, 0.0f, 0.0f); // pos bar4 above bar
+            BlzFrameSetSize(_iconHero, 0.08f, 0.08f); //change the size of bar4
 
-    BlzFrameSetValue(bar4, 35); //Starting value for bar 4.
+            BlzFrameSetTexture(_hpBar, "hero_bar_fill_hitPoints.blp", 0, true); //change the BarTexture of bar to color red
+            BlzFrameSetTexture(_manaBar, "hero_bar_fill_manaPoints.blp", 0, true); //color blue for bar2
+            BlzFrameSetTexture(_iconHero, "Replaceabletextures\\CommandButtons\\BTNHeroPaladin.blp", 0, true); //bar4 to Paladin-Face
+            BlzFrameSetAlpha(_iconHero, 0);
 
-   BlzFrameSetTexture(bar, "Replaceabletextures\\Teamcolor\\Teamcolor00.blp", 0, true); //change the BarTexture of bar to color red
-    BlzFrameSetTexture(bar2, "Replaceabletextures\\Teamcolor\\Teamcolor01.blp", 0, true); //color blue for bar2
-    BlzFrameSetTexture(bar4, "Replaceabletextures\\CommandButtons\\BTNHeroPaladin.blp", 0, true); //bar4 to Paladin-Face
-   BlzFrameSetTexture(BlzGetFrameByName("MyBarBackground", 4), "Replaceabletextures\\CommandButtonsDisabled\\DISBTNHeroPaladin.blp", 0, true); //Change the background to DisabledPaladin-Face. ("MyBarBackground", 4) belongs to Bar4. would Bar4 be a "MyBarEx" one would have to write "MyBarExBackground" cause they are named differently in fdf.
+            BlzFrameSetText(BlzGetFrameByName("MyBarExText", 1), string.Empty);
+            BlzFrameSetText(BlzGetFrameByName("MyBarExText", 2), string.Empty);
+            BlzFrameSetText(BlzGetFrameByName("MyBarText", 4), string.Empty);
+            BlzFrameSetValue(_iconHero, 100);
 
-            BlzFrameSetText(BlzGetFrameByName("MyBarExText", 1), "Life");
-    BlzFrameSetText(BlzGetFrameByName("MyBarExText", 2), "Mana");
-    BlzFrameSetText(BlzGetFrameByName("MyBarText", 4), I2S(R2I(BlzFrameGetValue(bar4))) + "%");
+            UpdateWidget();
 
-    DisplayTimedTextToPlayer(GetLocalPlayer(), 0, 0, 99999, "Select an unit to update the Bars");
+            timer timerUpdate = CreateTimer();
+            timerUpdate.Start(TIME_UPDATE, TRUE, UpdateWidget);
+        }
+
+        private void UpdateWidget ()
+        {
+
+            if (_lastHealth == Hero.Life && _lastMana == Hero.Mana)
+            {
+                return;
+            }
+
+            _lastHealth = Hero.Life;
+            _lastMana = Hero.Mana;
+            // text update
+
+
+            BlzFrameSetText(BlzGetFrameByName("MyBarExText", 1), $"{Hero.Life:F0}/{Hero.MaxLife:F0}");
+            BlzFrameSetText(BlzGetFrameByName("MyBarExText", 2), $"{Hero.Mana:F0}/{Hero.MaxMana:F0}");
+
+
+            // bars update
+
+            var currentHealth = Hero.Life;
+            var maxHealth = Hero.MaxLife;
+
+            var healthPercentage = (currentHealth / maxHealth) * 100;
+
+            BlzFrameSetValue(_hpBar, healthPercentage);
+
+            var currentMana = Hero.Mana;
+            var maxMana = Hero.MaxMana;
+
+            var manaPercentage = (currentMana / maxMana) * 100;
+
+            BlzFrameSetValue(_manaBar, manaPercentage);
         }
     }
 }
