@@ -1,20 +1,17 @@
-﻿using Source.Models;
-using Source.Triggers.Base;
+﻿using Source.Triggers.Base;
 using Source.Triggers.CameraTriggers.Categories;
+using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
 using System;
-using System.Linq;
-using WCSharp.Api;
 using WCSharp.Events;
 using WCSharp.Shared;
-using WCSharp.Shared.Extensions;
 using WCSharp.Sync;
 using static WCSharp.Api.Common;
 
 namespace Source
 {
-	public static class Program
+    public static class Program
 	{
 		public static bool Debug { get; private set; } = false;
 
@@ -52,6 +49,7 @@ namespace Source
 		{
 			var categories = new TriggerCategory[]
 			{
+				new GUITriggersCategory(),
 				new HeroTriggersCategory(),
 				new CameraTriggersCategory(),
 				new MonsterTriggersCategory(),
