@@ -16,4 +16,6 @@ namespace Source.Triggers.TownTriggers.Categories
             return triggers;
         }
     }
+
 }
+

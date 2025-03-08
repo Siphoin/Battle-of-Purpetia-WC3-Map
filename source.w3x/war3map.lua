@@ -4,28 +4,7 @@ gg_rct_HeroSpawn = nil
 gg_rct_RegionUndeadSpawnZombieMore = nil
 gg_rct_RegionUndeadSpawnDemons = nil
 gg_rct_NoViolanceArea = nil
-gg_trg_Melee_Initialization = nil
-gg_trg_Untitled_Trigger_001 = nil
-gg_dest_YTcx_0217 = nil
-gg_dest_YTcx_0218 = nil
-gg_dest_YTce_0219 = nil
-gg_dest_YTce_0220 = nil
-gg_rct_RightGatesTown = nil
-gg_rct_LeftGatesTown = nil
-gg_rct_UpGatesTown = nil
-gg_rct_DownGatesTown = nil
 function InitGlobals()
-end
-
-function CreateAllDestructables()
-local d
-local t
-local life
-
-gg_dest_YTce_0219 = BlzCreateDestructableWithSkin(FourCC("YTce"), 1728.0, -256.0, 180.000, 1.000, 0, FourCC("YTce"))
-gg_dest_YTce_0220 = BlzCreateDestructableWithSkin(FourCC("YTce"), -2496.0, -256.0, 180.000, 1.000, 0, FourCC("YTce"))
-gg_dest_YTcx_0218 = BlzCreateDestructableWithSkin(FourCC("YTcx"), -384.0, 1856.0, 270.000, 1.000, 0, FourCC("YTcx"))
-gg_dest_YTcx_0217 = BlzCreateDestructableWithSkin(FourCC("YTcx"), -384.0, -2368.0, 270.000, 1.000, 0, FourCC("YTcx"))
 end
 
 function CreateNeutralPassiveBuildings()
@@ -77,41 +56,7 @@ gg_rct_RegionUndeadSpawn = Rect(-1600.0, -7616.0, 320.0, -5216.0)
 gg_rct_HeroSpawn = Rect(-896.0, -736.0, 96.0, 224.0)
 gg_rct_RegionUndeadSpawnZombieMore = Rect(5920.0, 5088.0, 8000.0, 7296.0)
 gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4832.0, -4096.0, 7232.0)
-gg_rct_NoViolanceArea = Rect(-2528.0, -2400.0, 1760.0, 1856.0)
-gg_rct_RightGatesTown = Rect(1120.0, -512.0, 1728.0, -32.0)
-gg_rct_LeftGatesTown = Rect(-2464.0, -448.0, -1856.0, 32.0)
-gg_rct_UpGatesTown = Rect(-672.0, 1312.0, -64.0, 1792.0)
-gg_rct_DownGatesTown = Rect(-704.0, -2208.0, -96.0, -1728.0)
-end
-
-function Trig_Melee_Initialization_Actions()
-StartMeleeAI(Player(10), "AI.ai")
-end
-
-function InitTrig_Melee_Initialization()
-gg_trg_Melee_Initialization = CreateTrigger()
-TriggerAddAction(gg_trg_Melee_Initialization, Trig_Melee_Initialization_Actions)
-end
-
-function Trig_Untitled_Trigger_001_Actions()
-ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_YTcx_0217)
-ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_YTce_0220)
-ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_YTcx_0218)
-ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_YTce_0219)
-end
-
-function InitTrig_Untitled_Trigger_001()
-gg_trg_Untitled_Trigger_001 = CreateTrigger()
-TriggerAddAction(gg_trg_Untitled_Trigger_001, Trig_Untitled_Trigger_001_Actions)
-end
-
-function InitCustomTriggers()
-InitTrig_Melee_Initialization()
-InitTrig_Untitled_Trigger_001()
-end
-
-function RunInitializationTriggers()
-ConditionalTriggerExecute(gg_trg_Untitled_Trigger_001)
+gg_rct_NoViolanceArea = Rect(-3296.0, -2944.0, 2240.0, 1856.0)
 end
 
 function InitCustomPlayerSlots()
@@ -205,12 +150,9 @@ SetAmbientDaySound("CityScapeDay")
 SetAmbientNightSound("CityScapeNight")
 SetMapMusic("Music", true, 0)
 CreateRegions()
-CreateAllDestructables()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()
-InitCustomTriggers()
-RunInitializationTriggers()
 end
 
 function config()

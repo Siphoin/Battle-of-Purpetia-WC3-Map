@@ -10,11 +10,14 @@ namespace Source.Data
         public Dictionary<string, int> MonstersList { get; set; }
 
         public Rectangle Region { get; set; }
+        public int Level { get ; set; }
 
-        public MonsterAreaSpawningData(Dictionary<string, int> monstersList, Rectangle region)
+        public MonsterAreaSpawningData(Dictionary<string, int> monstersList, Rectangle region, int level)
         {
             MonstersList = monstersList;
             Region = region;
+            Level = level;
+
         }
     }
 

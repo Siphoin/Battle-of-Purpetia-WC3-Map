@@ -10,10 +10,6 @@ public static class Regions
 	public static Rectangle HeroSpawn { get; set; } = new Rectangle(-896f, -736f, 96f, 224f);
 	public static Rectangle RegionUndeadSpawnZombieMore { get; set; } = new Rectangle(5920f, 5088f, 8000f, 7296f);
 	public static Rectangle RegionUndeadSpawnDemons { get; set; } = new Rectangle(-5792f, 4832f, -4096f, 7232f);
-	public static Rectangle NoViolanceArea { get; set; } = new Rectangle(-2528f, -2400f, 1760f, 1856f);
-	public static Rectangle RightGatesTown { get; set; } = new Rectangle(1120f, -512f, 1728f, -32f);
-	public static Rectangle LeftGatesTown { get; set; } = new Rectangle(-2464f, -448f, -1856f, 32f);
-	public static Rectangle UpGatesTown { get; set; } = new Rectangle(-672f, 1312f, -64f, 1792f);
-	public static Rectangle DownGatesTown { get; set; } = new Rectangle(-704f, -2208f, -96f, -1728f);
+	public static Rectangle NoViolanceArea { get; set; } = new Rectangle(-3296f, -2944f, 2240f, 1856f);
 
 }
