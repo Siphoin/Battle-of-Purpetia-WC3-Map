@@ -10,6 +10,10 @@ gg_dest_YTcx_0217 = nil
 gg_dest_YTcx_0218 = nil
 gg_dest_YTce_0219 = nil
 gg_dest_YTce_0220 = nil
+gg_rct_RightGatesTown = nil
+gg_rct_LeftGatesTown = nil
+gg_rct_UpGatesTown = nil
+gg_rct_DownGatesTown = nil
 function InitGlobals()
 end
 
@@ -74,6 +78,10 @@ gg_rct_HeroSpawn = Rect(-896.0, -736.0, 96.0, 224.0)
 gg_rct_RegionUndeadSpawnZombieMore = Rect(5920.0, 5088.0, 8000.0, 7296.0)
 gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4832.0, -4096.0, 7232.0)
 gg_rct_NoViolanceArea = Rect(-2528.0, -2400.0, 1760.0, 1856.0)
+gg_rct_RightGatesTown = Rect(1120.0, -512.0, 1728.0, -32.0)
+gg_rct_LeftGatesTown = Rect(-2464.0, -448.0, -1856.0, 32.0)
+gg_rct_UpGatesTown = Rect(-672.0, 1312.0, -64.0, 1792.0)
+gg_rct_DownGatesTown = Rect(-704.0, -2208.0, -96.0, -1728.0)
 end
 
 function Trig_Melee_Initialization_Actions()

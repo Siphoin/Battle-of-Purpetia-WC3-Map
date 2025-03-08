@@ -13,7 +13,7 @@ namespace Source.Triggers.Base
             Init();
 
             foreach (var trigger in _triggers)
-            {
+            {             
                 trigger.Execute();
             }
         }

@@ -3,6 +3,7 @@ using Source.Triggers.CameraTriggers.Categories;
 using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
+using Source.Triggers.TownTriggers.Categories;
 using System;
 using WCSharp.Events;
 using WCSharp.Shared;
@@ -53,6 +54,7 @@ namespace Source
 				new HeroTriggersCategory(),
 				new CameraTriggersCategory(),
 				new MonsterTriggersCategory(),
+				new TownTriggersCategory(),
 			};
 
 			foreach (var category in categories)
