@@ -4,8 +4,10 @@ using Source.Triggers.MonsterAreaSystem.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using WCSharp.Api;
 using WCSharp.Events;
+using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.HeroTriggers
@@ -16,6 +18,7 @@ namespace Source.Triggers.HeroTriggers
         private unit _attackTarget;
         private group _groupFountainsLifes;
         private bool _coomandsEnabled = true;
+        private bool _onTown = true;
         private AICommandType _currentCommand;
 
         #region Ability
@@ -162,7 +165,8 @@ namespace Source.Triggers.HeroTriggers
                     case 0:
                         AttackMonsters();
                         break;
-                    default:
+                    case 1:
+                        MoveToGate();
                         break;
                 }
 
@@ -176,11 +180,57 @@ namespace Source.Triggers.HeroTriggers
 
         private void AttackMonsters()
         {
+            if (_onTown)
+            {
+                MoveToGate();
+                return;
+            }
             var currentOrder = GetUnitCurrentOrder(Hero);
             if (currentOrder != Constants.ORDER_ATTACK && currentOrder != Constants.ORDER_MOVE && currentOrder != Constants.ORDER_STAND_DOWN)
             {
                 AttackRandomMonster();
             }
+        }
+
+        private void MoveToGate()
+        {
+            if (!_onTown)
+            {
+                return;
+            }
+
+            int indexGate = GetRandomInt(1, 4);
+            Rectangle region = null;
+            switch (indexGate)
+            {
+                case 1:
+                    region = Regions.DownGatesTown;
+                    break;
+                    case 2:
+                    region = Regions.UpGatesTown;
+                    break;
+
+                    case 3:
+                    region = Regions.LeftGatesTown;
+                    break;
+
+                    case 4:
+                    region = Regions.RightGatesTown;
+                    break;
+            }
+
+            var point = region.Center;
+            IssuePointOrder(Hero, "attack", point.X, point.Y);
+            _coomandsEnabled = false;
+            trigger checkCompleteMove = trigger.Create();
+            checkCompleteMove.RegisterEnterRegion(region.Region);
+            checkCompleteMove.AddAction(() =>
+            {
+                _onTown = false;
+                _coomandsEnabled = true;
+                AttackMonsters();
+                DestroyTrigger(checkCompleteMove);
+            });
         }
 
         private void AttackRandomMonster()
@@ -228,5 +278,6 @@ namespace Source.Triggers.HeroTriggers
     public enum AICommandType
     {
         MonsterAttack,
+        MoveToGateTown,
     }
 }
