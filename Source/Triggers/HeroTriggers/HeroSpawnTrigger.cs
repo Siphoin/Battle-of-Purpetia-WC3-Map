@@ -1,4 +1,5 @@
-﻿using Source.Triggers.Base;
+﻿using Source.Data;
+using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
 using WCSharp.Api;
 using WCSharp.Events;
@@ -30,6 +31,7 @@ namespace Source.Triggers.HeroTriggers
                 PlayerUnitEvents.Register(UnitEvent.Dies, HeroRespawn, Hero);
                 LockCamera();
                 BlzFrameSetVisible(originframetype.HeroButtonIndicator.GetOriginFrame(0), false);
+                PlayerHeroesList.Add(Hero);
 
                 if (Hero.Owner == player.LocalPlayer)
                 {
