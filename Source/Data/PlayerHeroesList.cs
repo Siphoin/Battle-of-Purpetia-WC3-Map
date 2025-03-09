@@ -14,7 +14,6 @@ namespace Source.Data
         public static void Add (unit hero)
         {
             _heroes.Add(hero);
-            Console.WriteLine(_heroes.Count);
         }
     }
 }

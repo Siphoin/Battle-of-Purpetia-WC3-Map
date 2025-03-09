@@ -15,7 +15,7 @@ namespace Source.Triggers.ArenaTriggers.Triggers
         private timer _timerStartArena;
         private timerdialog _dialogWaitArena;
         private GUIHeroWidgetTrigger[] _widgetsTriggers;
-        private const int ARENA_TIMER_TURN_SECONDS = 10;
+        private const int ARENA_TIMER_TURN_SECONDS = 300;
         public override trigger GetTrigger()
         {
             _timerTrigger = trigger.Create();
