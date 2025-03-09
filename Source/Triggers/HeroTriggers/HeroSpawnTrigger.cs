@@ -37,6 +37,13 @@ namespace Source.Triggers.HeroTriggers
                 {
                         GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
                         heroWidgetTrigger.GetTrigger().Execute();
+
+                    var timer = CreateTimer();
+                    timer.Start(0.5f, false, () =>
+                    {
+                        GUIHeroWidgetTrigger.DestroyWidget(Hero.Owner);
+                        DestroyTimer(timer);
+                    });
                 }
 
                 Hero.HeroName = Hero.Owner.Name;

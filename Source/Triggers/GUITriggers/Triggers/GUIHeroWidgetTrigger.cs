@@ -83,12 +83,15 @@ namespace Source.Triggers.GUITriggers.Triggers
         public unit Hero { get; private set; }
 
         private float _offset;
+        private timer _timerUpdate;
 
         public HeroWidget(unit hero, float offset)
         {
             Hero = hero;
             _offset = offset;
             CreateWidget();
+
+
         }
         private void CreateWidget()
         {
@@ -120,8 +123,8 @@ namespace Source.Triggers.GUITriggers.Triggers
 
             UpdateWidget();
 
-            timer timerUpdate = CreateTimer();
-            timerUpdate.Start(TIME_UPDATE, TRUE, UpdateWidget);
+            _timerUpdate = CreateTimer();
+            _timerUpdate.Start(TIME_UPDATE, TRUE, UpdateWidget);
         }
 
         private void UpdateWidget()
@@ -182,9 +185,10 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         public void Destroy ()
         {
-            BlzDestroyFrame(_hpBar);
-            BlzDestroyFrame(_manaBar);
+            DestroyTimer(_timerUpdate);
             BlzDestroyFrame(_iconHero);
+            BlzDestroyFrame(_hpBar);
+            BlzDestroyFrame (_manaBar);
         }
     }
 
