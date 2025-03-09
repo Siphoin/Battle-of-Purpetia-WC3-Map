@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WCSharp.Api;
 
 namespace Source.Data
@@ -16,6 +14,7 @@ namespace Source.Data
         public static void Add (unit hero)
         {
             _heroes.Add(hero);
+            Console.WriteLine(_heroes.Count);
         }
     }
 }

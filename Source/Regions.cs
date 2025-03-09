@@ -15,5 +15,8 @@ public static class Regions
 	public static Rectangle RegionGnollSpawn { get; set; } = new Rectangle(-11328f, -1024f, -8608f, 288f);
 	public static Rectangle RegionGhostsSpawn { get; set; } = new Rectangle(5216f, 544f, 7968f, 2688f);
 	public static Rectangle RegionFelOrcsSpawn { get; set; } = new Rectangle(-1024f, 8512f, 256f, 10720f);
+	public static Rectangle ArenaSpawnLeftPlayer { get; set; } = new Rectangle(-10944f, -11072f, -10528f, -10656f);
+	public static Rectangle ArenaSpawnRightPlayer { get; set; } = new Rectangle(-9024f, -11072f, -8608f, -10656f);
+	public static Rectangle ArenaRegion { get; set; } = new Rectangle(-11648f, -11648f, -8096f, -10112f);
 
 }

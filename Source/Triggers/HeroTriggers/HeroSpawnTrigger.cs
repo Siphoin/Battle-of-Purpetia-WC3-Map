@@ -31,13 +31,18 @@ namespace Source.Triggers.HeroTriggers
                 PlayerUnitEvents.Register(UnitEvent.Dies, HeroRespawn, Hero);
                 LockCamera();
                 BlzFrameSetVisible(originframetype.HeroButtonIndicator.GetOriginFrame(0), false);
-                PlayerHeroesList.Add(Hero);
 
                 if (Hero.Owner == player.LocalPlayer)
                 {
                         GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
                         heroWidgetTrigger.GetTrigger().Execute();
                 }
+                var t = CreateTimer();
+                TimerStart(t, 0.3f, false, () =>
+                {
+                    PlayerHeroesList.Add(Hero);
+                    DestroyTimer(t);
+                });
 
                 Hero.HeroName = Hero.Owner.Name;
             });

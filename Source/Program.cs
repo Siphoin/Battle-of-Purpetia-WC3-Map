@@ -1,4 +1,5 @@
-﻿using Source.Triggers.Base;
+﻿using Source.Triggers.ArenaTriggers.Categories;
+using Source.Triggers.Base;
 using Source.Triggers.CameraTriggers.Categories;
 using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
@@ -55,6 +56,7 @@ namespace Source
 				new CameraTriggersCategory(),
 				new MonsterTriggersCategory(),
 				new TownTriggersCategory(),
+				new ArenaTriggersCategory(),
 			};
 
 			foreach (var category in categories)

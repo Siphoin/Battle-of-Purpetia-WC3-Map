@@ -77,23 +77,7 @@ namespace Source.Triggers.HeroTriggers
                     TimerCheckHealth.Start(1, true, CheckHealth);
 
                     PlayerUnitEvents.Register(HeroEvent.Levels, LearnSpell, Hero);
-                    trigger enterTownTrigger = trigger.Create();
-
-                    enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceArea.Region);
-
-                    enterTownTrigger.AddAction(() =>
-                    {
-                        _onTown = true;
-                    });
-
-                    trigger exitTownTrigger = trigger.Create();
-
-                    exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceArea.Region);
-
-                    exitTownTrigger.AddAction(() =>
-                    {
-                        _onTown = false;
-                    });
+                    SetupControlCommands();
 
                     LearnSpell();
 
@@ -101,13 +85,54 @@ namespace Source.Triggers.HeroTriggers
                     Hero.HeroName = Hero.Owner.Name;
                     FindFountainsLifes();
 
-                    
+
                 });
                 AiTrigger.Execute();
                 newTrigger.Dispose();
             });
 
             return newTrigger;
+        }
+
+        private void SetupControlCommands()
+        {
+            trigger enterTownTrigger = trigger.Create();
+
+            enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceArea.Region);
+
+            enterTownTrigger.AddAction(() =>
+            {
+                _onTown = true;
+            });
+
+            trigger exitTownTrigger = trigger.Create();
+
+            exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceArea.Region);
+
+            exitTownTrigger.AddAction(() =>
+            {
+                _onTown = false;
+            });
+
+            trigger enterArenaTrigger = trigger.Create();
+
+            enterArenaTrigger.RegisterEnterRegion(Regions.ArenaRegion.Region);
+
+            enterArenaTrigger.AddAction(() =>
+            {
+                _coomandsEnabled = false;
+                TimerCheckHealth.Pause();
+            });
+
+            trigger exitArenaTrigger = trigger.Create();
+
+            exitArenaTrigger.RegisterLeaveRegion(Regions.ArenaRegion.Region);
+
+            exitArenaTrigger.AddAction(() =>
+            {
+                _coomandsEnabled = true;
+                TimerCheckHealth.Resume();
+            });
         }
 
         private void CheckHealth()

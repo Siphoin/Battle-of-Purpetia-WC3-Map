@@ -8,6 +8,9 @@ gg_rct_RegionBanditsSpawn = nil
 gg_rct_RegionGnollSpawn = nil
 gg_rct_RegionGhostsSpawn = nil
 gg_rct_RegionFelOrcsSpawn = nil
+gg_rct_ArenaSpawnLeftPlayer = nil
+gg_rct_ArenaSpawnRightPlayer = nil
+gg_rct_ArenaRegion = nil
 function InitGlobals()
 end
 
@@ -67,6 +70,9 @@ gg_rct_RegionBanditsSpawn = Rect(10304.0, -544.0, 11552.0, 800.0)
 gg_rct_RegionGnollSpawn = Rect(-11328.0, -1024.0, -8608.0, 288.0)
 gg_rct_RegionGhostsSpawn = Rect(5216.0, 544.0, 7968.0, 2688.0)
 gg_rct_RegionFelOrcsSpawn = Rect(-1024.0, 8512.0, 256.0, 10720.0)
+gg_rct_ArenaSpawnLeftPlayer = Rect(-10944.0, -11072.0, -10528.0, -10656.0)
+gg_rct_ArenaSpawnRightPlayer = Rect(-9024.0, -11072.0, -8608.0, -10656.0)
+gg_rct_ArenaRegion = Rect(-11648.0, -11648.0, -8096.0, -10112.0)
 end
 
 function InitCustomPlayerSlots()

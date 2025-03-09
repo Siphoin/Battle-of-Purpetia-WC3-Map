@@ -46,6 +46,10 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         public static void DestroyWidget(player player)
         {
+            if (player == player.LocalPlayer)
+            {
+                return;
+            }
             if (_widgets.TryGetValue(player, out HeroWidget widget))
             {
                 widget.Destroy();
