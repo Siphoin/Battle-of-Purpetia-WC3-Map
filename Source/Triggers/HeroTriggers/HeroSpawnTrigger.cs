@@ -33,17 +33,10 @@ namespace Source.Triggers.HeroTriggers
                 BlzFrameSetVisible(originframetype.HeroButtonIndicator.GetOriginFrame(0), false);
                 PlayerHeroesList.Add(Hero);
 
-                if (true)
+                if (Hero.Owner == player.LocalPlayer)
                 {
                         GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
                         heroWidgetTrigger.GetTrigger().Execute();
-
-                    var timer = CreateTimer();
-                    timer.Start(0.5f, false, () =>
-                    {
-                        GUIHeroWidgetTrigger.DestroyWidget(Hero.Owner);
-                        DestroyTimer(timer);
-                    });
                 }
 
                 Hero.HeroName = Hero.Owner.Name;
