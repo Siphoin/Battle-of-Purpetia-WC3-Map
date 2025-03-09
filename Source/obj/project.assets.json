@@ -1,0 +1,603 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "WCSharp.Api/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/WCSharp.Api.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Api.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Buffs/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Dummies": "3.0.0",
+          "WCSharp.Events": "3.0.0",
+          "WCSharp.Shared": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Buffs.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Buffs.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.DateTime/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Events": "3.0.0",
+          "WCSharp.Shared": "3.0.0",
+          "WCSharp.Sync": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.DateTime.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.DateTime.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Dummies/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Events": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Dummies.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Dummies.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Effects/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Events": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Effects.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Effects.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Events/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Shared": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Events.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Events.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Json/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Shared": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Knockbacks/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Effects": "3.0.0",
+          "WCSharp.Events": "3.0.0",
+          "WCSharp.Shared": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Knockbacks.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Knockbacks.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Lightnings/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Events": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Lightnings.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Lightnings.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Missiles/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Events": "3.0.0",
+          "WCSharp.Shared": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Missiles.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Missiles.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.SaveLoad/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Json": "3.0.0",
+          "WCSharp.Shared": "3.0.0",
+          "WCSharp.Sync": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.SaveLoad.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.SaveLoad.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Shared/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Shared.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Shared.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.Sync/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0",
+          "WCSharp.Json": "3.0.0",
+          "WCSharp.Shared": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.Sync.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.Sync.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WCSharp.W3MMD/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "WCSharp.Api": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0/WCSharp.W3MMD.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/WCSharp.W3MMD.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WCSharp.Api/3.0.0": {
+      "sha512": "dcjwf2ft5sWIsKDUKPyeQkJn0YfLCWhNSAwXqBKlW/khspecNVkuCaDliuwTM0bXkbdGPR4u1YthpnZ1DUXyhA==",
+      "type": "package",
+      "path": "wcsharp.api/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Api.dll",
+        "lib/net6.0/WCSharp.Api.xml",
+        "wcsharp.api.3.0.0.nupkg.sha512",
+        "wcsharp.api.nuspec"
+      ]
+    },
+    "WCSharp.Buffs/3.0.0": {
+      "sha512": "/qLhKhPsYXtIN/pC5UKvFRTf4WqxATQxQkCKJ2/35BRVIoOIybDH74dFcZZKg9LEGT6f48YmSHPBOI32OzvO6w==",
+      "type": "package",
+      "path": "wcsharp.buffs/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Buffs.dll",
+        "lib/net6.0/WCSharp.Buffs.xml",
+        "wcsharp.buffs.3.0.0.nupkg.sha512",
+        "wcsharp.buffs.nuspec"
+      ]
+    },
+    "WCSharp.DateTime/3.0.0": {
+      "sha512": "mAMIkO1b7ygLIoXZw/Y4CXAhNJjCcGoRg0AHq/1ZDbDWaEFF776P05gh/VGtBflwjAJ79oP5dQTqcLi5+pTftQ==",
+      "type": "package",
+      "path": "wcsharp.datetime/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.DateTime.dll",
+        "lib/net6.0/WCSharp.DateTime.xml",
+        "wcsharp.datetime.3.0.0.nupkg.sha512",
+        "wcsharp.datetime.nuspec"
+      ]
+    },
+    "WCSharp.Dummies/3.0.0": {
+      "sha512": "eZ90Byq+CBrbsYxMRlQne90TPBw1r/exQz+uPpjD6D2yrogQfcaZlsjy3ig4GRwstEuDLxxqQqABrR6RNItkww==",
+      "type": "package",
+      "path": "wcsharp.dummies/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Dummies.dll",
+        "lib/net6.0/WCSharp.Dummies.xml",
+        "wcsharp.dummies.3.0.0.nupkg.sha512",
+        "wcsharp.dummies.nuspec"
+      ]
+    },
+    "WCSharp.Effects/3.0.0": {
+      "sha512": "3IaLT8/ok+wOGvX+wENl2PiU6EWdlG0s0Dtktd6XLxJ8Os5wurFjHh87zFc3Epb1GwLOgWYbBdOQ8oOZyuzSOQ==",
+      "type": "package",
+      "path": "wcsharp.effects/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Effects.dll",
+        "lib/net6.0/WCSharp.Effects.xml",
+        "wcsharp.effects.3.0.0.nupkg.sha512",
+        "wcsharp.effects.nuspec"
+      ]
+    },
+    "WCSharp.Events/3.0.0": {
+      "sha512": "D6Arqw0f48MPbbstR6m+llwvtNa6+Ss4CXcqAKhWSUtMxvAizZSWbgYY9swWEJrs7ZiLWUu3RKHjUwv/RCFMAQ==",
+      "type": "package",
+      "path": "wcsharp.events/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Events.dll",
+        "lib/net6.0/WCSharp.Events.xml",
+        "wcsharp.events.3.0.0.nupkg.sha512",
+        "wcsharp.events.nuspec"
+      ]
+    },
+    "WCSharp.Json/3.0.0": {
+      "sha512": "UbrGjUJC+RuUSmyE98QY5R+7az/83dfYxXt/UIA9pYtM+ZBagU1v8/EEmzGpqZQSAr5VEt93Qdclx9O0dp4rlw==",
+      "type": "package",
+      "path": "wcsharp.json/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Json.dll",
+        "lib/net6.0/WCSharp.Json.xml",
+        "wcsharp.json.3.0.0.nupkg.sha512",
+        "wcsharp.json.nuspec"
+      ]
+    },
+    "WCSharp.Knockbacks/3.0.0": {
+      "sha512": "1aEUsci6rrFCCdE6zUGt9R7rqS2oOKAtAJmFUdUtM5+HsStYI0zs8re3iecJMhIBK3hCW5OBzcXoP4w8TGYPZg==",
+      "type": "package",
+      "path": "wcsharp.knockbacks/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Knockbacks.dll",
+        "lib/net6.0/WCSharp.Knockbacks.xml",
+        "wcsharp.knockbacks.3.0.0.nupkg.sha512",
+        "wcsharp.knockbacks.nuspec"
+      ]
+    },
+    "WCSharp.Lightnings/3.0.0": {
+      "sha512": "1azI3b4OFQe4h+xs/WaT13YANLUtMNzl3OyMkAJWpoOqEPTsGs5hee1/Dn5I7Eydw8vTTMcixDmBBbsXcb/okA==",
+      "type": "package",
+      "path": "wcsharp.lightnings/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Lightnings.dll",
+        "lib/net6.0/WCSharp.Lightnings.xml",
+        "wcsharp.lightnings.3.0.0.nupkg.sha512",
+        "wcsharp.lightnings.nuspec"
+      ]
+    },
+    "WCSharp.Missiles/3.0.0": {
+      "sha512": "u+HM1G6WYf+HH9r2lVgEnFGJfEqnDX1Oax3F6HNI9iUQT1lxmUhHq6f80hNSuDMLLRCKVjN7gcfnP2yliojT4A==",
+      "type": "package",
+      "path": "wcsharp.missiles/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Missiles.dll",
+        "lib/net6.0/WCSharp.Missiles.xml",
+        "wcsharp.missiles.3.0.0.nupkg.sha512",
+        "wcsharp.missiles.nuspec"
+      ]
+    },
+    "WCSharp.SaveLoad/3.0.0": {
+      "sha512": "A9Dtv+hgWwedc1iuST/cB7Pg3yLOftrjA0s9v37UETozMO5Y0Sfg66xceg3Z4PFsAwRSC4tdoDw0YyepIdEa1A==",
+      "type": "package",
+      "path": "wcsharp.saveload/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.SaveLoad.dll",
+        "lib/net6.0/WCSharp.SaveLoad.xml",
+        "wcsharp.saveload.3.0.0.nupkg.sha512",
+        "wcsharp.saveload.nuspec"
+      ]
+    },
+    "WCSharp.Shared/3.0.0": {
+      "sha512": "RJxlAvZaCms+I1ghfsSGKagIzKWamEC/J5IaG4+PmER76npqy2DD2v0X/YH+0w3SyPh4U5IHbkiEIPmcBTGs2Q==",
+      "type": "package",
+      "path": "wcsharp.shared/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Shared.dll",
+        "lib/net6.0/WCSharp.Shared.xml",
+        "wcsharp.shared.3.0.0.nupkg.sha512",
+        "wcsharp.shared.nuspec"
+      ]
+    },
+    "WCSharp.Sync/3.0.0": {
+      "sha512": "3wvkofjL5ay1W9pSzK6CeVbQW0/aC49kBkKUEyNiiCKLtk+wn8OmprlXJR4w4D9Y7in7rYejkH85TPPbwZezlw==",
+      "type": "package",
+      "path": "wcsharp.sync/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.Sync.dll",
+        "lib/net6.0/WCSharp.Sync.xml",
+        "wcsharp.sync.3.0.0.nupkg.sha512",
+        "wcsharp.sync.nuspec"
+      ]
+    },
+    "WCSharp.W3MMD/3.0.0": {
+      "sha512": "vLmxcZIX7mazYoHeaVK3xQE8mUjEW2D688HTVrRMFMfUoNf4iC+Iw0PQVpYpoDPklxornAvRAAlZlkDaW79jAg==",
+      "type": "package",
+      "path": "wcsharp.w3mmd/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net6.0/WCSharp.W3MMD.dll",
+        "lib/net6.0/WCSharp.W3MMD.xml",
+        "wcsharp.w3mmd.3.0.0.nupkg.sha512",
+        "wcsharp.w3mmd.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "WCSharp.Api >= 3.0.0",
+      "WCSharp.Buffs >= 3.0.0",
+      "WCSharp.DateTime >= 3.0.0",
+      "WCSharp.Dummies >= 3.0.0",
+      "WCSharp.Effects >= 3.0.0",
+      "WCSharp.Events >= 3.0.0",
+      "WCSharp.Json >= 3.0.0",
+      "WCSharp.Knockbacks >= 3.0.0",
+      "WCSharp.Lightnings >= 3.0.0",
+      "WCSharp.Missiles >= 3.0.0",
+      "WCSharp.SaveLoad >= 3.0.0",
+      "WCSharp.Shared >= 3.0.0",
+      "WCSharp.Sync >= 3.0.0",
+      "WCSharp.W3MMD >= 3.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\maxko\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\repos\\WCSharpTemplate\\Source\\Source.csproj",
+      "projectName": "Source",
+      "projectPath": "D:\\repos\\WCSharpTemplate\\Source\\Source.csproj",
+      "packagesPath": "C:\\Users\\maxko\\.nuget\\packages\\",
+      "outputPath": "D:\\repos\\WCSharpTemplate\\Source\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\maxko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "dependencies": {
+          "WCSharp.Api": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Buffs": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.DateTime": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Dummies": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Effects": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Events": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Json": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Knockbacks": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Lightnings": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Missiles": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.SaveLoad": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Shared": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.Sync": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "WCSharp.W3MMD": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.35, 6.0.35]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.35, 6.0.35]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.35, 6.0.35]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.35, 6.0.35]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

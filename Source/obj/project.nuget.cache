@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "BaUxJFiTwUo=",
+  "success": true,
+  "projectFilePath": "D:\\repos\\WCSharpTemplate\\Source\\Source.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.api\\3.0.0\\wcsharp.api.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.buffs\\3.0.0\\wcsharp.buffs.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.datetime\\3.0.0\\wcsharp.datetime.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.dummies\\3.0.0\\wcsharp.dummies.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.effects\\3.0.0\\wcsharp.effects.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.events\\3.0.0\\wcsharp.events.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.json\\3.0.0\\wcsharp.json.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.knockbacks\\3.0.0\\wcsharp.knockbacks.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.lightnings\\3.0.0\\wcsharp.lightnings.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.missiles\\3.0.0\\wcsharp.missiles.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.saveload\\3.0.0\\wcsharp.saveload.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.shared\\3.0.0\\wcsharp.shared.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.sync\\3.0.0\\wcsharp.sync.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.w3mmd\\3.0.0\\wcsharp.w3mmd.3.0.0.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.35\\microsoft.windowsdesktop.app.ref.6.0.35.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.35\\microsoft.netcore.app.ref.6.0.35.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.35\\microsoft.aspnetcore.app.ref.6.0.35.nupkg.sha512",
+    "C:\\Users\\maxko\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.35\\microsoft.netcore.app.host.win-x64.6.0.35.nupkg.sha512"
+  ],
+  "logs": []
+}
