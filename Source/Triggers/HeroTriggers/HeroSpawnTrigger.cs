@@ -1,4 +1,5 @@
-﻿using Source.Triggers.Base;
+﻿using Source.Data;
+using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
 using WCSharp.Api;
 using WCSharp.Events;
@@ -33,9 +34,17 @@ namespace Source.Triggers.HeroTriggers
 
                 if (Hero.Owner == player.LocalPlayer)
                 {
-                    GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
-                    heroWidgetTrigger.GetTrigger().Execute();
+                        GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
+                        heroWidgetTrigger.GetTrigger().Execute();
                 }
+                var t = CreateTimer();
+                TimerStart(t, 0.3f, false, () =>
+                {
+                    PlayerHeroesList.Add(Hero);
+                    DestroyTimer(t);
+                });
+
+                Hero.HeroName = Hero.Owner.Name;
             });
 
             return newTrigger;

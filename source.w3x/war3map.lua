@@ -4,6 +4,13 @@ gg_rct_HeroSpawn = nil
 gg_rct_RegionUndeadSpawnZombieMore = nil
 gg_rct_RegionUndeadSpawnDemons = nil
 gg_rct_NoViolanceArea = nil
+gg_rct_RegionBanditsSpawn = nil
+gg_rct_RegionGnollSpawn = nil
+gg_rct_RegionGhostsSpawn = nil
+gg_rct_RegionFelOrcsSpawn = nil
+gg_rct_ArenaSpawnLeftPlayer = nil
+gg_rct_ArenaSpawnRightPlayer = nil
+gg_rct_ArenaRegion = nil
 function InitGlobals()
 end
 
@@ -16,6 +23,8 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -1536.0, 896.0, 270.000, FourCC("nfoh"))
 u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 768.0, -1408.0, 270.000, FourCC("nfoh"))
+u = BlzCreateUnitWithSkin(p, FourCC("ncp3"), -8832.0, -10880.0, 270.000, FourCC("ncp3"))
+u = BlzCreateUnitWithSkin(p, FourCC("ncp3"), -10752.0, -10880.0, 270.000, FourCC("ncp3"))
 end
 
 function CreateNeutralPassive()
@@ -51,12 +60,19 @@ end
 function CreateRegions()
 local we
 
-gg_rct_RegionMurlocSpawn = Rect(-9824.0, -6336.0, -7488.0, -5024.0)
-gg_rct_RegionUndeadSpawn = Rect(-1600.0, -7616.0, 320.0, -5216.0)
+gg_rct_RegionMurlocSpawn = Rect(-9728.0, -6400.0, -6912.0, -4576.0)
+gg_rct_RegionUndeadSpawn = Rect(-1568.0, -8384.0, 320.0, -4736.0)
 gg_rct_HeroSpawn = Rect(-896.0, -736.0, 96.0, 224.0)
-gg_rct_RegionUndeadSpawnZombieMore = Rect(5920.0, 5088.0, 8000.0, 7296.0)
-gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4832.0, -4096.0, 7232.0)
-gg_rct_NoViolanceArea = Rect(-3296.0, -2944.0, 2240.0, 1856.0)
+gg_rct_RegionUndeadSpawnZombieMore = Rect(5504.0, 4224.0, 7968.0, 7264.0)
+gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4608.0, -4032.0, 7360.0)
+gg_rct_NoViolanceArea = Rect(-3392.0, -2944.0, 2240.0, 2784.0)
+gg_rct_RegionBanditsSpawn = Rect(10304.0, -544.0, 11552.0, 800.0)
+gg_rct_RegionGnollSpawn = Rect(-11328.0, -1024.0, -8608.0, 288.0)
+gg_rct_RegionGhostsSpawn = Rect(5216.0, 544.0, 7968.0, 2688.0)
+gg_rct_RegionFelOrcsSpawn = Rect(-1024.0, 8512.0, 256.0, 10720.0)
+gg_rct_ArenaSpawnLeftPlayer = Rect(-10944.0, -11072.0, -10528.0, -10656.0)
+gg_rct_ArenaSpawnRightPlayer = Rect(-9024.0, -11072.0, -8608.0, -10656.0)
+gg_rct_ArenaRegion = Rect(-11648.0, -11648.0, -8096.0, -10112.0)
 end
 
 function InitCustomPlayerSlots()
@@ -97,7 +113,7 @@ SetPlayerRaceSelectable(Player(6), false)
 SetPlayerController(Player(6), MAP_CONTROL_COMPUTER)
 SetPlayerStartLocation(Player(11), 7)
 SetPlayerColor(Player(11), ConvertPlayerColor(11))
-SetPlayerRacePreference(Player(11), RACE_PREF_NIGHTELF)
+SetPlayerRacePreference(Player(11), RACE_PREF_UNDEAD)
 SetPlayerRaceSelectable(Player(11), false)
 SetPlayerController(Player(11), MAP_CONTROL_COMPUTER)
 end
@@ -143,7 +159,7 @@ SetEnemyStartLocPrio(7, 1, 3, MAP_LOC_PRIO_LOW)
 end
 
 function main()
-SetCameraBounds(-10112.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -10240.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 10112.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 9856.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -10112.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 9856.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 10112.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -10240.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+SetCameraBounds(-12160.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -12288.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 12160.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 11904.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -12160.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 11904.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 12160.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -12288.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
 SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
 NewSoundEnvironment("Default")
 SetAmbientDaySound("CityScapeDay")

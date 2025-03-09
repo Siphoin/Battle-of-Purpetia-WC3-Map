@@ -5,11 +5,18 @@ using WCSharp.Shared.Data;
 /// </summary>
 public static class Regions
 {
-	public static Rectangle RegionMurlocSpawn { get; set; } = new Rectangle(-9824f, -6336f, -7488f, -5024f);
-	public static Rectangle RegionUndeadSpawn { get; set; } = new Rectangle(-1600f, -7616f, 320f, -5216f);
+	public static Rectangle RegionMurlocSpawn { get; set; } = new Rectangle(-9728f, -6400f, -6912f, -4576f);
+	public static Rectangle RegionUndeadSpawn { get; set; } = new Rectangle(-1568f, -8384f, 320f, -4736f);
 	public static Rectangle HeroSpawn { get; set; } = new Rectangle(-896f, -736f, 96f, 224f);
-	public static Rectangle RegionUndeadSpawnZombieMore { get; set; } = new Rectangle(5920f, 5088f, 8000f, 7296f);
-	public static Rectangle RegionUndeadSpawnDemons { get; set; } = new Rectangle(-5792f, 4832f, -4096f, 7232f);
-	public static Rectangle NoViolanceArea { get; set; } = new Rectangle(-3296f, -2944f, 2240f, 1856f);
+	public static Rectangle RegionUndeadSpawnZombieMore { get; set; } = new Rectangle(5504f, 4224f, 7968f, 7264f);
+	public static Rectangle RegionUndeadSpawnDemons { get; set; } = new Rectangle(-5792f, 4608f, -4032f, 7360f);
+	public static Rectangle NoViolanceArea { get; set; } = new Rectangle(-3392f, -2944f, 2240f, 2784f);
+	public static Rectangle RegionBanditsSpawn { get; set; } = new Rectangle(10304f, -544f, 11552f, 800f);
+	public static Rectangle RegionGnollSpawn { get; set; } = new Rectangle(-11328f, -1024f, -8608f, 288f);
+	public static Rectangle RegionGhostsSpawn { get; set; } = new Rectangle(5216f, 544f, 7968f, 2688f);
+	public static Rectangle RegionFelOrcsSpawn { get; set; } = new Rectangle(-1024f, 8512f, 256f, 10720f);
+	public static Rectangle ArenaSpawnLeftPlayer { get; set; } = new Rectangle(-10944f, -11072f, -10528f, -10656f);
+	public static Rectangle ArenaSpawnRightPlayer { get; set; } = new Rectangle(-9024f, -11072f, -8608f, -10656f);
+	public static Rectangle ArenaRegion { get; set; } = new Rectangle(-11648f, -11648f, -8096f, -10112f);
 
 }

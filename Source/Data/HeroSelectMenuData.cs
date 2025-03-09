@@ -3,14 +3,11 @@ namespace Source.Data
 {
     public struct HeroSelectMenuData
     {
-        public HeroSelectMenuData(string heroId, string iconPath)
+        public string HeroId { get; set; }
+        public HeroSelectMenuData(string heroId)
         {
             HeroId = heroId;
-            IconPath = iconPath;
         }
-
-        public string HeroId { get;  set; }
-        public string IconPath { get; set; }
 
         public int GetTypeIdUnit ()
         {

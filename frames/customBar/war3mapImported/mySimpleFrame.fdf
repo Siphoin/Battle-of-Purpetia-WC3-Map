@@ -1,0 +1,6 @@
+Frame "SIMPLEFRAME" "CustomTexture"{
+    Width 0.04,
+    Height 0.04,
+    Texture "TargetTexture" {
+    }
+}

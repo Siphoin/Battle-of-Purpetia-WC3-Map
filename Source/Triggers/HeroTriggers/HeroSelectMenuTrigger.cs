@@ -1,5 +1,6 @@
 ﻿using Source.Data;
 using Source.Models;
+using Source.Triggers.ArenaTriggers.Triggers;
 using Source.Triggers.Base;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,10 @@ namespace Source.Triggers.HeroTriggers
     {
         private const float SCALE_ICON_HERO = 0.07f;
         private List<framehandle> _buttons = new List<framehandle>();
-        private int _countUsers;
-        private int _countSelectedUsers;
+        private static int _countUsers;
+        private static int _countSelectedUsers;
+
+        public static bool AllUsersSelectedHero => _countUsers == _countSelectedUsers;
 
         public HeroSelectMenuTrigger ()
         {
@@ -48,7 +51,8 @@ namespace Source.Triggers.HeroTriggers
                 var mainFrame = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0);
                 var button = BlzCreateFrame("ScoreScreenBottomButtonTemplate", mainFrame, 0, 0);
                 var icon = BlzGetFrameByName("ScoreScreenButtonBackdrop", 0);
-                BlzFrameSetTexture(icon, hero.IconPath, 0, true);
+                var iconHero = BlzGetAbilityIcon(FourCC(hero.HeroId));
+                BlzFrameSetTexture(icon, iconHero, 0, true);
                 BlzFrameSetSize(button, SCALE_ICON_HERO, SCALE_ICON_HERO);
                 BlzFrameSetPoint(button, framepointtype.Center, mainFrame, framepointtype.Center, 0.1f - i * 0.1f, 0f);
 
@@ -67,8 +71,10 @@ namespace Source.Triggers.HeroTriggers
                     BlzDestroyFrame(button);
                     _buttons.Remove(button);
 
-                    if (_countUsers == _countSelectedUsers)
+                    if (AllUsersSelectedHero)
                     {
+                        ArenaTrigger arenaTrigger = new();
+                        arenaTrigger.GetTrigger().Execute();
                         RemoveButtons();
                         TurnAI();
                     }
@@ -113,15 +119,17 @@ namespace Source.Triggers.HeroTriggers
                     var hero = heroes[indexHero];
                     HeroSpawnTrigger heroSpawnTrigger = new(p, hero.HeroId);
                     heroSpawnTrigger.GetTrigger().Execute();
-                    var t = CreateTimer();
-                    TimerStart(t, 0.3f, false, () =>
+                    var t2 = CreateTimer();
+                    TimerStart(t2, 0.3f, false, () =>
                     {
                         AIHeroTrigger aIHeroTrigger = new(heroSpawnTrigger.Hero);
                         aIHeroTrigger.GetTrigger().Execute();
-                        DestroyTimer(t);
+                        DestroyTimer(t2);
                     });
                     Console.WriteLine(p.Name);
                 }
+
+                var t = CreateTimer();
             }
             }
         }
