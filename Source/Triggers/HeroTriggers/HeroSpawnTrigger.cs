@@ -33,7 +33,7 @@ namespace Source.Triggers.HeroTriggers
                 BlzFrameSetVisible(originframetype.HeroButtonIndicator.GetOriginFrame(0), false);
                 PlayerHeroesList.Add(Hero);
 
-                if (Hero.Owner == player.LocalPlayer)
+                if (true)
                 {
                         GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
                         heroWidgetTrigger.GetTrigger().Execute();

@@ -68,7 +68,7 @@ namespace Source.Triggers.GUITriggers.Triggers
         private const string DEFAULT_PATH_TEXTURE_FULL_HEALTH = "hero_bar_fill_hitPoints.blp";
         private framehandle _hpBar;
         private framehandle _manaBar;
-        private framehandle _iconHero;
+        private framehandle _heroMainWidget;
         private framehandle _hpText;
         private framehandle _manaText;
         private float _lastHealth;
@@ -81,9 +81,11 @@ namespace Source.Triggers.GUITriggers.Triggers
 
 
         public unit Hero { get; private set; }
+        private const float SCALE_ICON_HERO = 0.035f;
 
         private float _offset;
         private timer _timerUpdate;
+        private framehandle _iconHero;
 
         public HeroWidget(unit hero, float offset)
         {
@@ -100,25 +102,30 @@ namespace Source.Triggers.GUITriggers.Triggers
             BlzLoadTOCFile("war3mapimported\\myBar.toc");
             _hpBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), Hero.Owner.Id); //Create Bar at createContext 1
             _manaBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), Hero.Owner.Id + 1); //createContext 2
-            _iconHero = BlzCreateSimpleFrame($"MyBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0),  Hero.Owner.Id + 2); //createContext 4, other names so would not be needed.
+            _heroMainWidget = BlzCreateSimpleFrame($"MyBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0),  Hero.Owner.Id + 2); //createContext 4, other names so would not be needed.
             _hpText = BlzGetFrameByName("MyBarExText", Hero.Owner.Id);
             _manaText = BlzGetFrameByName("MyBarExText", Hero.Owner.Id + 1);
 
-            BlzFrameSetAbsPoint(_hpBar, framepointtype.Top, -0.035f, 0.56f + _offset); // pos the bar
+            BlzFrameSetPoint(_hpBar, framepointtype.TopLeft, heroBar, framepointtype.TopLeft, 0.05f, -0.01f + _offset * 1.5f); // pos bar4 above bar
             BlzFrameSetSize(_hpBar, 0.1f, 0.01f); // pos the ba
-            BlzFrameSetPoint(_manaBar, framepointtype.Bottom, _hpBar, FRAMEPOINT_BOTTOM, 0f, -0.012f); // pos bar2 below bar
+            BlzFrameSetPoint(_manaBar, framepointtype.Bottom, _hpBar, FRAMEPOINT_BOTTOM, 0f, -0.017f); // pos bar2 below bar
             BlzFrameSetSize(_manaBar, 0.1f, 0.01f); // pos the ba
-            BlzFrameSetPoint(_iconHero, framepointtype.Top, _hpBar, FRAMEPOINT_TOP, 0.0f, 0.0f); // pos bar4 above bar
-            BlzFrameSetSize(_iconHero, 0.08f, 0.08f); //change the size of bar4
+            BlzFrameSetPoint(_heroMainWidget, framepointtype.TopLeft, heroBar, framepointtype.TopLeft, 0f, 0 + _offset * 1.5f); // pos bar4 above bar
+            BlzFrameSetSize(_heroMainWidget, SCALE_ICON_HERO, SCALE_ICON_HERO); //change the size of bar4
 
             BlzFrameSetTexture(_hpBar, DEFAULT_PATH_TEXTURE_FULL_HEALTH, 0, true); //change the BarTexture of bar to color red
             BlzFrameSetTexture(_manaBar, "hero_bar_fill_manaPoints.blp", 0, true); //color blue for bar2
-            BlzFrameSetTexture(_iconHero, "Replaceabletextures\\CommandButtons\\BTNHeroPaladin.blp", 0, true); //bar4 to Paladin-Face
-            BlzFrameSetAlpha(_iconHero, 0);
+            var iconHero = BlzGetAbilityIcon(GetUnitTypeId(Hero));
+            BlzFrameSetTexture(_heroMainWidget, iconHero, 0, false);
 
             BlzFrameSetText(BlzGetFrameByName("MyBarExText", Hero.Owner.Id), string.Empty);
             BlzFrameSetText(BlzGetFrameByName("MyBarExText", Hero.Owner.Id + 1), string.Empty);
-            BlzFrameSetValue(_iconHero, 100);
+            BlzFrameSetText(BlzGetFrameByName("MyBarText", Hero.Owner.Id + 2), string.Empty);
+            BlzFrameSetValue(_heroMainWidget, 100);
+            if (Hero.Owner == player.LocalPlayer)
+            {
+                BlzFrameSetAlpha(_heroMainWidget, 0);
+            }
 
 
             UpdateWidget();
@@ -131,12 +138,19 @@ namespace Source.Triggers.GUITriggers.Triggers
         {
             if (!Hero.Alive)
             {
-
+                if (Hero.Owner != player.LocalPlayer)
+                {
+                    BlzFrameSetAlpha(_heroMainWidget, 127);
+                }
                 BlzFrameSetText(_hpText, "Мертв");
                 BlzFrameSetText(_manaText, "Мертв");
                 BlzFrameSetValue(_hpBar, 0);
                 BlzFrameSetValue(_manaBar, 0);
                 return;
+            }
+            if (Hero.Owner != player.LocalPlayer)
+            {
+                BlzFrameSetAlpha(_heroMainWidget, 255);
             }
             if (_lastHealth == Hero.Life && _lastMana == Hero.Mana)
             {
@@ -186,7 +200,7 @@ namespace Source.Triggers.GUITriggers.Triggers
         public void Destroy ()
         {
             DestroyTimer(_timerUpdate);
-            BlzDestroyFrame(_iconHero);
+            BlzDestroyFrame(_heroMainWidget);
             BlzDestroyFrame(_hpBar);
             BlzDestroyFrame (_manaBar);
         }

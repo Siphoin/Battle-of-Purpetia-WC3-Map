@@ -48,7 +48,8 @@ namespace Source.Triggers.HeroTriggers
                 var mainFrame = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0);
                 var button = BlzCreateFrame("ScoreScreenBottomButtonTemplate", mainFrame, 0, 0);
                 var icon = BlzGetFrameByName("ScoreScreenButtonBackdrop", 0);
-                BlzFrameSetTexture(icon, hero.IconPath, 0, true);
+                var iconHero = BlzGetAbilityIcon(FourCC(hero.HeroId));
+                BlzFrameSetTexture(icon, iconHero, 0, true);
                 BlzFrameSetSize(button, SCALE_ICON_HERO, SCALE_ICON_HERO);
                 BlzFrameSetPoint(button, framepointtype.Center, mainFrame, framepointtype.Center, 0.1f - i * 0.1f, 0f);
 
