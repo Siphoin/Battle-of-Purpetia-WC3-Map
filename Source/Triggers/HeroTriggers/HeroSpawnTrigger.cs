@@ -38,6 +38,8 @@ namespace Source.Triggers.HeroTriggers
                     GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
                     heroWidgetTrigger.GetTrigger().Execute();
                 }
+
+                Hero.HeroName = Hero.Owner.Name;
             });
 
             return newTrigger;

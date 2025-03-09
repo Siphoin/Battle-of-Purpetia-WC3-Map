@@ -97,8 +97,8 @@ namespace Source.Triggers.HeroTriggers
 
                     LearnSpell();
 
-
-
+                    Hero.Owner.Name = NickNameGenerator.GenerateNickName();
+                    Hero.HeroName = Hero.Owner.Name;
                     FindFountainsLifes();
 
                     
