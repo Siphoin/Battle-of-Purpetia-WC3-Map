@@ -39,11 +39,6 @@ STRING 8
 Player 2
 }
 
-STRING 11
-{
-Player 12
-}
-
 STRING 13
 // Units: H000 (Мечник), Name (Name)
 {
@@ -195,12 +190,6 @@ STRING 38
 Висп
 }
 
-STRING 39
-// Doodads: D005 (Оранж), Name (Name)
-{
-Оранж
-}
-
 STRING 40
 // Doodads: D006 (Хижина мурлоков 1), Name (Name)
 {
@@ -307,5 +296,28 @@ STRING 57
 // Doodads: D00M (Лодка), Name (Name)
 {
 Лодка
+}
+
+STRING 58
+// Doodads: D005 (Лагерь наймитов), Name (Name)
+{
+Лагерь наймитов
+}
+
+STRING 59
+// Doodads: D00N (Грибы оранж), Name (Name)
+{
+Грибы оранж
+}
+
+STRING 60
+// Doodads: D00O (Казармы орков), Name (Name)
+{
+Казармы орков
+}
+
+STRING 61
+{
+Враждебные монстры
 }
 

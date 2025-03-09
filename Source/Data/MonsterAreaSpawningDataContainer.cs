@@ -64,6 +64,66 @@ namespace Source.Data
                     Level = 8
                 },
 
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"nchg", 15 },
+                        {"nchw", 7 },
+                        {"nchr", 5 },
+
+
+                    },
+                    Region = Regions.RegionFelOrcsSpawn,
+                    Level = 3
+                },
+
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"ngh1", 5 },
+                        {"ngh2", 5 },
+
+
+                    },
+                    Region = Regions.RegionGhostsSpawn,
+                    Level = 2
+                },
+
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"ngno", 7 },
+                        {"ngnw", 2 },
+                        {"ngnv", 3 },
+                        {"ngnb", 1 },
+
+
+                    },
+                    Region = Regions.RegionGnollSpawn,
+                    Level = 3
+                },
+
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"nban", 2 },
+                        {"nbrg", 2 },
+                        {"nrog", 1 },
+                        {"nass", 2 },
+                        {"nenf", 3 },
+                        {"nwiz", 2 },
+                        {"nwzr", 1 },
+
+
+                    },
+                    Region = Regions.RegionBanditsSpawn,
+                    Level = 4
+                },
+
             };
 
             return data;
