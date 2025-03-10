@@ -126,10 +126,6 @@ namespace Source.Triggers.GUITriggers.Triggers
             BlzFrameSetText(BlzGetFrameByName("MyBarExText", Hero.Owner.Id + 1), string.Empty);
             BlzFrameSetText(BlzGetFrameByName("MyBarText", Hero.Owner.Id + 2), string.Empty);
             BlzFrameSetValue(_heroMainWidget, 100);
-            if (Hero.Owner == player.LocalPlayer)
-            {
-                BlzFrameSetAlpha(_heroMainWidget, 0);
-            }
 
 
             UpdateWidget();

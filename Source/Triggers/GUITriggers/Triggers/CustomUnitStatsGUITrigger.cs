@@ -10,8 +10,11 @@ namespace Source.Triggers.GUITriggers.Triggers
     {
         private framehandle _hpBar;
         private framehandle _manaBar;
+        private framehandle _xpHeroBar;
+        private framehandle _xpHeroBarText;
         private framehandle _hpText;
         private framehandle _manaText;
+        private framehandle _textNameUnit;
         private unit _target;
         private PeriodcUpdateStatsUnit _updateStatsUnit;
         public static PeriodicTrigger<PeriodcUpdateStatsUnit> _periodicTrigger;
@@ -32,6 +35,10 @@ namespace Source.Triggers.GUITriggers.Triggers
                 var unit = GetTriggerUnit();
                 if (unit != null)
                 {
+                    if (_target != null)
+                    {
+                        PlayerUnitEvents.Unregister(UnitEvent.Dies, OnUnitDie, _target);
+                    }
                     ShowStats(unit);
                     HandlingUnit(unit);
                 }
@@ -44,13 +51,10 @@ namespace Source.Triggers.GUITriggers.Triggers
         {
             _target = unit;
             PlayerUnitEvents.Register(UnitEvent.Dies, OnUnitDie, _target);
-            _updateStatsUnit.Active = true;
         }
 
         private void OnUnitDie()
         {
-            _updateStatsUnit.Active = false;
-            _updateStatsUnit = null;
             PlayerUnitEvents.Unregister(UnitEvent.Dies, OnUnitDie, _target);
             Hide();
         }
@@ -70,8 +74,17 @@ namespace Source.Triggers.GUITriggers.Triggers
                 _manaBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 101); //createContext 2
                 BlzFrameSetPoint(_manaBar, framepointtype.Bottom, _hpBar, FRAMEPOINT_BOTTOM, 0f, -0.017f); // pos bar2 below bar
                 BlzFrameSetSize(_manaBar, 0.13f, 0.015f); // pos the ba
+                BlzFrameSetTexture(_manaBar, "hero_bar_fill_manaPoints.blp", 0, true); //color blue for bar2
+                _xpHeroBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 102); //createContext 2
+                BlzFrameSetPoint(_xpHeroBar, framepointtype.Top, _hpBar, FRAMEPOINT_TOP, 0.01f, 0.038f); // pos bar2 below bar
+                BlzFrameSetSize(_xpHeroBar, 0.35f, 0.01f); // pos the ba
+                BlzFrameSetTexture(_xpHeroBar, "hero_bar_fill_manaPoints.blp", 0, true); //color blue for bar2
                 _hpText = BlzGetFrameByName("MyBarExText", 100);
                 _manaText = BlzGetFrameByName("MyBarExText", 101);
+                _xpHeroBarText = BlzGetFrameByName("MyBarExText", 102);
+                _textNameUnit = BlzCreateFrameByType("TEXT", "MyTextFrame", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0);
+                BlzFrameSetPoint(_textNameUnit, FRAMEPOINT_CENTER, _portail, FRAMEPOINT_CENTER, 0.045f, 0.025f);
+                BlzFrameSetScale(_textNameUnit, 1.5f);
                 BlzFrameSetText(_hpText, $"{unit.Life:F0}/{unit.MaxLife:F0}");
                 BlzFrameSetText(_manaText, $"{unit.Mana:F0}/{unit.MaxMana:F0}");
                 BlzFrameSetParent(_hpText, _hpBar);
@@ -79,24 +92,22 @@ namespace Source.Triggers.GUITriggers.Triggers
                 BlzFrameSetParent(_manaBar, _portail);
                 BlzFrameSetParent(_manaText, _manaBar);
                 _isCreated = true;
-            }
 
-
-            if (_updateStatsUnit is null)
-            {
                 _periodicTrigger = new(0.03f);
                 _updateStatsUnit = new PeriodcUpdateStatsUnit(_target, ShowStats);
 
                 _periodicTrigger.Add(_updateStatsUnit);
             }
-
-            else
-            {
-                _updateStatsUnit.Target = _target;
-            }
             _target = unit;
             BlzFrameSetVisible(_hpBar, true);
+            if (_target.Owner == player.NeutralPassive && _target.IsInvulnerable)
+            {
+                BlzFrameSetVisible(_hpBar, false);
+            }
             BlzFrameSetVisible(_manaBar, _target.MaxMana > 0);
+            BlzFrameSetVisible(_textNameUnit, true);
+            BlzFrameSetVisible(_xpHeroBar, !string.IsNullOrEmpty(_target.HeroName) && _target.Owner == player.LocalPlayer);
+            BlzFrameSetText(_textNameUnit, !string.IsNullOrEmpty(_target.HeroName) ? _target.HeroName : _target.Name);
             ShowStats();
         }
 
@@ -139,11 +150,22 @@ namespace Source.Triggers.GUITriggers.Triggers
                 }
 
                 BlzFrameSetTexture(_hpBar, targetTextureHealth, 0, true); //change the BarTexture of bar to color red
+
+                if (!string.IsNullOrEmpty(_target.HeroName))
+                {
+                    var currentHeroXP = GetHeroXP(_target);
+                    var requireXPCount = MapConfig.NEED_HERO_XP * _target.HeroLevel;
+                    float XPpercent = (float)currentHeroXP / (float)requireXPCount  * 100;
+
+                    BlzFrameSetText(_xpHeroBarText, $"{currentHeroXP:F0} / {requireXPCount:F0}");
+
+                    BlzFrameSetValue(_xpHeroBar, XPpercent);
+                }
             }
 
             if (_target.IsInvisibleTo(player.LocalPlayer))
             {
-                Console.WriteLine(432323);
+                
                 Hide();
             }
         }
@@ -152,7 +174,8 @@ namespace Source.Triggers.GUITriggers.Triggers
         {
             BlzFrameSetVisible(_hpBar, false);
             BlzFrameSetVisible(_manaBar, false);
-            _updateStatsUnit.Active = false;
+            BlzFrameSetVisible(_textNameUnit, false);
+            BlzFrameSetVisible(_xpHeroBar, false);
         }
 
     }
