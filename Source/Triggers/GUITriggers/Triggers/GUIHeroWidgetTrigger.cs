@@ -1,4 +1,5 @@
-﻿using Source.Triggers.Base;
+﻿using Source.Models;
+using Source.Triggers.Base;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -69,7 +70,6 @@ namespace Source.Triggers.GUITriggers.Triggers
     public class HeroWidget
     {
         private const float TIME_UPDATE = 0.47f;
-        private const string DEFAULT_PATH_TEXTURE_FULL_HEALTH = "hero_bar_fill_hitPoints.blp";
         private framehandle _hpBar;
         private framehandle _manaBar;
         private framehandle _heroMainWidget;
@@ -117,7 +117,7 @@ namespace Source.Triggers.GUITriggers.Triggers
             BlzFrameSetPoint(_heroMainWidget, framepointtype.TopLeft, heroBar, framepointtype.TopLeft, 0f, 0 + _offset * 1.5f); // pos bar4 above bar
             BlzFrameSetSize(_heroMainWidget, SCALE_ICON_HERO, SCALE_ICON_HERO); //change the size of bar4
 
-            BlzFrameSetTexture(_hpBar, DEFAULT_PATH_TEXTURE_FULL_HEALTH, 0, true); //change the BarTexture of bar to color red
+            BlzFrameSetTexture(_hpBar, MapConfig.DEFAULT_PATH_TEXTURE_FULL_HEALTH, 0, true); //change the BarTexture of bar to color red
             BlzFrameSetTexture(_manaBar, "hero_bar_fill_manaPoints.blp", 0, true); //color blue for bar2
             var iconHero = BlzGetAbilityIcon(GetUnitTypeId(Hero));
             BlzFrameSetTexture(_heroMainWidget, iconHero, 0, false);
@@ -169,11 +169,12 @@ namespace Source.Triggers.GUITriggers.Triggers
             BlzFrameSetText(_hpText, $"{Hero.Life:F0}/{Hero.MaxLife:F0}");
             BlzFrameSetText(_manaText, $"{Hero.Mana:F0}/{Hero.MaxMana:F0}");
 
-            string targetTextureHealth = DEFAULT_PATH_TEXTURE_FULL_HEALTH;
+            string targetTextureHealth = MapConfig.DEFAULT_PATH_TEXTURE_FULL_HEALTH;
 
             if (Hero.Life <= _divideValueHealth)
             {
                 targetTextureHealth = "hero_bar_fill_hitPoints_divide.blp";
+
             }
 
             if (Hero.Life <= 50)
