@@ -14,12 +14,6 @@ gg_rct_ArenaRegion = nil
 function InitGlobals()
 end
 
-function CreateAllItems()
-local itemID
-
-BlzCreateItemWithSkin(FourCC("ciri"), -880.4, -277.3, FourCC("ciri"))
-end
-
 function CreateNeutralPassiveBuildings()
 local p = Player(PLAYER_NEUTRAL_PASSIVE)
 local u
@@ -172,7 +166,6 @@ SetAmbientDaySound("CityScapeDay")
 SetAmbientNightSound("CityScapeNight")
 SetMapMusic("Music", true, 0)
 CreateRegions()
-CreateAllItems()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()

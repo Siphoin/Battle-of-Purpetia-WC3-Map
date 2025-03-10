@@ -15,6 +15,11 @@ namespace Source.Triggers.GUITriggers.Triggers
         private framehandle _hpText;
         private framehandle _manaText;
         private framehandle _textNameUnit;
+        private framehandle _pictogramAttack1;
+        private framehandle _iconAttack1;
+        private framehandle _iconAttackText2;
+        private framehandle _iconArmor;
+        private framehandle _iconArmorText;
         private unit _target;
         private PeriodcUpdateStatsUnit _updateStatsUnit;
         public static PeriodicTrigger<PeriodcUpdateStatsUnit> _periodicTrigger;
@@ -24,6 +29,8 @@ namespace Source.Triggers.GUITriggers.Triggers
         private object _lastHealth;
         private object _lastMana;
         private framehandle _portail;
+
+        private const float SCALE_ICON_ATTACK = 0.03f;
 
         public override trigger GetTrigger()
         {
@@ -61,9 +68,10 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         private void ShowStats(unit unit)
         {
+            _target = unit;
             if (!_isCreated)
             {
-               
+
 
                 _portail = BlzGetOriginFrame(originframetype.Portrait, 0);
                 BlzLoadTOCFile("war3mapimported\\myBar.toc");
@@ -98,7 +106,6 @@ namespace Source.Triggers.GUITriggers.Triggers
 
                 _periodicTrigger.Add(_updateStatsUnit);
             }
-            _target = unit;
             BlzFrameSetVisible(_hpBar, true);
             if (_target.Owner == player.NeutralPassive && _target.IsInvulnerable)
             {
@@ -108,7 +115,60 @@ namespace Source.Triggers.GUITriggers.Triggers
             BlzFrameSetVisible(_textNameUnit, true);
             BlzFrameSetVisible(_xpHeroBar, !string.IsNullOrEmpty(_target.HeroName) && _target.Owner == player.LocalPlayer);
             BlzFrameSetText(_textNameUnit, !string.IsNullOrEmpty(_target.HeroName) ? _target.HeroName : _target.Name);
+            ShowAttack1();
             ShowStats();
+        }
+
+        private void ShowAttack1()
+        {
+            if (_pictogramAttack1 == null)
+            {
+                _pictogramAttack1 = BlzCreateFrame("ScoreScreenBottomButtonTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 100);
+                _iconAttack1 = BlzGetFrameByName("ScoreScreenButtonBackdrop", 100);
+                BlzFrameSetSize(_pictogramAttack1, SCALE_ICON_ATTACK, SCALE_ICON_ATTACK);
+                BlzFrameSetEnable(_pictogramAttack1, false);
+                BlzFrameSetPoint(_iconAttack1, framepointtype.Center, _hpBar, framepointtype.Center, 0f, 0f);
+            }
+            var attackType = _target.AttackAttackType1;
+            BlzFrameSetTexture(_iconAttack1, GetIconWithAttackType(0), 0, true);
+        }
+
+        private string GetIconWithAttackType (int index)
+        {
+            attacktype attacktype = ConvertAttackType(_target.AttackAttackType1);
+            string path = "ReplaceableTextures/CommandButtons/BTNAttack";
+
+            if (attacktype == attacktype.Normal)
+            {
+                path += ".blp";
+            }
+
+            else if (attacktype == attacktype.Hero)
+            {
+                path += "Hero.blp";
+            }
+
+            else if (attacktype == attacktype.Chaos)
+            {
+                path += "Chaos.blp";
+            }
+
+            else if (attacktype == attacktype.Pierce)
+            {
+                path += "Pierce.blp";
+            }
+
+            else if (attacktype == attacktype.Siege)
+            {
+                path += "Siege.blp";
+            }
+
+            else if (attacktype == attacktype.Magic)
+            {
+                path += "Magic.blp";
+            }
+            Console.WriteLine(path);
+            return path;
         }
 
         private void ShowStats()
@@ -153,12 +213,19 @@ namespace Source.Triggers.GUITriggers.Triggers
 
                 if (!string.IsNullOrEmpty(_target.HeroName))
                 {
+                    // Получаем текущий опыт героя
                     var currentHeroXP = GetHeroXP(_target);
-                    var requireXPCount = MapConfig.NEED_HERO_XP * _target.HeroLevel;
-                    float XPpercent = (float)currentHeroXP / (float)requireXPCount  * 100;
 
+                    // Рассчитываем требуемый опыт для текущего уровня героя
+                    float requireXPCount = MapConfig.CalculateRequiredXP(_target.HeroLevel);
+
+                    // Рассчитываем процент опыта
+                    float XPpercent = currentHeroXP / requireXPCount * 100;
+
+                    // Обновляем текстовое поле с опытом
                     BlzFrameSetText(_xpHeroBarText, $"{currentHeroXP:F0} / {requireXPCount:F0}");
 
+                    // Обновляем значение прогресс-бара
                     BlzFrameSetValue(_xpHeroBar, XPpercent);
                 }
             }

@@ -103,6 +103,7 @@ namespace Source.Triggers.HeroTriggers
             enterTownTrigger.AddAction(() =>
             {
                 _onTown = true;
+                _coomandsEnabled = true;
             });
 
             trigger exitTownTrigger = trigger.Create();
@@ -112,6 +113,7 @@ namespace Source.Triggers.HeroTriggers
             exitTownTrigger.AddAction(() =>
             {
                 _onTown = false;
+                _coomandsEnabled = true;
             });
 
             trigger enterArenaTrigger = trigger.Create();
