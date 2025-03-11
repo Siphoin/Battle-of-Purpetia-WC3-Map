@@ -1,6 +1,7 @@
 ﻿using Source.Triggers.ArenaTriggers.Categories;
 using Source.Triggers.Base;
 using Source.Triggers.CameraTriggers.Categories;
+using Source.Triggers.DungeonsTriggers.Categories;
 using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
@@ -57,6 +58,7 @@ namespace Source
 				new MonsterTriggersCategory(),
 				new TownTriggersCategory(),
 				new ArenaTriggersCategory(),
+				new DungeonTriggersCategory(),
 			};
 
 			foreach (var category in categories)

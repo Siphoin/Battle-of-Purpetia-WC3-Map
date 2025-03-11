@@ -5,7 +5,9 @@ namespace Source.Models
     public static class MapConfig
     {
         public static player MonsterPlayer => Player(11);
+        public static player DungeonPlayer => Player(12);
         public static float DelayRespawnMonster => 15;
+        public static float DelayRespawnDungeon => 360;
         public const string DEFAULT_PATH_TEXTURE_FULL_HEALTH = "hero_bar_fill_hitPoints.blp";
         public const float NeedHeroXPFormulaA = 1;
         public const float NeedHeroXPFormulaB = 100;

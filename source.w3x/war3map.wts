@@ -487,3 +487,18 @@ STRING 92
 (Закжаж Лидер)
 }
 
+STRING 93
+{
+|cff00ffffКвесты|n|r
+}
+
+STRING 94
+{
+|cffffff00Босс|r
+}
+
+STRING 95
+{
+Темное существо
+}
+

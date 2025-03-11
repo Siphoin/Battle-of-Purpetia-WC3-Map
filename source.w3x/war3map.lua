@@ -29,6 +29,17 @@ gg_rct_Dungeon1RegionGuards11 = nil
 function InitGlobals()
 end
 
+function CreateUnitsForPlayer0()
+local p = Player(0)
+local u
+local unitID
+local t
+local life
+
+u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -2692.9, -12472.8, 80.310, FourCC("Hpal"))
+SetHeroLevel(u, 11, false)
+end
+
 function CreateUnitsForPlayer12()
 local p = Player(12)
 local u
@@ -37,7 +48,6 @@ local t
 local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("U000"), 8207.5, -10657.4, 179.817, FourCC("U000"))
-SetUnitState(u, UNIT_STATE_MANA, 0)
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("U001"), 4040.4, -10388.3, 198.640, FourCC("U001"))
 SetHeroLevel(u, 11, false)
@@ -46,7 +56,6 @@ SetHeroAgi(u, 30, true)
 SetHeroInt(u, 95, true)
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u002"), 10987.6, -6518.1, 271.626, FourCC("u002"))
-SetUnitState(u, UNIT_STATE_MANA, 0)
 SetUnitColor(u, ConvertPlayerColor(5))
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 956.7, -13543.8, 191.017, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
@@ -328,12 +337,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10718.1, -6744.0, 355.134, FourCC("
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2487.4, -13473.5, 150.528, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2559.5, -13715.8, 124.041, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2276.0, -13516.5, 156.435, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2340.5, -13777.1, 135.502, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1546.0, -12368.6, 165.546, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1436.5, -12555.1, 153.358, FourCC("u004"))
@@ -380,6 +383,7 @@ function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
+CreateUnitsForPlayer0()
 CreateUnitsForPlayer12()
 end
 

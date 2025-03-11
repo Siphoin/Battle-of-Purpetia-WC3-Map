@@ -1,0 +1,7 @@
+[Categories]
+GiantClass=TRIGSTR_094
+UndeadClass=TRIGSTR_095
+
+[FrameDef]
+QUESTS=TRIGSTR_093
+
