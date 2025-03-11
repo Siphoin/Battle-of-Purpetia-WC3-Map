@@ -12,6 +12,7 @@ namespace Source.Models
         public const float NeedHeroXPFormulaA = 1;
         public const float NeedHeroXPFormulaB = 100;
         public const float NeedHeroXPFormulaC = 0;
+        public const float DefaultAcquireRange = 200;
 
         public static float CalculateRequiredXP(int level)
         {

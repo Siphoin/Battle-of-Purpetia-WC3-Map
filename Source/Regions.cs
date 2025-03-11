@@ -33,5 +33,15 @@ public static class Regions
 	public static Rectangle Dungeon1RegionGuards9 { get; set; } = new Rectangle(8224f, -13472f, 9120f, -12576f);
 	public static Rectangle Dungeon1RegionGuards10 { get; set; } = new Rectangle(9504f, -11584f, 10560f, -10688f);
 	public static Rectangle Dungeon1RegionGuards11 { get; set; } = new Rectangle(10432f, -9152f, 11328f, -8160f);
+	public static Rectangle Dungeon1RegionGate1 { get; set; } = new Rectangle(-416f, -14208f, 96f, -13152f);
+	public static Rectangle Dungeon1RegionGate2 { get; set; } = new Rectangle(2336f, -11008f, 3040f, -10368f);
+	public static Rectangle Dungeon1RegionGate3 { get; set; } = new Rectangle(3552f, -12000f, 4576f, -11392f);
+	public static Rectangle Dungeon1RegionGate4 { get; set; } = new Rectangle(4448f, -10816f, 4768f, -9952f);
+	public static Rectangle Dungeon1RegionGate5 { get; set; } = new Rectangle(5792f, -13088f, 6848f, -12704f);
+	public static Rectangle Dungeon1RegionGate6 { get; set; } = new Rectangle(5760f, -10880f, 6080f, -10016f);
+	public static Rectangle Dungeon1RegionGate7 { get; set; } = new Rectangle(7456f, -12672f, 8352f, -11712f);
+	public static Rectangle Dungeon1RegionGate8 { get; set; } = new Rectangle(9536f, -12192f, 10752f, -11808f);
+	public static Rectangle Dungeon1RegionGate9 { get; set; } = new Rectangle(10080f, -9792f, 10848f, -9088f);
+	public static Rectangle Dungeon1BossRegionFinalBoss { get; set; } = new Rectangle(10848f, -6656f, 11200f, -6368f);
 
 }

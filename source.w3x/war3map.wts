@@ -373,12 +373,6 @@ STRING 73
 Force 2
 }
 
-STRING 74
-// Units: u002 (Луи), Name (Name)
-{
-Луи
-}
-
 STRING 75
 // Units: u004 (Яростный вурдалак), Name (Name)
 {
@@ -500,5 +494,17 @@ STRING 94
 STRING 95
 {
 Темное существо
+}
+
+STRING 96
+// Units: U002 (Луис), Name (Name)
+{
+Луис
+}
+
+STRING 97
+// Units: U002 (Луис), Propernames (Proper Names)
+{
+Луис
 }
 

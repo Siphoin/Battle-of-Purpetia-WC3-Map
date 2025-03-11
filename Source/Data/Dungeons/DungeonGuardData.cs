@@ -1,4 +1,6 @@
-﻿namespace Source.Data.Dungeons
+﻿using WCSharp.Api;
+
+namespace Source.Data.Dungeons
 {
     public struct DungeonGuardData
     {
@@ -6,5 +8,13 @@
         public float Face {  get; set; }
         public float X {  get; set; }
         public float Y { get; set; }
+
+        public DungeonGuardData (unit unit)
+        {
+            X = unit.X;
+            Y = unit.Y;
+            Face = unit.Facing;
+            IDGuard = unit.UnitType;
+        }
     }
 }

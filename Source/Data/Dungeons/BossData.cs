@@ -5,7 +5,7 @@ namespace Source.Data.Dungeons
 {
     public struct BossData
     {
-        public unit Hero {  get; set; }
+        public unit Boss {  get; set; }
         public int Face { get; set; }
         public int X { get; set; }
         public int Y { get; set; }

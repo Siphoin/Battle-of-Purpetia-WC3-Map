@@ -7,9 +7,9 @@ namespace Source.Data.Dungeons
     public class DungeonData
     {
         public Dictionary<group, List<DungeonGuardData>> Guards { get; set; }
-        public Dictionary<Rectangle, List<BossData>> Bosses { get; set; }
+        public Dictionary<Rectangle, BossData> Bosses { get; set; }
         public unit FinalBoss {  get; set; }
-        public Dictionary<Rectangle, destructable> Gates { get; set; }
+        public Dictionary<group, destructable> Gates { get; set; }
 
         public DungeonData()
         {

@@ -26,6 +26,16 @@ gg_rct_Dungeon1RegionGuards8 = nil
 gg_rct_Dungeon1RegionGuards9 = nil
 gg_rct_Dungeon1RegionGuards10 = nil
 gg_rct_Dungeon1RegionGuards11 = nil
+gg_rct_Dungeon1RegionGate1 = nil
+gg_rct_Dungeon1RegionGate2 = nil
+gg_rct_Dungeon1RegionGate3 = nil
+gg_rct_Dungeon1RegionGate4 = nil
+gg_rct_Dungeon1RegionGate5 = nil
+gg_rct_Dungeon1RegionGate6 = nil
+gg_rct_Dungeon1RegionGate7 = nil
+gg_rct_Dungeon1RegionGate8 = nil
+gg_rct_Dungeon1RegionGate9 = nil
+gg_rct_Dungeon1BossRegionFinalBoss = nil
 function InitGlobals()
 end
 
@@ -37,7 +47,7 @@ local t
 local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -2692.9, -12472.8, 80.310, FourCC("Hpal"))
-SetHeroLevel(u, 11, false)
+SetHeroLevel(u, 15, false)
 end
 
 function CreateUnitsForPlayer12()
@@ -55,8 +65,13 @@ SetHeroStr(u, 51, true)
 SetHeroAgi(u, 30, true)
 SetHeroInt(u, 95, true)
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u002"), 10987.6, -6518.1, 271.626, FourCC("u002"))
+u = BlzCreateUnitWithSkin(p, FourCC("U002"), 11030.8, -6447.2, 245.680, FourCC("U002"))
+SetHeroLevel(u, 17, false)
+SetHeroStr(u, 102, true)
+SetHeroAgi(u, 20, true)
+SetHeroInt(u, 67, true)
 SetUnitColor(u, ConvertPlayerColor(5))
+SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 956.7, -13543.8, 191.017, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 961.3, -13700.0, 176.302, FourCC("u004"))
@@ -323,7 +338,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("u003"), 10974.5, -8303.5, 247.298, FourCC("
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u003"), 11173.8, -8381.1, 232.356, FourCC("u003"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10859.3, -6669.1, 323.410, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10742.2, -6616.5, 323.410, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10829.5, -6835.0, 22.701, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
@@ -336,6 +351,12 @@ SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10718.1, -6744.0, 355.134, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2487.4, -13473.5, 150.528, FourCC("u004"))
+SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2559.5, -13715.8, 124.041, FourCC("u004"))
+SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2276.0, -13516.5, 156.435, FourCC("u004"))
+SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2340.5, -13777.1, 135.502, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1546.0, -12368.6, 165.546, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
@@ -425,6 +446,16 @@ gg_rct_Dungeon1RegionGuards8 = Rect(6016.0, -12672.0, 6912.0, -11776.0)
 gg_rct_Dungeon1RegionGuards9 = Rect(8224.0, -13472.0, 9120.0, -12576.0)
 gg_rct_Dungeon1RegionGuards10 = Rect(9504.0, -11584.0, 10560.0, -10688.0)
 gg_rct_Dungeon1RegionGuards11 = Rect(10432.0, -9152.0, 11328.0, -8160.0)
+gg_rct_Dungeon1RegionGate1 = Rect(-416.0, -14208.0, 96.0, -13152.0)
+gg_rct_Dungeon1RegionGate2 = Rect(2336.0, -11008.0, 3040.0, -10368.0)
+gg_rct_Dungeon1RegionGate3 = Rect(3552.0, -12000.0, 4576.0, -11392.0)
+gg_rct_Dungeon1RegionGate4 = Rect(4448.0, -10816.0, 4768.0, -9952.0)
+gg_rct_Dungeon1RegionGate5 = Rect(5792.0, -13088.0, 6848.0, -12704.0)
+gg_rct_Dungeon1RegionGate6 = Rect(5760.0, -10880.0, 6080.0, -10016.0)
+gg_rct_Dungeon1RegionGate7 = Rect(7456.0, -12672.0, 8352.0, -11712.0)
+gg_rct_Dungeon1RegionGate8 = Rect(9536.0, -12192.0, 10752.0, -11808.0)
+gg_rct_Dungeon1RegionGate9 = Rect(10080.0, -9792.0, 10848.0, -9088.0)
+gg_rct_Dungeon1BossRegionFinalBoss = Rect(10848.0, -6656.0, 11200.0, -6368.0)
 end
 
 function InitCustomPlayerSlots()

@@ -9,8 +9,8 @@ namespace Source.Triggers.DungeonsTriggers.Categories
         protected override IEnumerable<TriggerInstance> GetAllTriggers()
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
-            Dungeon1 dungeon1 = new();
-            triggers.Add(dungeon1);
+            ReaniCemetery reanicemetery = new();
+            triggers.Add(reanicemetery);
             return triggers;
         }
     }
