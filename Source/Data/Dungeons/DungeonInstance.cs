@@ -13,27 +13,41 @@ namespace Source.Data.Dungeons
 {
     public abstract class DungeonInstance : TriggerInstance
     {
-        private DungeonData _data;
+        private List<destructable> _walls = new();
+
+        protected DungeonData Data { get; set; }
+
+        private int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
+        private int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
 
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
+
+        protected virtual void SetupGates()
+        {
+#if DEBUG
+            Console.WriteLine($"dungeon setup gates: {Data.Stages.Count}");
+#endif
+        }
         protected abstract string GetDungeonName();
         protected abstract Rectangle GetRegionFinallBoss();
 
         public DungeonData GetDungeonData()
         {
-            if (_data is null)
+            if (Data is null)
             {
-                _data = new();
+                Data = new();
 
                 SetupGuards();
                 SetupMiniBosses();
                 SetupFinalBoss();
+                SetupGates();
             }
 
-            return _data;
+            return Data;
 
         }
+        
 
         private void SetupFinalBoss()
         {
@@ -45,15 +59,15 @@ namespace Source.Data.Dungeons
             {
                 if (!string.IsNullOrEmpty(unit.HeroName))
                 {
-                    _data.FinalBoss = unit;
+                    Data.FinalBoss = unit;
                     break;
                 }
             }
 
             DestroyGroup(group);
-            PlayerUnitEvents.Register(UnitEvent.Dies, RestoreDungeon, _data.FinalBoss);
+            PlayerUnitEvents.Register(UnitEvent.Dies, RestoreDungeon, Data.FinalBoss);
 #if DEBUG
-            Console.WriteLine($"dungeon setup final boss: {_data.FinalBoss.Name}");
+            Console.WriteLine($"dungeon setup final boss: {Data.FinalBoss.Name}");
 #endif
 
 
@@ -93,7 +107,7 @@ namespace Source.Data.Dungeons
                 }
 
                 bossData.Guards = guards;
-                _data.Bosses.Add(region, bossData);
+                Data.Bosses.Add(region, bossData);
 
             }
 
@@ -128,7 +142,7 @@ namespace Source.Data.Dungeons
 
 
                 }
-                _data.Guards.Add(group, guards);
+                Data.Guards.Add(group, guards);
 
             }
 
@@ -139,7 +153,7 @@ namespace Source.Data.Dungeons
 
         private void RestoreGuards()
         {
-            foreach (var guardsData in _data.Guards)
+            foreach (var guardsData in Data.Guards)
             {
                 var group = guardsData.Key;
                 var guards = guardsData.Value.ToList();
@@ -168,6 +182,57 @@ namespace Source.Data.Dungeons
                 GetDungeonData();
             });
             return trigger;
+        }
+        protected void ListenStage(group group, Rectangle stage)
+        {
+            foreach (var unit in group.ToList())
+            {
+                PlayerUnitEvents.Register(UnitEvent.Dies, CheckGroupGateStatus, unit);
+            }
+            Data.Stages.Add(group, stage);
+
+#if DEBUG
+            Console.WriteLine("LISTEN GATE");
+#endif
+        }
+
+        private void CheckGroupGateStatus()
+        {
+            bool isRemoving = false;
+            group targetGroup = null;
+            Rectangle targetStage = null;
+            var unit = GetTriggerUnit();
+            PlayerUnitEvents.Unregister(UnitEvent.Dies, CheckGroupGateStatus, unit);
+            foreach (var gateData in Data.Stages)
+            {
+                group group = gateData.Key;
+                var gate = gateData.Value;
+
+                if (group.Contains(unit))
+                {
+                    if (group.ToList().All(x => !x.Alive))
+                    {
+#if DEBUG
+                        isRemoving = true;
+                        targetGroup = group;
+                        targetStage = gate;
+#endif
+                        break;
+                    }
+                }
+            }
+
+            if (isRemoving)
+            {
+                EnumDestructablesInRect(targetStage.Rect, null, () =>
+                {
+                    if (GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_1 || GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_2)
+                    {
+                        GetEnumDestructable().Kill();
+                        _walls.Add(GetEnumDestructable());
+                    }
+                });
+            }
         }
 
         #region Events

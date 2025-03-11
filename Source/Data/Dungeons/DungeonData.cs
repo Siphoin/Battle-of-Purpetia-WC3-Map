@@ -9,13 +9,13 @@ namespace Source.Data.Dungeons
         public Dictionary<group, List<DungeonGuardData>> Guards { get; set; }
         public Dictionary<Rectangle, BossData> Bosses { get; set; }
         public unit FinalBoss {  get; set; }
-        public Dictionary<group, destructable> Gates { get; set; }
+        public Dictionary<group, Rectangle> Stages { get; set; }
 
         public DungeonData()
         {
             Guards = new();
             Bosses = new();
-            Gates = new();
+            Stages = new();
         }
 
     }

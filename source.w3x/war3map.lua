@@ -31,7 +31,6 @@ gg_rct_Dungeon1RegionGate2 = nil
 gg_rct_Dungeon1RegionGate3 = nil
 gg_rct_Dungeon1RegionGate4 = nil
 gg_rct_Dungeon1RegionGate5 = nil
-gg_rct_Dungeon1RegionGate6 = nil
 gg_rct_Dungeon1RegionGate7 = nil
 gg_rct_Dungeon1RegionGate8 = nil
 gg_rct_Dungeon1RegionGate9 = nil
@@ -48,6 +47,13 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -2692.9, -12472.8, 80.310, FourCC("Hpal"))
 SetHeroLevel(u, 15, false)
+SetUnitState(u, UNIT_STATE_MANA, 0)
+u = BlzCreateUnitWithSkin(p, FourCC("Obla"), -2863.1, -12578.0, 114.305, FourCC("Obla"))
+SetHeroLevel(u, 15, false)
+SetUnitState(u, UNIT_STATE_MANA, 0)
+u = BlzCreateUnitWithSkin(p, FourCC("Obla"), -2880.7, -12448.1, 186.949, FourCC("Obla"))
+SetHeroLevel(u, 15, false)
+SetUnitState(u, UNIT_STATE_MANA, 0)
 end
 
 function CreateUnitsForPlayer12()
@@ -434,7 +440,7 @@ gg_rct_ArenaRegion = Rect(-11648.0, -11648.0, -8096.0, -10112.0)
 gg_rct_Dungeon1RegionFinalBoss = Rect(10208.0, -7744.0, 12096.0, -6016.0)
 gg_rct_Dungeon1RegionBossDeathKnight = Rect(7296.0, -11488.0, 8928.0, -10144.0)
 gg_rct_Dungeon1RegionBossLich = Rect(3136.0, -11360.0, 4416.0, -9792.0)
-gg_rct_Dungeon1EnterRegion = Rect(-3104.0, -12704.0, -2720.0, -12288.0)
+gg_rct_Dungeon1EnterRegion = Rect(-3104.0, -12704.0, -2560.0, -12288.0)
 gg_rct_Dungeon1RegionGuards1 = Rect(-2784.0, -14016.0, -2080.0, -13376.0)
 gg_rct_Dungeon1RegionGuards2 = Rect(-1856.0, -12864.0, -1152.0, -12224.0)
 gg_rct_Dungeon1RegionGuards3 = Rect(-1152.0, -14144.0, -480.0, -13280.0)
@@ -451,7 +457,6 @@ gg_rct_Dungeon1RegionGate2 = Rect(2336.0, -11008.0, 3040.0, -10368.0)
 gg_rct_Dungeon1RegionGate3 = Rect(3552.0, -12000.0, 4576.0, -11392.0)
 gg_rct_Dungeon1RegionGate4 = Rect(4448.0, -10816.0, 4768.0, -9952.0)
 gg_rct_Dungeon1RegionGate5 = Rect(5792.0, -13088.0, 6848.0, -12704.0)
-gg_rct_Dungeon1RegionGate6 = Rect(5760.0, -10880.0, 6080.0, -10016.0)
 gg_rct_Dungeon1RegionGate7 = Rect(7456.0, -12672.0, 8352.0, -11712.0)
 gg_rct_Dungeon1RegionGate8 = Rect(9536.0, -12192.0, 10752.0, -11808.0)
 gg_rct_Dungeon1RegionGate9 = Rect(10080.0, -9792.0, 10848.0, -9088.0)
