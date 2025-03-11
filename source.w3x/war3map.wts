@@ -321,3 +321,51 @@ STRING 61
 Враждебные монстры
 }
 
+STRING 62
+// Doodads: D00Q (Огромные камни), Name (Name)
+{
+Огромные камни
+}
+
+STRING 65
+// Units: U000 (Рыцарь смерти), Propernames (Proper Names)
+{
+Забытый Рыцарь
+}
+
+STRING 66
+// Units: U001 (Лич), Propernames (Proper Names)
+{
+Закжаж Лидер
+}
+
+STRING 67
+// Doodads: D00S (Кратер), Name (Name)
+{
+Кратер
+}
+
+STRING 68
+// Units: u002 (Поганка бледная), Name (Name)
+{
+Поганка бледная
+}
+
+STRING 69
+// Destructibles: B001 (Ледяные гробные деревья), Name (Name)
+{
+Ледяные гробные деревья
+}
+
+STRING 70
+// Doodads: D00T (Сгоревшие останки пуджа), Name (Name)
+{
+Сгоревшие останки пуджа
+}
+
+STRING 71
+// Units: u003 (Могильщик), Name (Name)
+{
+Могильщик
+}
+
