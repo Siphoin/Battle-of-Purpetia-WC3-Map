@@ -345,12 +345,6 @@ STRING 67
 Кратер
 }
 
-STRING 68
-// Units: u002 (Поганка бледная), Name (Name)
-{
-Поганка бледная
-}
-
 STRING 69
 // Destructibles: B001 (Ледяные гробные деревья), Name (Name)
 {
@@ -367,5 +361,129 @@ STRING 71
 // Units: u003 (Могильщик), Name (Name)
 {
 Могильщик
+}
+
+STRING 72
+{
+Рейд
+}
+
+STRING 73
+{
+Force 2
+}
+
+STRING 74
+// Units: u002 (Луи), Name (Name)
+{
+Луи
+}
+
+STRING 75
+// Units: u004 (Яростный вурдалак), Name (Name)
+{
+Яростный вурдалак
+}
+
+STRING 76
+// Units: u005 (Потрошитель), Name (Name)
+{
+Потрошитель
+}
+
+STRING 77
+// Abilities: ABlm (Жажда крови), Tip (Tooltip - Normal)
+{
+Ярость
+}
+
+STRING 78
+// Abilities: ABlm (Жажда крови), Tip (Tooltip - Normal)
+{
+Ярость
+}
+
+STRING 79
+// Abilities: ABlm (Жажда крови), Tip (Tooltip - Normal)
+{
+Ярость
+}
+
+STRING 80
+// Abilities: R000 (Бешенство), EditorSuffix (Editor Suffix)
+{
+(яростный вурдалак)
+}
+
+STRING 81
+// Abilities: A001 (Бешенство), EditorSuffix (Editor Suffix)
+{
+(потрошитель)
+}
+
+STRING 82
+// Units: u006 (Некролит), Name (Name)
+{
+Некролит
+}
+
+STRING 83
+// Abilities: Z000 (Кольцо льда), EditorSuffix (Editor Suffix)
+{
+(Забытый Рыцарь)
+}
+
+STRING 84
+// Abilities: A000 (Призыв элитных некромантов), Name (Name)
+{
+Призыв элитных некромантов
+}
+
+STRING 85
+// Abilities: A000 (Призыв элитных некромантов), EditorSuffix (Editor Suffix)
+{
+(Закжаж Лидер)
+}
+
+STRING 86
+// Abilities: A002 (Призыв скелетов), Name (Name)
+{
+Призыв скелетов
+}
+
+STRING 87
+// Abilities: A002 (Призыв скелетов), EditorSuffix (Editor Suffix)
+{
+(Закжаж Лидер)
+}
+
+STRING 88
+// Abilities: A003 (Оживление мертвого), Name (Name)
+{
+Оживление мертвого
+}
+
+STRING 89
+// Abilities: A003 (Оживление мертвого), EditorSuffix (Editor Suffix)
+{
+(Некролит)
+}
+
+STRING 90
+// Units: u007 (Ургул), Name (Name)
+{
+Ургул
+}
+
+STRING 91
+// Abilities: A004 (Призыв Ургула), Name (Name)
+{
+Призыв Ургула
+}
+
+STRING 92
+// Abilities: A005 (Кольцо льда), EditorSuffix (Editor Suffix)
+{
+(Закжаж Лидер)
 }
 

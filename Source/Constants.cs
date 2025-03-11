@@ -7,8 +7,8 @@
 /// </summary>
 public static class Constants
 {
-	public const int ABILITY = 1094872173;
 	public const int UNIT_DUMMY = 1848651824;
+	public const int UNIT = 1966092343;
 	public const int ORDER_OFFSET = 851970;
 	public const int ORDER_WAND_ILLUSION = 852274;
 	public const int ORDER_ABSORB = 852529;

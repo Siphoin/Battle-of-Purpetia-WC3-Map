@@ -11,46 +11,54 @@ gg_rct_RegionFelOrcsSpawn = nil
 gg_rct_ArenaSpawnLeftPlayer = nil
 gg_rct_ArenaSpawnRightPlayer = nil
 gg_rct_ArenaRegion = nil
-gg_rct_BossPudge = nil
-gg_rct_BossDeathKnight = nil
-gg_rct_BossLich = nil
-gg_rct_DungeonTreasures = nil
-gg_rct_DungeonEntrance = nil
+gg_rct_Dungeon1RegionFinalBoss = nil
+gg_rct_Dungeon1RegionBossDeathKnight = nil
+gg_rct_Dungeon1RegionBossLich = nil
+gg_rct_Dungeon1EnterRegion = nil
+gg_rct_Dungeon1RegionGuards1 = nil
+gg_rct_Dungeon1RegionGuards2 = nil
+gg_rct_Dungeon1RegionGuards3 = nil
+gg_rct_Dungeon1RegionGuards4 = nil
+gg_rct_Dungeon1RegionGuards5 = nil
+gg_rct_Dungeon1RegionGuards6 = nil
+gg_rct_Dungeon1RegionGuards7 = nil
+gg_rct_Dungeon1RegionGuards8 = nil
+gg_rct_Dungeon1RegionGuards9 = nil
+gg_rct_Dungeon1RegionGuards10 = nil
+gg_rct_Dungeon1RegionGuards11 = nil
 function InitGlobals()
 end
 
-function CreateUnitsForPlayer2()
-local p = Player(2)
-local u
-local unitID
-local t
-local life
-
-u = BlzCreateUnitWithSkin(p, FourCC("u002"), 10987.6, -6518.1, 271.626, FourCC("u002"))
-end
-
-function CreateNeutralHostile()
-local p = Player(PLAYER_NEUTRAL_AGGRESSIVE)
+function CreateUnitsForPlayer12()
+local p = Player(12)
 local u
 local unitID
 local t
 local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("U000"), 8207.5, -10657.4, 179.817, FourCC("U000"))
+SetUnitState(u, UNIT_STATE_MANA, 0)
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("U001"), 4040.4, -10388.3, 198.640, FourCC("U001"))
+SetHeroLevel(u, 11, false)
+SetHeroStr(u, 51, true)
+SetHeroAgi(u, 30, true)
+SetHeroInt(u, 95, true)
 SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("u002"), 10987.6, -6518.1, 271.626, FourCC("u002"))
+SetUnitState(u, UNIT_STATE_MANA, 0)
+SetUnitColor(u, ConvertPlayerColor(5))
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 956.7, -13543.8, 191.017, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 961.3, -13700.0, 176.302, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 851.5, -13787.4, 165.684, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 757.6, -13727.5, 151.111, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 869.5, -13959.1, 149.880, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 1051.0, -13929.8, 158.856, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 812.0, -13561.7, 192.252, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 689.9, -13495.3, 209.757, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u003"), 1216.5, -13721.7, 176.756, FourCC("u003"))
 SetUnitAcquireRange(u, 200.0)
@@ -270,49 +278,35 @@ u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10345.9, -11404.5, 239.012, FourCC(
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10749.8, -8468.7, 261.771, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10564.7, -8786.9, 292.311, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10587.1, -8653.6, 258.681, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10650.6, -8601.0, 272.222, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10875.1, -8731.4, 225.886, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10937.5, -8425.3, 246.194, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10844.8, -8741.2, 239.097, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 11137.5, -8803.3, 270.558, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11062.9, -8532.0, 231.960, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10552.4, -8917.5, 305.330, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10984.6, -8825.5, 213.753, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10842.8, -8977.4, 283.731, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10858.3, -8843.6, 225.447, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 4061.3, -12449.6, 101.187, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10957.6, -8488.9, 242.130, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10877.4, -7321.3, 241.443, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11112.3, -8655.0, 220.689, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 11313.2, -7414.2, 220.425, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11041.2, -8457.2, 237.218, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10797.0, -8814.6, 239.827, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 11038.7, -7576.7, 234.038, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10901.9, -8524.2, 245.449, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10934.8, -8692.7, 232.215, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10508.3, -8628.7, 291.288, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10723.0, -8646.0, 261.939, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10511.7, -8520.9, 286.788, FourCC("u004"))
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 3314.5, -10596.8, 173.010, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10621.6, -8464.4, 274.577, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11037.8, -8373.0, 240.867, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11103.2, -8441.3, 233.839, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11210.4, -8559.3, 221.374, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11183.1, -8617.0, 219.194, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11041.5, -8707.7, 221.400, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u003"), 10696.7, -8320.5, 267.666, FourCC("u003"))
 SetUnitAcquireRange(u, 200.0)
@@ -347,6 +341,8 @@ SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1687.8, -12483.3, 147.462, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1563.4, -12695.2, 138.266, FourCC("u004"))
+SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("u005"), 1361.1, -12743.1, 252.430, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 end
 
@@ -384,13 +380,12 @@ function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
-CreateUnitsForPlayer2()
+CreateUnitsForPlayer12()
 end
 
 function CreateAllUnits()
 CreateNeutralPassiveBuildings()
 CreatePlayerBuildings()
-CreateNeutralHostile()
 CreateNeutralPassive()
 CreatePlayerUnits()
 end
@@ -411,11 +406,21 @@ gg_rct_RegionFelOrcsSpawn = Rect(-1024.0, 8512.0, 256.0, 10720.0)
 gg_rct_ArenaSpawnLeftPlayer = Rect(-10944.0, -11072.0, -10528.0, -10656.0)
 gg_rct_ArenaSpawnRightPlayer = Rect(-9024.0, -11072.0, -8608.0, -10656.0)
 gg_rct_ArenaRegion = Rect(-11648.0, -11648.0, -8096.0, -10112.0)
-gg_rct_BossPudge = Rect(10144.0, -8576.0, 12096.0, -6016.0)
-gg_rct_BossDeathKnight = Rect(7232.0, -11424.0, 8928.0, -9856.0)
-gg_rct_BossLich = Rect(3136.0, -11360.0, 4832.0, -9792.0)
-gg_rct_DungeonTreasures = Rect(4704.0, -10880.0, 5824.0, -10080.0)
-gg_rct_DungeonEntrance = Rect(-3104.0, -12704.0, -2720.0, -12288.0)
+gg_rct_Dungeon1RegionFinalBoss = Rect(10208.0, -7744.0, 12096.0, -6016.0)
+gg_rct_Dungeon1RegionBossDeathKnight = Rect(7296.0, -11488.0, 8928.0, -10144.0)
+gg_rct_Dungeon1RegionBossLich = Rect(3136.0, -11360.0, 4416.0, -9792.0)
+gg_rct_Dungeon1EnterRegion = Rect(-3104.0, -12704.0, -2720.0, -12288.0)
+gg_rct_Dungeon1RegionGuards1 = Rect(-2784.0, -14016.0, -2080.0, -13376.0)
+gg_rct_Dungeon1RegionGuards2 = Rect(-1856.0, -12864.0, -1152.0, -12224.0)
+gg_rct_Dungeon1RegionGuards3 = Rect(-1152.0, -14144.0, -480.0, -13280.0)
+gg_rct_Dungeon1RegionGuards4 = Rect(480.0, -14080.0, 1344.0, -13248.0)
+gg_rct_Dungeon1RegionGuards5 = Rect(1184.0, -12960.0, 1600.0, -12512.0)
+gg_rct_Dungeon1RegionGuards6 = Rect(1728.0, -12032.0, 2528.0, -11232.0)
+gg_rct_Dungeon1RegionGuards7 = Rect(3648.0, -13216.0, 4704.0, -12160.0)
+gg_rct_Dungeon1RegionGuards8 = Rect(6016.0, -12672.0, 6912.0, -11776.0)
+gg_rct_Dungeon1RegionGuards9 = Rect(8224.0, -13472.0, 9120.0, -12576.0)
+gg_rct_Dungeon1RegionGuards10 = Rect(9504.0, -11584.0, 10560.0, -10688.0)
+gg_rct_Dungeon1RegionGuards11 = Rect(10432.0, -9152.0, 11328.0, -8160.0)
 end
 
 function InitCustomPlayerSlots()
@@ -459,6 +464,11 @@ SetPlayerColor(Player(11), ConvertPlayerColor(11))
 SetPlayerRacePreference(Player(11), RACE_PREF_UNDEAD)
 SetPlayerRaceSelectable(Player(11), false)
 SetPlayerController(Player(11), MAP_CONTROL_COMPUTER)
+SetPlayerStartLocation(Player(12), 8)
+SetPlayerColor(Player(12), ConvertPlayerColor(12))
+SetPlayerRacePreference(Player(12), RACE_PREF_HUMAN)
+SetPlayerRaceSelectable(Player(12), false)
+SetPlayerController(Player(12), MAP_CONTROL_COMPUTER)
 end
 
 function InitCustomTeams()
@@ -469,15 +479,21 @@ SetPlayerTeam(Player(3), 0)
 SetPlayerTeam(Player(4), 0)
 SetPlayerTeam(Player(5), 0)
 SetPlayerTeam(Player(6), 0)
-SetPlayerTeam(Player(11), 0)
+SetPlayerTeam(Player(11), 1)
+SetPlayerTeam(Player(12), 1)
+SetPlayerAllianceStateAllyBJ(Player(11), Player(12), true)
+SetPlayerAllianceStateAllyBJ(Player(12), Player(11), true)
+SetPlayerAllianceStateVisionBJ(Player(11), Player(12), true)
+SetPlayerAllianceStateVisionBJ(Player(12), Player(11), true)
 end
 
 function InitAllyPriorities()
-SetStartLocPrioCount(1, 5)
+SetStartLocPrioCount(1, 6)
 SetStartLocPrio(1, 0, 0, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(1, 1, 2, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(1, 2, 3, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(1, 3, 4, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(1, 4, 8, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrioCount(1, 3)
 SetEnemyStartLocPrio(1, 0, 5, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrio(1, 1, 7, MAP_LOC_PRIO_HIGH)
@@ -486,19 +502,35 @@ SetEnemyStartLocPrio(2, 0, 1, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(2, 1, 4, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(2, 2, 5, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(2, 3, 7, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(5, 4)
+SetStartLocPrioCount(5, 5)
 SetStartLocPrio(5, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(5, 1, 1, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(5, 2, 2, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(5, 3, 3, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(5, 4, 8, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrioCount(5, 2)
 SetEnemyStartLocPrio(5, 0, 1, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(5, 1, 4, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(6, 1)
+SetEnemyStartLocPrio(6, 0, 8, MAP_LOC_PRIO_HIGH)
 SetStartLocPrioCount(7, 1)
 SetStartLocPrio(7, 0, 0, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrioCount(7, 2)
 SetEnemyStartLocPrio(7, 0, 2, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrio(7, 1, 3, MAP_LOC_PRIO_LOW)
+SetStartLocPrioCount(8, 3)
+SetStartLocPrio(8, 0, 1, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(8, 1, 2, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(8, 2, 3, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrioCount(8, 9)
+SetEnemyStartLocPrio(8, 0, 0, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(8, 1, 1, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(8, 2, 2, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(8, 3, 3, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(8, 4, 4, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(8, 5, 5, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(8, 6, 6, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(8, 7, 7, MAP_LOC_PRIO_HIGH)
 end
 
 function main()
@@ -517,8 +549,8 @@ end
 function config()
 SetMapName("TRIGSTR_004")
 SetMapDescription("TRIGSTR_006")
-SetPlayers(8)
-SetTeams(8)
+SetPlayers(9)
+SetTeams(9)
 SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
 DefineStartLocation(0, -384.0, -256.0)
 DefineStartLocation(1, -384.0, -256.0)
@@ -528,6 +560,7 @@ DefineStartLocation(4, -384.0, -256.0)
 DefineStartLocation(5, -384.0, -256.0)
 DefineStartLocation(6, -384.0, -256.0)
 DefineStartLocation(7, -384.0, -256.0)
+DefineStartLocation(8, -384.0, -256.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()

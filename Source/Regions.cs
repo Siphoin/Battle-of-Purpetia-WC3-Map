@@ -18,5 +18,20 @@ public static class Regions
 	public static Rectangle ArenaSpawnLeftPlayer { get; set; } = new Rectangle(-10944f, -11072f, -10528f, -10656f);
 	public static Rectangle ArenaSpawnRightPlayer { get; set; } = new Rectangle(-9024f, -11072f, -8608f, -10656f);
 	public static Rectangle ArenaRegion { get; set; } = new Rectangle(-11648f, -11648f, -8096f, -10112f);
+	public static Rectangle Dungeon1RegionFinalBoss { get; set; } = new Rectangle(10208f, -7744f, 12096f, -6016f);
+	public static Rectangle Dungeon1RegionBossDeathKnight { get; set; } = new Rectangle(7296f, -11488f, 8928f, -10144f);
+	public static Rectangle Dungeon1RegionBossLich { get; set; } = new Rectangle(3136f, -11360f, 4416f, -9792f);
+	public static Rectangle Dungeon1EnterRegion { get; set; } = new Rectangle(-3104f, -12704f, -2720f, -12288f);
+	public static Rectangle Dungeon1RegionGuards1 { get; set; } = new Rectangle(-2784f, -14016f, -2080f, -13376f);
+	public static Rectangle Dungeon1RegionGuards2 { get; set; } = new Rectangle(-1856f, -12864f, -1152f, -12224f);
+	public static Rectangle Dungeon1RegionGuards3 { get; set; } = new Rectangle(-1152f, -14144f, -480f, -13280f);
+	public static Rectangle Dungeon1RegionGuards4 { get; set; } = new Rectangle(480f, -14080f, 1344f, -13248f);
+	public static Rectangle Dungeon1RegionGuards5 { get; set; } = new Rectangle(1184f, -12960f, 1600f, -12512f);
+	public static Rectangle Dungeon1RegionGuards6 { get; set; } = new Rectangle(1728f, -12032f, 2528f, -11232f);
+	public static Rectangle Dungeon1RegionGuards7 { get; set; } = new Rectangle(3648f, -13216f, 4704f, -12160f);
+	public static Rectangle Dungeon1RegionGuards8 { get; set; } = new Rectangle(6016f, -12672f, 6912f, -11776f);
+	public static Rectangle Dungeon1RegionGuards9 { get; set; } = new Rectangle(8224f, -13472f, 9120f, -12576f);
+	public static Rectangle Dungeon1RegionGuards10 { get; set; } = new Rectangle(9504f, -11584f, 10560f, -10688f);
+	public static Rectangle Dungeon1RegionGuards11 { get; set; } = new Rectangle(10432f, -9152f, 11328f, -8160f);
 
 }

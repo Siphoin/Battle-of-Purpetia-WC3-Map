@@ -147,11 +147,8 @@ namespace Source.Triggers.GUITriggers.Triggers
                 BlzFrameSetValue(_hpBar, 0);
                 BlzFrameSetValue(_manaBar, 0);
                 return;
-            }
-            if (Hero.Owner != player.LocalPlayer)
-            {
+            }          
                 BlzFrameSetAlpha(_heroMainWidget, 255);
-            }
             if (_lastHealth == Hero.Life && _lastMana == Hero.Mana)
             {
                 return;
