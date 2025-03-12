@@ -30,11 +30,13 @@ gg_rct_Dungeon1RegionGate1 = nil
 gg_rct_Dungeon1RegionGate2 = nil
 gg_rct_Dungeon1RegionGate3 = nil
 gg_rct_Dungeon1RegionGate4 = nil
-gg_rct_Dungeon1RegionGate5 = nil
 gg_rct_Dungeon1RegionGate7 = nil
 gg_rct_Dungeon1RegionGate8 = nil
 gg_rct_Dungeon1RegionGate9 = nil
 gg_rct_Dungeon1BossRegionFinalBoss = nil
+gg_rct_Dungeon1RegionGate5 = nil
+gg_rct_Dungeon1RegionGate10 = nil
+gg_rct_Dungeon1RegionFinalGate = nil
 function InitGlobals()
 end
 
@@ -47,13 +49,10 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -2692.9, -12472.8, 80.310, FourCC("Hpal"))
 SetHeroLevel(u, 15, false)
-SetUnitState(u, UNIT_STATE_MANA, 0)
 u = BlzCreateUnitWithSkin(p, FourCC("Obla"), -2863.1, -12578.0, 114.305, FourCC("Obla"))
 SetHeroLevel(u, 15, false)
-SetUnitState(u, UNIT_STATE_MANA, 0)
 u = BlzCreateUnitWithSkin(p, FourCC("Obla"), -2880.7, -12448.1, 186.949, FourCC("Obla"))
 SetHeroLevel(u, 15, false)
-SetUnitState(u, UNIT_STATE_MANA, 0)
 end
 
 function CreateUnitsForPlayer12()
@@ -432,7 +431,7 @@ gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4608.0, -4032.0, 7360.0)
 gg_rct_NoViolanceArea = Rect(-3392.0, -2944.0, 2240.0, 2784.0)
 gg_rct_RegionBanditsSpawn = Rect(10304.0, -544.0, 11552.0, 800.0)
 gg_rct_RegionGnollSpawn = Rect(-11328.0, -1024.0, -8608.0, 288.0)
-gg_rct_RegionGhostsSpawn = Rect(5216.0, 544.0, 7968.0, 2688.0)
+gg_rct_RegionGhostsSpawn = Rect(5856.0, 832.0, 8608.0, 2976.0)
 gg_rct_RegionFelOrcsSpawn = Rect(-1024.0, 8512.0, 256.0, 10720.0)
 gg_rct_ArenaSpawnLeftPlayer = Rect(-10944.0, -11072.0, -10528.0, -10656.0)
 gg_rct_ArenaSpawnRightPlayer = Rect(-9024.0, -11072.0, -8608.0, -10656.0)
@@ -456,11 +455,13 @@ gg_rct_Dungeon1RegionGate1 = Rect(-416.0, -14208.0, 96.0, -13152.0)
 gg_rct_Dungeon1RegionGate2 = Rect(2336.0, -11008.0, 3040.0, -10368.0)
 gg_rct_Dungeon1RegionGate3 = Rect(3552.0, -12000.0, 4576.0, -11392.0)
 gg_rct_Dungeon1RegionGate4 = Rect(4448.0, -10816.0, 4768.0, -9952.0)
-gg_rct_Dungeon1RegionGate5 = Rect(5792.0, -13088.0, 6848.0, -12704.0)
 gg_rct_Dungeon1RegionGate7 = Rect(7456.0, -12672.0, 8352.0, -11712.0)
 gg_rct_Dungeon1RegionGate8 = Rect(9536.0, -12192.0, 10752.0, -11808.0)
 gg_rct_Dungeon1RegionGate9 = Rect(10080.0, -9792.0, 10848.0, -9088.0)
 gg_rct_Dungeon1BossRegionFinalBoss = Rect(10848.0, -6656.0, 11200.0, -6368.0)
+gg_rct_Dungeon1RegionGate10 = Rect(5856.0, -11616.0, 6912.0, -11232.0)
+gg_rct_Dungeon1RegionGate5 = Rect(5792.0, -13088.0, 6848.0, -12704.0)
+gg_rct_Dungeon1RegionFinalGate = Rect(10432.0, -8224.0, 11488.0, -7840.0)
 end
 
 function InitCustomPlayerSlots()

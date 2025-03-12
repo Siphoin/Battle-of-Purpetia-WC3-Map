@@ -1,12 +1,6 @@
-﻿using Source.Models;
-using Source.Triggers.Base;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WCSharp.Api;
-using WCSharp.Events;
 using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
@@ -150,6 +144,123 @@ namespace Source.Data.Dungeons
             stage = Regions.Dungeon1RegionGate5;
             groupGuards = group.Create();
             foreach (Rectangle region in regionThreeGates)
+            {
+                group group = group.Create();
+                GroupEnumUnitsInRect(group, region.Rect, null);
+
+                foreach (var unit in group.ToList())
+                {
+                    groupGuards.Add(unit);
+                }
+
+                DestroyGroup(group);
+            }
+
+            ListenStage(groupGuards, stage);
+
+            base.SetupGates();
+
+            List<Rectangle> regionFourGates = new List<Rectangle>
+            {
+                Regions.Dungeon1RegionGuards8,
+
+            };
+
+            stage = Regions.Dungeon1RegionGate10;
+            groupGuards = group.Create();
+            foreach (Rectangle region in regionFourGates)
+            {
+                group group = group.Create();
+                GroupEnumUnitsInRect(group, region.Rect, null);
+
+                foreach (var unit in group.ToList())
+                {
+                    groupGuards.Add(unit);
+                }
+
+                DestroyGroup(group);
+            }
+
+            ListenStage(groupGuards, stage);
+
+            List<Rectangle> regionDeathKnight = new List<Rectangle>
+            {
+                Regions.Dungeon1RegionBossDeathKnight,
+
+            };
+
+            stage = Regions.Dungeon1RegionGate7;
+            groupGuards = group.Create();
+            foreach (Rectangle region in regionDeathKnight)
+            {
+                group group = group.Create();
+                GroupEnumUnitsInRect(group, region.Rect, null);
+
+                foreach (var unit in group.ToList())
+                {
+                    groupGuards.Add(unit);
+                }
+
+                DestroyGroup(group);
+            }
+
+            ListenStage(groupGuards, stage);
+
+            List<Rectangle> regionSixGates = new List<Rectangle>
+            {
+                Regions.Dungeon1RegionGuards9,
+
+            };
+
+            stage = Regions.Dungeon1RegionGate8;
+            groupGuards = group.Create();
+            foreach (Rectangle region in regionSixGates)
+            {
+                group group = group.Create();
+                GroupEnumUnitsInRect(group, region.Rect, null);
+
+                foreach (var unit in group.ToList())
+                {
+                    groupGuards.Add(unit);
+                }
+
+                DestroyGroup(group);
+            }
+
+            ListenStage(groupGuards, stage);
+
+            List<Rectangle> regionPre1Gates = new List<Rectangle>
+            {
+                Regions.Dungeon1RegionGuards10,
+
+            };
+
+            stage = Regions.Dungeon1RegionGate9;
+            groupGuards = group.Create();
+            foreach (Rectangle region in regionPre1Gates)
+            {
+                group group = group.Create();
+                GroupEnumUnitsInRect(group, region.Rect, null);
+
+                foreach (var unit in group.ToList())
+                {
+                    groupGuards.Add(unit);
+                }
+
+                DestroyGroup(group);
+            }
+
+            ListenStage(groupGuards, stage);
+
+            List<Rectangle> regionPre2Gates = new List<Rectangle>
+            {
+                Regions.Dungeon1RegionGuards11,
+
+            };
+
+            stage = Regions.Dungeon1RegionFinalGate;
+            groupGuards = group.Create();
+            foreach (Rectangle region in regionPre2Gates)
             {
                 group group = group.Create();
                 GroupEnumUnitsInRect(group, region.Rect, null);
