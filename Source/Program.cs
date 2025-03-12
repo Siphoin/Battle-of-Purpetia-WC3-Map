@@ -1,6 +1,7 @@
 ﻿using Source.Triggers.ArenaTriggers.Categories;
 using Source.Triggers.Base;
 using Source.Triggers.CameraTriggers.Categories;
+using Source.Triggers.DebugTriggers.Category;
 using Source.Triggers.DungeonsTriggers.Categories;
 using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
@@ -59,12 +60,18 @@ namespace Source
 				new TownTriggersCategory(),
 				new ArenaTriggersCategory(),
 				new DungeonTriggersCategory(),
+#if DEBUG
+				new DebugTriggersCategory(),
+	#endif
 			};
 
 			foreach (var category in categories)
 			{
 				category.Init();
-				category.Execute();
+				if (category.IsExecutedOnStart())
+				{
+                    category.Execute();
+                }
 			}
 		}
     }

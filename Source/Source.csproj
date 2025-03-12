@@ -24,6 +24,5 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Triggers\CameraTriggers\Triggers\" />
-	  <Folder Include="Triggers\DebugTriggers\Category\" />
 	</ItemGroup>
 </Project>

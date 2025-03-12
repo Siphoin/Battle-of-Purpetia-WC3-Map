@@ -45,5 +45,10 @@ namespace Source.Triggers.Base
         {
             return _triggers.GetEnumerator();
         }
+
+        public virtual bool IsExecutedOnStart ()
+        {
+            return true;
+        }
     }
 }
