@@ -34,25 +34,10 @@ gg_rct_Dungeon1RegionGate7 = nil
 gg_rct_Dungeon1RegionGate8 = nil
 gg_rct_Dungeon1RegionGate9 = nil
 gg_rct_Dungeon1BossRegionFinalBoss = nil
-gg_rct_Dungeon1RegionGate5 = nil
 gg_rct_Dungeon1RegionGate10 = nil
+gg_rct_Dungeon1RegionGate5 = nil
 gg_rct_Dungeon1RegionFinalGate = nil
 function InitGlobals()
-end
-
-function CreateUnitsForPlayer0()
-local p = Player(0)
-local u
-local unitID
-local t
-local life
-
-u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -2692.9, -12472.8, 80.310, FourCC("Hpal"))
-SetHeroLevel(u, 15, false)
-u = BlzCreateUnitWithSkin(p, FourCC("Obla"), -2863.1, -12578.0, 114.305, FourCC("Obla"))
-SetHeroLevel(u, 15, false)
-u = BlzCreateUnitWithSkin(p, FourCC("Obla"), -2880.7, -12448.1, 186.949, FourCC("Obla"))
-SetHeroLevel(u, 15, false)
 end
 
 function CreateUnitsForPlayer12()
@@ -409,7 +394,6 @@ function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
-CreateUnitsForPlayer0()
 CreateUnitsForPlayer12()
 end
 
@@ -520,58 +504,44 @@ SetPlayerTeam(Player(3), 0)
 SetPlayerTeam(Player(4), 0)
 SetPlayerTeam(Player(5), 0)
 SetPlayerTeam(Player(6), 0)
-SetPlayerTeam(Player(11), 1)
-SetPlayerTeam(Player(12), 1)
-SetPlayerAllianceStateAllyBJ(Player(11), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(12), Player(11), true)
-SetPlayerAllianceStateVisionBJ(Player(11), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(12), Player(11), true)
+SetPlayerTeam(Player(11), 0)
+SetPlayerTeam(Player(12), 0)
 end
 
 function InitAllyPriorities()
-SetStartLocPrioCount(1, 6)
-SetStartLocPrio(1, 0, 0, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(1, 1, 2, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(1, 2, 3, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(1, 3, 4, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(1, 4, 8, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(1, 3)
-SetEnemyStartLocPrio(1, 0, 5, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(1, 1, 7, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrioCount(2, 4)
-SetEnemyStartLocPrio(2, 0, 1, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(2, 1, 4, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(2, 2, 5, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(2, 3, 7, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(5, 5)
+SetStartLocPrioCount(1, 2)
+SetStartLocPrio(1, 0, 5, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(1, 5)
+SetEnemyStartLocPrio(1, 0, 0, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(1, 1, 3, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(1, 2, 5, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(1, 3, 6, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(1, 4, 7, MAP_LOC_PRIO_LOW)
+SetStartLocPrioCount(2, 7)
+SetStartLocPrio(2, 0, 0, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(2, 1, 3, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(2, 2, 4, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(2, 3, 5, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(2, 4, 6, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(2, 5, 7, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(2, 6, 8, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrioCount(2, 9)
+SetEnemyStartLocPrio(2, 0, 0, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(2, 1, 1, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(2, 2, 3, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(2, 3, 4, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(2, 4, 5, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(2, 5, 6, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(2, 6, 7, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(2, 7, 8, MAP_LOC_PRIO_HIGH)
+SetStartLocPrioCount(5, 4)
 SetStartLocPrio(5, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(5, 1, 1, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(5, 2, 2, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(5, 3, 3, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(5, 4, 8, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrioCount(5, 2)
 SetEnemyStartLocPrio(5, 0, 1, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(5, 1, 4, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(6, 1)
-SetEnemyStartLocPrio(6, 0, 8, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(7, 1)
-SetStartLocPrio(7, 0, 0, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrioCount(7, 2)
-SetEnemyStartLocPrio(7, 0, 2, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(7, 1, 3, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(8, 3)
-SetStartLocPrio(8, 0, 1, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(8, 1, 2, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(8, 2, 3, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrioCount(8, 9)
-SetEnemyStartLocPrio(8, 0, 0, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(8, 1, 1, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(8, 2, 2, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(8, 3, 3, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(8, 4, 4, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(8, 5, 5, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(8, 6, 6, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(8, 7, 7, MAP_LOC_PRIO_HIGH)
 end
 
 function main()

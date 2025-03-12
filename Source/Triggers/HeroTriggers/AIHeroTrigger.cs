@@ -19,6 +19,7 @@ namespace Source.Triggers.HeroTriggers
         private bool _onTown = true;
         private AICommandType _currentCommand;
 
+        private static List<AIHeroTrigger> _aiList = new();
         #region Ability
 
         private Dictionary<string, string[]> _abilityList = new()
@@ -61,6 +62,8 @@ namespace Source.Triggers.HeroTriggers
         private timer MainTimer { get; set; }
 
         private timer TimerCheckHealth { get; set; }
+        public bool CoomandsEnabled { get => _coomandsEnabled; set => _coomandsEnabled = value; }
+
         public override trigger GetTrigger()
         {
             trigger newTrigger = trigger.Create();
@@ -84,11 +87,13 @@ namespace Source.Triggers.HeroTriggers
                     Hero.Owner.Name = NickNameGenerator.GenerateNickName();
                     Hero.HeroName = Hero.Owner.Name;
                     FindFountainsLifes();
+                    _aiList.Add(this);
+
 
 
                 });
                 AiTrigger.Execute();
-                newTrigger.Dispose();
+                DestroyTrigger(newTrigger);
             });
 
             return newTrigger;
@@ -181,7 +186,6 @@ namespace Source.Triggers.HeroTriggers
                     indexSpell = speelList.Length - 1;
                 }
 
-
                 var targetSpeel = speelList[indexSpell];
                 SelectHeroSkill(Hero, FourCC(targetSpeel));
 #if DEBUG
@@ -260,6 +264,27 @@ namespace Source.Triggers.HeroTriggers
 #endif
                 UnitAddItem(Hero, item);
             }
+        }
+
+        public static AIHeroTrigger GetAI (unit hero)
+        {
+            AIHeroTrigger trigger = null;
+            for (int i = 0; i < _aiList.Count; i++)
+            {
+                var targetTrrigger = _aiList[i];
+                if (targetTrrigger.Hero == hero)
+                {
+                    trigger = targetTrrigger;
+                    break;
+                }
+            }
+
+            return trigger;
+        }
+
+        public static bool ContainsHero (unit hero)
+        {
+            return _aiList.Any(ai => ai.Hero == hero);
         }
     }
 

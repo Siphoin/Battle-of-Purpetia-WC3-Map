@@ -282,5 +282,10 @@ namespace Source.Data.Dungeons
         {
             return Regions.Dungeon1EnterRegion;
         }
+
+        protected override int GetRequiredLevelHero()
+        {
+            return 15;
+        }
     }
 }

@@ -103,7 +103,7 @@ namespace Source.Triggers.HeroTriggers
             {
                 player p = Player(i);
 
-                if (p == player.NeutralExtra || p == MapConfig.MonsterPlayer || p == player.NeutralAggressive || p == player.NeutralVictim || p == player.NeutralPassive)
+                if (p == player.NeutralExtra || p == MapConfig.MonsterPlayer || p == player.NeutralAggressive || p == player.NeutralVictim || p == player.NeutralPassive || p == MapConfig.DungeonPlayer)
                 {
                     continue;
                 }

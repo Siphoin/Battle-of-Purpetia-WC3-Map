@@ -368,11 +368,6 @@ STRING 72
 Рейд
 }
 
-STRING 73
-{
-Force 2
-}
-
 STRING 75
 // Units: u004 (Яростный вурдалак), Name (Name)
 {

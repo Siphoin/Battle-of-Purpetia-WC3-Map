@@ -1,6 +1,8 @@
 ﻿
 using Source.Models;
 using Source.Triggers.Base;
+using Source.Triggers.GUITriggers.Triggers;
+using Source.Triggers.HeroTriggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +22,74 @@ namespace Source.Data.Dungeons
         private int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
         private int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
 
+        private readonly alliancetype[] alliancetypes = new alliancetype[]
+        {
+            alliancetype.Passive,
+            alliancetype.SharedControl,
+            alliancetype.HelpRequest,
+            alliancetype.HelpResponse,
+            alliancetype.SharedSpells
+        };
+
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
         protected abstract Rectangle GetEnterRegion();
+        protected abstract int GetRequiredLevelHero();
 
         protected virtual void SetupGates()
         {
 #if DEBUG
             Console.WriteLine($"dungeon setup gates: {Data.Stages.Count}");
 #endif
+        }
+
+        public void Start ()
+        {
+            var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
+            var startRegion = GetEnterRegion();
+            var uniqueOwners = new HashSet<int>(); // Используем HashSet для хранения уникальных идентификаторов владельцев
+            foreach (var hero in heroes)
+            {
+
+                var point = startRegion.GetRandomPoint();
+                hero.X = point.X;
+                hero.Y = point.Y;
+                uniqueOwners.Add(hero.Owner.Id);
+
+#if DEBUG
+                if (hero.HeroLevel < GetRequiredLevelHero())
+                {
+                    hero.HeroLevel = GetRequiredLevelHero();
+                }
+#endif
+                if (hero.Owner != player.LocalPlayer)
+                {
+                    GUIHeroWidgetTrigger widgetHero = new(hero);
+                    widgetHero.GetTrigger().Execute();
+                }
+                var regionBoss = GetRegionFinallBoss().Center;
+                if (AIHeroTrigger.ContainsHero(hero))
+                {
+                    AIHeroTrigger.GetAI(hero).CoomandsEnabled = false;
+                    IssuePointOrder(hero, "attack", regionBoss.X, regionBoss.Y);
+                }
+            }
+
+            var ownerList = uniqueOwners.ToList();
+            for (int i = 0; i < ownerList.Count; i++)
+            {
+                for (int j = i + 1; j < ownerList.Count; j++)
+                {
+                    for (int k = 0; k < alliancetypes.Length; k++)
+                    {
+                        SetPlayerAlliance(Player(ownerList[i]), Player(ownerList[j]), alliancetypes[k], true); // Делаем их союзниками
+                        SetPlayerAlliance(Player(ownerList[j]), Player(ownerList[i]), alliancetypes[k], true); // Делаем их союзниками
+                    }
+
+                }
+            }
+
+
         }
         protected abstract string GetDungeonName();
         protected abstract Rectangle GetRegionFinallBoss();
