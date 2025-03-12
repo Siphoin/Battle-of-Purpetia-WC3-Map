@@ -11,7 +11,7 @@ namespace Source.Triggers.HeroTriggers.Categories
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
             HeroSelectMenuTrigger heroSelectMenuTrigger = new HeroSelectMenuTrigger();
-          //  triggers.Add(heroSelectMenuTrigger);
+          triggers.Add(heroSelectMenuTrigger);
             
 
            
