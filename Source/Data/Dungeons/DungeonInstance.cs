@@ -22,6 +22,7 @@ namespace Source.Data.Dungeons
 
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
+        protected abstract Rectangle GetEnterRegion();
 
         protected virtual void SetupGates()
         {
@@ -42,12 +43,19 @@ namespace Source.Data.Dungeons
                 SetupMiniBosses();
                 SetupFinalBoss();
                 SetupGates();
+                SetupEnterRegion();
             }
+
+            
 
             return Data;
 
         }
-        
+
+        private void SetupEnterRegion()
+        {
+            Data.EnterRegion = GetEnterRegion();
+        }
 
         private void SetupFinalBoss()
         {
@@ -75,9 +83,45 @@ namespace Source.Data.Dungeons
 
         private void RestoreDungeon()
         {
-#if DEBUG
-            Console.WriteLine("Dungeon Completed");
-#endif
+            trigger triggerRestartDungeon = trigger.Create();
+            triggerRestartDungeon.AddAction(() =>
+            {
+                
+                var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
+
+                foreach (var hero in heroes)
+                {
+                    hero.Life = hero.MaxLife;
+                    hero.Mana = hero.MaxMana;
+                    var regionTown = Regions.HeroSpawn.GetRandomPoint();
+                    hero.X = regionTown.X;
+                    hero.Y = regionTown.Y;
+                }
+
+                
+                RestartDungeon();
+                DestroyTrigger(triggerRestartDungeon);
+            });
+
+            triggerRestartDungeon.Execute();
+        }
+
+        private void RestartDungeon()
+        {
+            timer timerRestart = timer.Create();
+            timerdialog timerdialog = CreateTimerDialog(timerRestart);
+            TimerDialogDisplay(timerdialog, true);
+            timerdialog.SetTitle(GetDungeonName());
+
+            timerRestart.Start(MapConfig.DelayRespawnDungeon, false, () =>
+            {
+                RestoreGuards();
+                RestoreBosses();
+                RestoreFinalBoss();
+                TimerDialogDisplay(timerdialog, false);
+                DestroyTimerDialog(timerdialog);
+                DestroyTimer(timerRestart);
+            });
         }
 
         private void SetupMiniBosses()
@@ -138,7 +182,6 @@ namespace Source.Data.Dungeons
                 {
                     guardData = new(unit);
                     guards.Add(guardData);
-                    PlayerUnitEvents.Register(UnitEvent.Dies, OnGuardDie, unit);
 
 
                 }
@@ -165,13 +208,51 @@ namespace Source.Data.Dungeons
                     float x = guards[i].X;
                     float y = guards[i].Y;
                     var newUnit = unit.Create(MapConfig.DungeonPlayer, id, x, y, face);
-                    PlayerUnitEvents.Register(UnitEvent.Dies, OnGuardDie, newUnit);
                     newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRange;
                     group.Add(newUnit);
                 }
 
 
             }
+        }
+
+        private void RestoreBosses()
+        {
+            foreach (var boss in Data.Bosses)
+            {
+                var region = boss.Key;
+                var bossData = boss.Value;
+
+                foreach (var guardData in bossData.Guards)
+                {
+                    int id = guardData.IDGuard;
+                    float face = guardData.Face;
+                    float x = guardData.X;
+                    float y = guardData.Y;
+                    var newUnit = unit.Create(MapConfig.DungeonPlayer, id, x, y, face);
+                    newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRange;
+
+
+
+                }
+
+                var bossUnit = bossData.Boss;
+                var newBoss = unit.Create(MapConfig.DungeonPlayer, bossUnit.UnitType, bossUnit.X, bossUnit.Y, bossUnit.Facing);
+                newBoss.HeroLevel = bossData.Boss.HeroLevel;
+                RemoveUnit(bossUnit);
+                bossData.Boss = newBoss;
+            }
+
+        }
+
+        private void RestoreFinalBoss()
+        {
+
+            var regionBoss = GetRegionFinallBoss();
+            unit finalBoss = unit.Create(MapConfig.DungeonPlayer, Data.FinalBoss.UnitType, regionBoss.Center.X, regionBoss.Center.Y, Data.FinalBoss.Facing);
+            finalBoss.HeroLevel = Data.FinalBoss.HeroLevel;
+            RemoveUnit(Data.FinalBoss);
+            Data.FinalBoss = finalBoss;
         }
 
         public override trigger GetTrigger()
@@ -234,12 +315,6 @@ namespace Source.Data.Dungeons
                 });
             }
         }
-
-        #region Events
-        private void OnGuardDie()
-        {
-        }
-        #endregion
 
     }
 

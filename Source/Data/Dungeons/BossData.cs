@@ -3,7 +3,7 @@ using WCSharp.Api;
 
 namespace Source.Data.Dungeons
 {
-    public struct BossData
+    public class BossData
     {
         public unit Boss {  get; set; }
         public int Face { get; set; }

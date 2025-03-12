@@ -277,5 +277,10 @@ namespace Source.Data.Dungeons
 
             base.SetupGates();
         }
+
+        protected override Rectangle GetEnterRegion()
+        {
+            return Regions.Dungeon1EnterRegion;
+        }
     }
 }

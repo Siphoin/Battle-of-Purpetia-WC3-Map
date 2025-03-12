@@ -6,6 +6,7 @@ namespace Source.Data.Dungeons
 {
     public class DungeonData
     {
+        public Rectangle EnterRegion { get; set; }
         public Dictionary<group, List<DungeonGuardData>> Guards { get; set; }
         public Dictionary<Rectangle, BossData> Bosses { get; set; }
         public unit FinalBoss {  get; set; }
