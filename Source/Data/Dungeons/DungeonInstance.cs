@@ -16,16 +16,20 @@ namespace Source.Data.Dungeons
     public abstract class DungeonInstance : TriggerInstance
     {
         private List<destructable> _walls = new();
+        
 
         protected DungeonData Data { get; set; }
 
         private int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
         private int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
-
+        private PeriodicTrigger<PeriodcCommandAIAttack> _periodicAICommandTrigger;
+        private Rectangle _currentTargetAIRegion;
+        private Queue<Rectangle> _queueAIRegions;
+        private PeriodcCommandAIAttack _periodicAICommandAIAttack;
         private readonly alliancetype[] alliancetypes = new alliancetype[]
         {
             alliancetype.Passive,
-            alliancetype.SharedControl,
+            alliancetype.SharedVision,
             alliancetype.HelpRequest,
             alliancetype.HelpResponse,
             alliancetype.SharedSpells
@@ -35,6 +39,7 @@ namespace Source.Data.Dungeons
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
         protected abstract Rectangle GetEnterRegion();
         protected abstract int GetRequiredLevelHero();
+        protected abstract Queue<Rectangle> GetAIQueueRegions();
 
         protected virtual void SetupGates()
         {
@@ -70,7 +75,11 @@ namespace Source.Data.Dungeons
                 var regionBoss = GetRegionFinallBoss().Center;
                 if (AIHeroTrigger.ContainsHero(hero))
                 {
-                    AIHeroTrigger.GetAI(hero).CoomandsEnabled = false;
+                    Console.WriteLine("contains");
+                    var ai = AIHeroTrigger.GetAI(hero);
+                    ai.CoomandsEnabled = false;
+                    ai.MainTimer.Pause();
+                    ai.TimerCheckHealth.Pause();
                     IssuePointOrder(hero, "attack", regionBoss.X, regionBoss.Y);
                 }
             }
@@ -88,6 +97,12 @@ namespace Source.Data.Dungeons
 
                 }
             }
+            _queueAIRegions = GetAIQueueRegions();
+            _currentTargetAIRegion = _queueAIRegions.Dequeue();
+
+            _periodicAICommandAIAttack = new(CheckCommandAI);
+            _periodicAICommandTrigger = new(0.04f);
+            _periodicAICommandTrigger.Add(_periodicAICommandAIAttack);
 
 
         }
@@ -371,12 +386,51 @@ namespace Source.Data.Dungeons
                     if (GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_1 || GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_2)
                     {
                         GetEnumDestructable().Kill();
+                        if (_queueAIRegions.Count > 0)
+                        {
+                            _currentTargetAIRegion = _queueAIRegions.Dequeue();
+                        }
+
                         _walls.Add(GetEnumDestructable());
                     }
                 });
             }
         }
 
+        private void CheckCommandAI ()
+        {
+            var heroes = PlayerHeroesList.Heroes.Where(x => AIHeroTrigger.ContainsHero(x));
+            var targetRegion = _currentTargetAIRegion;
+            foreach (var hero in heroes)
+            {
+                var ai = AIHeroTrigger.GetAI(hero);
+                var currentOrder = GetUnitCurrentOrder(hero);
+                if (currentOrder != Constants.ORDER_ATTACK && currentOrder != Constants.ORDER_MOVE && currentOrder != Constants.ORDER_STAND_DOWN)
+                {
+                    ai.CoomandsEnabled = false;
+                    ai.MainTimer.Pause();
+                    ai.TimerCheckHealth.Pause();
+                    IssuePointOrder(hero, "attack", targetRegion.X, targetRegion.Y);
+                }
+            }
+        }
+
+    }
+
+    public class PeriodcCommandAIAttack : IPeriodicAction
+    {
+        public bool Active { get; set; } = true;
+        public Action CommabdAction { get; set; }
+
+        public PeriodcCommandAIAttack(Action updateStatsAction)
+        {
+            CommabdAction = updateStatsAction;
+        }
+
+        public void Action()
+        {
+            CommabdAction?.Invoke();
+        }
     }
 
 }

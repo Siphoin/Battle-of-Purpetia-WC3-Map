@@ -59,9 +59,9 @@ namespace Source.Triggers.HeroTriggers
 
         private unit Hero {  get; set; }
         private trigger AiTrigger { get; set; }
-        private timer MainTimer { get; set; }
+        public timer MainTimer { get; private set; }
 
-        private timer TimerCheckHealth { get; set; }
+        public timer TimerCheckHealth { get;  private set; }
         public bool CoomandsEnabled { get => _coomandsEnabled; set => _coomandsEnabled = value; }
 
         public override trigger GetTrigger()
@@ -180,6 +180,7 @@ namespace Source.Triggers.HeroTriggers
             {
                 var speelList = _abilityList[Hero.Name];
                 int indexSpell = GetRandomInt(0, Hero.HeroLevel - 1);
+                
 
                 if (indexSpell > speelList.Length - 1)
                 {
@@ -187,6 +188,12 @@ namespace Source.Triggers.HeroTriggers
                 }
 
                 var targetSpeel = speelList[indexSpell];
+                ability ability = BlzGetUnitAbility(Hero, FourCC(targetSpeel));
+                if (ability.RequiredLevel > Hero.HeroLevel)
+                {
+                    LearnSpell();
+                    return;
+                }
                 SelectHeroSkill(Hero, FourCC(targetSpeel));
 #if DEBUG
                 Console.WriteLine($"Hero of AI {GetPlayerId(Hero.Owner)} learned spell {targetSpeel}");
