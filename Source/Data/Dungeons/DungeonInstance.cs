@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WCSharp.Api;
 using WCSharp.Events;
+using WCSharp.Shared;
 using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
@@ -23,9 +24,10 @@ namespace Source.Data.Dungeons
         private int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
         private int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
         private PeriodicTrigger<PeriodcCommandAIAttack> _periodicAICommandTrigger;
-        private Rectangle _currentTargetAIRegion;
-        private Queue<Rectangle> _queueAIRegions;
+        private DungwonStage _currentTargetAIRegion;
+        private Queue<DungwonStage> _queueAIRegions;
         private PeriodcCommandAIAttack _periodicAICommandAIAttack;
+        private List<DungwonStage> _dungwonStages = new();
         private readonly alliancetype[] alliancetypes = new alliancetype[]
         {
             alliancetype.Passive,
@@ -46,6 +48,27 @@ namespace Source.Data.Dungeons
 #if DEBUG
             Console.WriteLine($"dungeon setup gates: {Data.Stages.Count}");
 #endif
+        }
+
+        protected void SetupStage(List<Rectangle> guardRegions, Rectangle gateRegion)
+        {
+            var groupGuards = group.Create();
+            foreach (var region in guardRegions)
+            {
+                var tempGroup = group.Create();
+                GroupEnumUnitsInRect(tempGroup, region.Rect, null);
+
+                foreach (var unit in tempGroup.ToList())
+                {
+                    groupGuards.Add(unit);
+                }
+
+                DestroyGroup(tempGroup);
+            }
+
+            _dungwonStages.Add(new(guardRegions, gateRegion));
+
+            ListenStage(groupGuards, gateRegion);
         }
 
         public void Start ()
@@ -97,11 +120,16 @@ namespace Source.Data.Dungeons
 
                 }
             }
-            _queueAIRegions = GetAIQueueRegions();
+            _queueAIRegions = new();
+
+            foreach (var item in _dungwonStages)
+            {
+                _queueAIRegions.Enqueue(item);
+            }
             _currentTargetAIRegion = _queueAIRegions.Dequeue();
 
             _periodicAICommandAIAttack = new(CheckCommandAI);
-            _periodicAICommandTrigger = new(0.04f);
+            _periodicAICommandTrigger = new(0.5f);
             _periodicAICommandTrigger.Add(_periodicAICommandAIAttack);
 
 
@@ -381,17 +409,13 @@ namespace Source.Data.Dungeons
 
             if (isRemoving)
             {
+                Console.WriteLine("Next Stage");
                 EnumDestructablesInRect(targetStage.Rect, null, () =>
                 {
                     if (GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_1 || GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_2)
                     {
+                        _currentTargetAIRegion = _queueAIRegions.Dequeue();
                         GetEnumDestructable().Kill();
-                        if (_queueAIRegions.Count > 0)
-                        {
-                            _currentTargetAIRegion = _queueAIRegions.Dequeue();
-                        }
-
-                        _walls.Add(GetEnumDestructable());
                     }
                 });
             }
@@ -400,21 +424,55 @@ namespace Source.Data.Dungeons
         private void CheckCommandAI ()
         {
             var heroes = PlayerHeroesList.Heroes.Where(x => AIHeroTrigger.ContainsHero(x));
-            var targetRegion = _currentTargetAIRegion;
+            Rectangle targetRegion = null;
+            foreach (var region in _currentTargetAIRegion.GuardsRegion)
+            {
+                group group = group.Create();
+                GroupEnumUnitsInRect(group, region.Rect, null);
+
+                if (group.ToList().Any(x => x.Alive))
+                {
+                    targetRegion = region;
+                    break;
+                }
+
+                DestroyGroup(group);
+            }
+
+            if (targetRegion == null)
+            {
+                targetRegion = _currentTargetAIRegion.GateRegion;
+            }
             foreach (var hero in heroes)
             {
-                var ai = AIHeroTrigger.GetAI(hero);
+
+    var ai = AIHeroTrigger.GetAI(hero);
                 var currentOrder = GetUnitCurrentOrder(hero);
                 if (currentOrder != Constants.ORDER_ATTACK && currentOrder != Constants.ORDER_MOVE && currentOrder != Constants.ORDER_STAND_DOWN)
                 {
                     ai.CoomandsEnabled = false;
                     ai.MainTimer.Pause();
                     ai.TimerCheckHealth.Pause();
-                    IssuePointOrder(hero, "attack", targetRegion.X, targetRegion.Y);
+                    IssuePointOrder(hero, "attack", targetRegion.Center.X, targetRegion.Center.Y);
                 }
             }
         }
 
+        
+
+    }
+
+    public class DungwonStage
+    {
+
+        public IEnumerable<Rectangle> GuardsRegion { get; private set; }
+        public Rectangle GateRegion { get; private set; }
+
+        public DungwonStage(IEnumerable<Rectangle> guardsRegion, Rectangle gateRegion)
+        {
+            GuardsRegion = guardsRegion;
+            GateRegion = gateRegion;
+        }
     }
 
     public class PeriodcCommandAIAttack : IPeriodicAction

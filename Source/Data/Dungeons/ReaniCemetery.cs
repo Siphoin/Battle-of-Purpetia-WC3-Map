@@ -61,223 +61,29 @@ namespace Source.Data.Dungeons
 
         protected override void SetupGates()
         {
-            // FIRST stage
-            List<Rectangle> regionsFirstGates = new List<Rectangle>
+            var stages = new List<(List<Rectangle> guardRegions, Rectangle gateRegion)>
+    {
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards1, Regions.Dungeon1RegionGuards2, 
+            Regions.Dungeon1RegionGuards3 }, 
+            Regions.Dungeon1RegionGate1),
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards4, Regions.Dungeon1RegionGuards5, 
+            Regions.Dungeon1RegionGuards6 }, Regions.Dungeon1RegionGate2),
+        (new List<Rectangle> { Regions.Dungeon1RegionBossLich }, Regions.Dungeon1RegionGate3),
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards7 }, Regions.Dungeon1RegionGate5),
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards8 }, Regions.Dungeon1RegionGate10),
+        (new List<Rectangle> { Regions.Dungeon1RegionBossDeathKnight }, Regions.Dungeon1RegionGate7),
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards9 }, Regions.Dungeon1RegionGate8),
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards10 }, Regions.Dungeon1RegionGate9),
+        (new List<Rectangle> { Regions.Dungeon1RegionGuards11 }, Regions.Dungeon1RegionFinalGate)
+    };
+
+            foreach (var stage in stages)
             {
-                Regions.Dungeon1RegionGuards1,
-                Regions.Dungeon1RegionGuards2,
-                Regions.Dungeon1RegionGuards3,
-                
-            };
-
-            var stage = Regions.Dungeon1RegionGate1;
-            group groupGuards = group.Create();
-            foreach (Rectangle region in regionsFirstGates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
+                SetupStage(stage.guardRegions, stage.gateRegion);
             }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionSecondsGates = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionGuards4,
-                Regions.Dungeon1RegionGuards5,
-                Regions.Dungeon1RegionGuards6,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate2;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionSecondsGates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionBossLich = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionBossLich,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate3;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionBossLich)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionThreeGates = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionGuards7,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate5;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionThreeGates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            base.SetupGates();
-
-            List<Rectangle> regionFourGates = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionGuards8,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate10;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionFourGates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionDeathKnight = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionBossDeathKnight,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate7;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionDeathKnight)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionSixGates = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionGuards9,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate8;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionSixGates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionPre1Gates = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionGuards10,
-
-            };
-
-            stage = Regions.Dungeon1RegionGate9;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionPre1Gates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
-
-            List<Rectangle> regionPre2Gates = new List<Rectangle>
-            {
-                Regions.Dungeon1RegionGuards11,
-
-            };
-
-            stage = Regions.Dungeon1RegionFinalGate;
-            groupGuards = group.Create();
-            foreach (Rectangle region in regionPre2Gates)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                foreach (var unit in group.ToList())
-                {
-                    groupGuards.Add(unit);
-                }
-
-                DestroyGroup(group);
-            }
-
-            ListenStage(groupGuards, stage);
 
             base.SetupGates();
         }
-
         protected override Rectangle GetEnterRegion()
         {
             return Regions.Dungeon1EnterRegion;
@@ -286,6 +92,36 @@ namespace Source.Data.Dungeons
         protected override int GetRequiredLevelHero()
         {
             return 15;
+        }
+
+        protected override Queue<Rectangle> GetAIQueueRegions()
+        {
+            Rectangle[] regions = new Rectangle[]
+            {
+                Regions.Dungeon1RegionGuards1,
+                Regions.Dungeon1RegionGuards2,
+                Regions.Dungeon1RegionGuards3,
+                Regions.Dungeon1RegionGuards4,
+                Regions.Dungeon1RegionGuards5,
+                Regions.Dungeon1RegionGuards6,
+                Regions.Dungeon1RegionBossLich,
+                Regions.Dungeon1RegionGuards7,
+                Regions.Dungeon1RegionGuards8,
+                Regions.Dungeon1RegionBossDeathKnight,
+                Regions.Dungeon1RegionGuards9,
+                Regions.Dungeon1RegionGuards10,
+                Regions.Dungeon1RegionGuards11,
+                Regions.Dungeon1BossRegionFinalBoss
+
+            };
+            Queue<Rectangle> queue = new Queue<Rectangle>();
+
+            foreach (var region in regions)
+            {
+                queue.Enqueue(region);
+            }
+
+            return queue;
         }
     }
 }
