@@ -37,6 +37,9 @@ gg_rct_Dungeon1BossRegionFinalBoss = nil
 gg_rct_Dungeon1RegionGate10 = nil
 gg_rct_Dungeon1RegionGate5 = nil
 gg_rct_Dungeon1RegionFinalGate = nil
+gg_rct_Dungeon1Activator = nil
+gg_rct_RegionTreantsSpawn = nil
+gg_rct_RegionSatyrSpawn = nil
 function InitGlobals()
 end
 
@@ -446,6 +449,9 @@ gg_rct_Dungeon1BossRegionFinalBoss = Rect(10848.0, -6656.0, 11200.0, -6368.0)
 gg_rct_Dungeon1RegionGate10 = Rect(5856.0, -11616.0, 6912.0, -11232.0)
 gg_rct_Dungeon1RegionGate5 = Rect(5792.0, -13088.0, 6848.0, -12704.0)
 gg_rct_Dungeon1RegionFinalGate = Rect(10432.0, -8224.0, 11488.0, -7840.0)
+gg_rct_Dungeon1Activator = Rect(-9568.0, 10240.0, -8960.0, 10720.0)
+gg_rct_RegionTreantsSpawn = Rect(7808.0, 8384.0, 9632.0, 10208.0)
+gg_rct_RegionSatyrSpawn = Rect(-10880.0, 6496.0, -9056.0, 8320.0)
 end
 
 function InitCustomPlayerSlots()
