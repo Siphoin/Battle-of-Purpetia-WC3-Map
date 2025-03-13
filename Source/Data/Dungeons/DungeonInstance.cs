@@ -409,11 +409,11 @@ namespace Source.Data.Dungeons
 
             if (isRemoving)
             {
-                Console.WriteLine("Next Stage");
                 EnumDestructablesInRect(targetStage.Rect, null, () =>
                 {
                     if (GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_1 || GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_2)
                     {
+                        Console.WriteLine("Next Stage");
                         _currentTargetAIRegion = _queueAIRegions.Dequeue();
                         GetEnumDestructable().Kill();
                     }
