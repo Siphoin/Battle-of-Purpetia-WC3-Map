@@ -100,7 +100,6 @@ namespace Source.Data.Dungeons
                 var regionBoss = GetRegionFinallBoss().Center;
                 if (AIHeroTrigger.ContainsHero(hero))
                 {
-                    Console.WriteLine("contains");
                     var ai = AIHeroTrigger.GetAI(hero);
                     ai.CoomandsEnabled = false;
                     ai.MainTimer.Pause();
@@ -189,7 +188,8 @@ namespace Source.Data.Dungeons
             trigger triggerRestartDungeon = trigger.Create();
             triggerRestartDungeon.AddAction(() =>
             {
-                
+                var uniqueOwners = new HashSet<int>(); // Исп
+
                 var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
 
                 foreach (var hero in heroes)
@@ -199,6 +199,29 @@ namespace Source.Data.Dungeons
                     var regionTown = Regions.HeroSpawn.GetRandomPoint();
                     hero.X = regionTown.X;
                     hero.Y = regionTown.Y;
+                    uniqueOwners.Add(hero.Owner.Id);
+
+                    var ownerList = uniqueOwners.ToList();
+                    for (int i = 0; i < ownerList.Count; i++)
+                    {
+                        for (int j = i + 1; j < ownerList.Count; j++)
+                        {
+                            for (int k = 0; k < alliancetypes.Length; k++)
+                            {
+                                SetPlayerAlliance(Player(ownerList[i]), Player(ownerList[j]), alliancetypes[k], false); // Делаем их союзниками
+                                SetPlayerAlliance(Player(ownerList[j]), Player(ownerList[i]), alliancetypes[k], false); // Делаем их союзниками
+                            }
+
+                        }
+                    }
+
+                    if (AIHeroTrigger.ContainsHero(hero))
+                    {
+                        var ai = AIHeroTrigger.GetAI(hero);
+                        ai.CoomandsEnabled = true;
+                        ai.MainTimer.Resume();
+                        ai.TimerCheckHealth.Resume();
+                    }
                 }
 
                 
