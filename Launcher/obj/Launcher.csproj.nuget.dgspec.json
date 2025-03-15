@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\repos\\WCSharpTemplate\\Launcher\\Launcher.csproj": {}
+    "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Launcher\\Launcher.csproj": {}
   },
   "projects": {
-    "D:\\repos\\WCSharpTemplate\\Launcher\\Launcher.csproj": {
+    "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Launcher\\Launcher.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\repos\\WCSharpTemplate\\Launcher\\Launcher.csproj",
+        "projectUniqueName": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Launcher\\Launcher.csproj",
         "projectName": "Launcher",
-        "projectPath": "D:\\repos\\WCSharpTemplate\\Launcher\\Launcher.csproj",
+        "projectPath": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Launcher\\Launcher.csproj",
         "packagesPath": "C:\\Users\\maxko\\.nuget\\packages\\",
-        "outputPath": "D:\\repos\\WCSharpTemplate\\Launcher\\obj\\",
+        "outputPath": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Launcher\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\maxko\\AppData\\Roaming\\NuGet\\NuGet.Config",

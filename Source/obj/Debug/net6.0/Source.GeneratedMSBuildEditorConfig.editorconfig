@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Source
-build_property.ProjectDir = D:\repos\WCSharpTemplate\Source\
+build_property.ProjectDir = D:\repos\Battle-of-Purpetia-WC3-Map\Source\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

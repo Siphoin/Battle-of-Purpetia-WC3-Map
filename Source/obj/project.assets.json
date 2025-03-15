@@ -467,11 +467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\repos\\WCSharpTemplate\\Source\\Source.csproj",
+      "projectUniqueName": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Source\\Source.csproj",
       "projectName": "Source",
-      "projectPath": "D:\\repos\\WCSharpTemplate\\Source\\Source.csproj",
+      "projectPath": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Source\\Source.csproj",
       "packagesPath": "C:\\Users\\maxko\\.nuget\\packages\\",
-      "outputPath": "D:\\repos\\WCSharpTemplate\\Source\\obj\\",
+      "outputPath": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Source\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\maxko\\AppData\\Roaming\\NuGet\\NuGet.Config",

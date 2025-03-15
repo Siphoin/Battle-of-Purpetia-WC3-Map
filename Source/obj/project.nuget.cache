@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BaUxJFiTwUo=",
+  "dgSpecHash": "JxdUUTOZM98=",
   "success": true,
-  "projectFilePath": "D:\\repos\\WCSharpTemplate\\Source\\Source.csproj",
+  "projectFilePath": "D:\\repos\\Battle-of-Purpetia-WC3-Map\\Source\\Source.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.api\\3.0.0\\wcsharp.api.3.0.0.nupkg.sha512",
     "C:\\Users\\maxko\\.nuget\\packages\\wcsharp.buffs\\3.0.0\\wcsharp.buffs.3.0.0.nupkg.sha512",
