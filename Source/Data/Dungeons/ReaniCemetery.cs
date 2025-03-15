@@ -24,8 +24,6 @@ namespace Source.Data.Dungeons
         {
             return new List<Rectangle>
             {
-                    Regions.Dungeon1RegionGuards1,
-                    Regions.Dungeon1RegionGuards2,
                     Regions.Dungeon1RegionGuards3,
                     Regions.Dungeon1RegionGuards4,
                     Regions.Dungeon1RegionGuards5,
@@ -34,7 +32,6 @@ namespace Source.Data.Dungeons
                     Regions.Dungeon1RegionGuards8,
                     Regions.Dungeon1RegionGuards9,
                     Regions.Dungeon1RegionGuards10,
-                    Regions.Dungeon1RegionGuards11,
                     
 
             }; 
@@ -63,7 +60,7 @@ namespace Source.Data.Dungeons
         {
             var stages = new List<(List<Rectangle> guardRegions, Rectangle gateRegion)>
     {
-        (new List<Rectangle> { Regions.Dungeon1RegionGuards1, Regions.Dungeon1RegionGuards2, 
+        (new List<Rectangle> {
             Regions.Dungeon1RegionGuards3 }, 
             Regions.Dungeon1RegionGate1),
         (new List<Rectangle> { Regions.Dungeon1RegionGuards4, Regions.Dungeon1RegionGuards5, 
@@ -74,7 +71,6 @@ namespace Source.Data.Dungeons
         (new List<Rectangle> { Regions.Dungeon1RegionBossDeathKnight }, Regions.Dungeon1RegionGate7),
         (new List<Rectangle> { Regions.Dungeon1RegionGuards9 }, Regions.Dungeon1RegionGate8),
         (new List<Rectangle> { Regions.Dungeon1RegionGuards10 }, Regions.Dungeon1RegionGate9),
-        (new List<Rectangle> { Regions.Dungeon1RegionGuards11 }, Regions.Dungeon1RegionFinalGate)
     };
 
             foreach (var stage in stages)
@@ -98,11 +94,7 @@ namespace Source.Data.Dungeons
         {
             Rectangle[] regions = new Rectangle[]
             {
-                Regions.Dungeon1RegionGuards1,
-                Regions.Dungeon1RegionGuards2,
                 Regions.Dungeon1RegionGuards3,
-                Regions.Dungeon1RegionGuards4,
-                Regions.Dungeon1RegionGuards5,
                 Regions.Dungeon1RegionGuards6,
                 Regions.Dungeon1RegionBossLich,
                 Regions.Dungeon1RegionGuards7,
@@ -110,7 +102,6 @@ namespace Source.Data.Dungeons
                 Regions.Dungeon1RegionBossDeathKnight,
                 Regions.Dungeon1RegionGuards9,
                 Regions.Dungeon1RegionGuards10,
-                Regions.Dungeon1RegionGuards11,
                 Regions.Dungeon1BossRegionFinalBoss
 
             };
@@ -122,6 +113,27 @@ namespace Source.Data.Dungeons
             }
 
             return queue;
+        }
+
+        protected override void CreateGates()
+        {
+            
+            var region = Regions.Dungeon1RegionGate1;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 0, 1, 0);
+            region = Regions.Dungeon1RegionGate2;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 225, 1, 0);
+            region = Regions.Dungeon1RegionGate3;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 135, 1, 0);
+            region = Regions.Dungeon1RegionGate5;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
+            region = Regions.Dungeon1RegionGate10;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
+            region = Regions.Dungeon1RegionGate7;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
+            region = Regions.Dungeon1RegionGate8;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
+            region = Regions.Dungeon1RegionGate9;
+            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 225, 1, 0);
         }
     }
 }

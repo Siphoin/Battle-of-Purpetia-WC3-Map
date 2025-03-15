@@ -21,13 +21,12 @@ namespace Source.Data.Dungeons
 
         protected DungeonData Data { get; set; }
 
-        private int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
-        private int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
+        protected int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
+        protected int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
         private PeriodicTrigger<PeriodcCommandAIAttack> _periodicAICommandTrigger;
-        private DungwonStage _currentTargetAIRegion;
-        private Queue<DungwonStage> _queueAIRegions;
+        private Rectangle _currentTargetAIRegion;
+        private Queue<Rectangle> _queueAIRegions = new();
         private PeriodcCommandAIAttack _periodicAICommandAIAttack;
-        private List<DungwonStage> _dungwonStages = new();
         private readonly alliancetype[] alliancetypes = new alliancetype[]
         {
             alliancetype.Passive,
@@ -42,6 +41,8 @@ namespace Source.Data.Dungeons
         protected abstract Rectangle GetEnterRegion();
         protected abstract int GetRequiredLevelHero();
         protected abstract Queue<Rectangle> GetAIQueueRegions();
+
+        protected abstract void CreateGates();
 
         protected virtual void SetupGates()
         {
@@ -66,7 +67,7 @@ namespace Source.Data.Dungeons
                 DestroyGroup(tempGroup);
             }
 
-            _dungwonStages.Add(new(guardRegions, gateRegion));
+            _queueAIRegions.Enqueue(gateRegion);
 
             ListenStage(groupGuards, gateRegion);
         }
@@ -120,12 +121,6 @@ namespace Source.Data.Dungeons
 
                 }
             }
-            _queueAIRegions = new();
-
-            foreach (var item in _dungwonStages)
-            {
-                _queueAIRegions.Enqueue(item);
-            }
             _currentTargetAIRegion = _queueAIRegions.Dequeue();
 
             _periodicAICommandAIAttack = new(CheckCommandAI);
@@ -148,6 +143,7 @@ namespace Source.Data.Dungeons
                 SetupFinalBoss();
                 SetupGates();
                 SetupEnterRegion();
+                CreateGates();
             }
 
             
@@ -413,8 +409,8 @@ namespace Source.Data.Dungeons
                 {
                     if (GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_1 || GetEnumDestructable().Type == ID_BLOCK_WALL_STAGE_2)
                     {
-                        Console.WriteLine("Next Stage");
                         _currentTargetAIRegion = _queueAIRegions.Dequeue();
+                        Console.WriteLine("Next Stage");
                         GetEnumDestructable().Kill();
                     }
                 });
@@ -424,25 +420,7 @@ namespace Source.Data.Dungeons
         private void CheckCommandAI ()
         {
             var heroes = PlayerHeroesList.Heroes.Where(x => AIHeroTrigger.ContainsHero(x));
-            Rectangle targetRegion = null;
-            foreach (var region in _currentTargetAIRegion.GuardsRegion)
-            {
-                group group = group.Create();
-                GroupEnumUnitsInRect(group, region.Rect, null);
-
-                if (group.ToList().Any(x => x.Alive))
-                {
-                    targetRegion = region;
-                    break;
-                }
-
-                DestroyGroup(group);
-            }
-
-            if (targetRegion == null)
-            {
-                targetRegion = _currentTargetAIRegion.GateRegion;
-            }
+            Rectangle targetRegion = _currentTargetAIRegion; 
             foreach (var hero in heroes)
             {
 

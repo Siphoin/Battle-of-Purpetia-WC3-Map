@@ -15,8 +15,6 @@ gg_rct_Dungeon1RegionFinalBoss = nil
 gg_rct_Dungeon1RegionBossDeathKnight = nil
 gg_rct_Dungeon1RegionBossLich = nil
 gg_rct_Dungeon1EnterRegion = nil
-gg_rct_Dungeon1RegionGuards1 = nil
-gg_rct_Dungeon1RegionGuards2 = nil
 gg_rct_Dungeon1RegionGuards3 = nil
 gg_rct_Dungeon1RegionGuards4 = nil
 gg_rct_Dungeon1RegionGuards5 = nil
@@ -25,22 +23,30 @@ gg_rct_Dungeon1RegionGuards7 = nil
 gg_rct_Dungeon1RegionGuards8 = nil
 gg_rct_Dungeon1RegionGuards9 = nil
 gg_rct_Dungeon1RegionGuards10 = nil
-gg_rct_Dungeon1RegionGuards11 = nil
 gg_rct_Dungeon1RegionGate1 = nil
 gg_rct_Dungeon1RegionGate2 = nil
 gg_rct_Dungeon1RegionGate3 = nil
-gg_rct_Dungeon1RegionGate4 = nil
 gg_rct_Dungeon1RegionGate7 = nil
 gg_rct_Dungeon1RegionGate8 = nil
 gg_rct_Dungeon1RegionGate9 = nil
 gg_rct_Dungeon1BossRegionFinalBoss = nil
 gg_rct_Dungeon1RegionGate10 = nil
 gg_rct_Dungeon1RegionGate5 = nil
-gg_rct_Dungeon1RegionFinalGate = nil
 gg_rct_Dungeon1Activator = nil
 gg_rct_RegionTreantsSpawn = nil
 gg_rct_RegionSatyrSpawn = nil
 function InitGlobals()
+end
+
+function CreateUnitsForPlayer0()
+local p = Player(0)
+local u
+local unitID
+local t
+local life
+
+u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -2785.0, -13392.0, 6.810, FourCC("Hpal"))
+SetHeroLevel(u, 25, false)
 end
 
 function CreateUnitsForPlayer12()
@@ -293,43 +299,15 @@ u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10306.1, -11480.3, 238.439, FourCC(
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10345.9, -11404.5, 239.012, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10749.8, -8468.7, 261.771, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10587.1, -8653.6, 258.681, FourCC("u005"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10875.1, -8731.4, 225.886, FourCC("u005"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10937.5, -8425.3, 246.194, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u005"), 11137.5, -8803.3, 270.558, FourCC("u005"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10552.4, -8917.5, 305.330, FourCC("u005"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10842.8, -8977.4, 283.731, FourCC("u005"))
-SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u005"), 4061.3, -12449.6, 101.187, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u005"), 10877.4, -7321.3, 241.443, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u005"), 11313.2, -7414.2, 220.425, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11041.2, -8457.2, 237.218, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u005"), 11038.7, -7576.7, 234.038, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u005"), 3314.5, -10596.8, 173.010, FourCC("u005"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10621.6, -8464.4, 274.577, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11037.8, -8373.0, 240.867, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11103.2, -8441.3, 233.839, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u003"), 10696.7, -8320.5, 267.666, FourCC("u003"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u003"), 10974.5, -8303.5, 247.298, FourCC("u003"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u003"), 11173.8, -8381.1, 232.356, FourCC("u003"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10742.2, -6616.5, 323.410, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
@@ -342,22 +320,6 @@ SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11262.7, -6799.3, 173.259, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u004"), 10718.1, -6744.0, 355.134, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2487.4, -13473.5, 150.528, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2559.5, -13715.8, 124.041, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2276.0, -13516.5, 156.435, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -2340.5, -13777.1, 135.502, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1546.0, -12368.6, 165.546, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1436.5, -12555.1, 153.358, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1687.8, -12483.3, 147.462, FourCC("u004"))
-SetUnitAcquireRange(u, 200.0)
-u = BlzCreateUnitWithSkin(p, FourCC("u004"), -1563.4, -12695.2, 138.266, FourCC("u004"))
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("u005"), 1361.1, -12743.1, 252.430, FourCC("u005"))
 SetUnitAcquireRange(u, 200.0)
@@ -404,6 +366,7 @@ function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
+CreateUnitsForPlayer0()
 CreateUnitsForPlayer12()
 end
 
@@ -434,8 +397,6 @@ gg_rct_Dungeon1RegionFinalBoss = Rect(10208.0, -7744.0, 12096.0, -6016.0)
 gg_rct_Dungeon1RegionBossDeathKnight = Rect(7296.0, -11488.0, 8928.0, -10144.0)
 gg_rct_Dungeon1RegionBossLich = Rect(3136.0, -11360.0, 4416.0, -9792.0)
 gg_rct_Dungeon1EnterRegion = Rect(-3104.0, -12704.0, -2560.0, -12288.0)
-gg_rct_Dungeon1RegionGuards1 = Rect(-2784.0, -14016.0, -2080.0, -13376.0)
-gg_rct_Dungeon1RegionGuards2 = Rect(-1856.0, -12864.0, -1152.0, -12224.0)
 gg_rct_Dungeon1RegionGuards3 = Rect(-1152.0, -14144.0, -480.0, -13280.0)
 gg_rct_Dungeon1RegionGuards4 = Rect(480.0, -14080.0, 1344.0, -13248.0)
 gg_rct_Dungeon1RegionGuards5 = Rect(1184.0, -12960.0, 1600.0, -12512.0)
@@ -444,18 +405,15 @@ gg_rct_Dungeon1RegionGuards7 = Rect(3648.0, -13216.0, 4704.0, -12160.0)
 gg_rct_Dungeon1RegionGuards8 = Rect(6016.0, -12640.0, 6656.0, -11744.0)
 gg_rct_Dungeon1RegionGuards9 = Rect(8224.0, -13472.0, 9120.0, -12576.0)
 gg_rct_Dungeon1RegionGuards10 = Rect(9504.0, -11584.0, 10560.0, -10688.0)
-gg_rct_Dungeon1RegionGuards11 = Rect(10432.0, -9152.0, 11328.0, -8160.0)
 gg_rct_Dungeon1RegionGate1 = Rect(-416.0, -14208.0, 96.0, -13152.0)
 gg_rct_Dungeon1RegionGate2 = Rect(2336.0, -11008.0, 3040.0, -10368.0)
-gg_rct_Dungeon1RegionGate3 = Rect(3552.0, -12000.0, 4576.0, -11392.0)
-gg_rct_Dungeon1RegionGate4 = Rect(4448.0, -10816.0, 4768.0, -9952.0)
-gg_rct_Dungeon1RegionGate7 = Rect(7456.0, -12672.0, 8352.0, -11712.0)
+gg_rct_Dungeon1RegionGate3 = Rect(3648.0, -11232.0, 4416.0, -10976.0)
+gg_rct_Dungeon1RegionGate7 = Rect(7392.0, -12096.0, 8480.0, -11296.0)
 gg_rct_Dungeon1RegionGate8 = Rect(9536.0, -12192.0, 10752.0, -11808.0)
 gg_rct_Dungeon1RegionGate9 = Rect(10080.0, -9792.0, 10848.0, -9088.0)
 gg_rct_Dungeon1BossRegionFinalBoss = Rect(10848.0, -6656.0, 11200.0, -6368.0)
-gg_rct_Dungeon1RegionGate10 = Rect(5856.0, -11616.0, 6912.0, -11168.0)
-gg_rct_Dungeon1RegionGate5 = Rect(5792.0, -13088.0, 6848.0, -12704.0)
-gg_rct_Dungeon1RegionFinalGate = Rect(10432.0, -8224.0, 11488.0, -7840.0)
+gg_rct_Dungeon1RegionGate10 = Rect(5856.0, -11616.0, 6912.0, -11360.0)
+gg_rct_Dungeon1RegionGate5 = Rect(5888.0, -12928.0, 6720.0, -12704.0)
 gg_rct_Dungeon1Activator = Rect(-9568.0, 10240.0, -8960.0, 10720.0)
 gg_rct_RegionTreantsSpawn = Rect(7808.0, 8384.0, 9632.0, 10208.0)
 gg_rct_RegionSatyrSpawn = Rect(-10880.0, 6496.0, -9056.0, 8320.0)
