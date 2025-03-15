@@ -16,7 +16,7 @@ Dummy
 
 STRING 4
 {
-Just another Warcraft III map
+Битва за Пурпетию
 }
 
 STRING 5
@@ -26,7 +26,7 @@ Any
 
 STRING 6
 {
-Nondescript
+Добро пожаловать в королевство Блекрию, а точнее в герцогство Пурпетию, что страдает от войн восстаний и прочих форм борьбы за власть. Возьмите на себя роль одного из авантюристов, что решился разгребать местные проблемы.
 }
 
 STRING 7
@@ -513,5 +513,25 @@ STRING 99
 // Doodads: D00V (Храмик), Name (Name)
 {
 Храмик
+}
+
+STRING 100
+{
+Битва за Пурпетию
+}
+
+STRING 101
+{
+Добро пожаловать в королевство Блекрию, а точнее в герцогство Пурпетию, что страдает от войн, восстаний и прочих форм борьбы за власть. Возьмите на себя роль одного из авантюристов, что решился разгребать местные проблемы.
+
+|cffffcc00Скрипты и триггеры написаны на языке C#|r
+
+|cffffcc00Автор инструментария для C#:|r |cff00ffffgithub.com/Orden4/WCSharp|r
+|cffffcc00Ландшафт:|r |cff00ffffNick: www.youtube.com/@imnormal2k|r
+|cffffcc00Лор и сценарий:|r |cff00ffffJustNik (НикКол)|r
+|cffffcc00Скрипты и триггеры:|r |cff00ffffSiphome|r
+|cff00ffffhttps://github.com/Siphoin|r
+|cffffcc00Telegram:|r |cff00ffff@Siphome|r
+|cffffcc00Канал:|r |cff00fffft.me/SiphomeDevelopChannel|r
 }
 
