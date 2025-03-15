@@ -215,6 +215,8 @@ namespace Source.Data.Dungeons
                         }
                     }
 
+                    GUIHeroWidgetTrigger.DestroyWidget(hero.Owner);
+
                     if (AIHeroTrigger.ContainsHero(hero))
                     {
                         var ai = AIHeroTrigger.GetAI(hero);
