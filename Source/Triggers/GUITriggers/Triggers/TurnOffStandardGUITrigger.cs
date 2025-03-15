@@ -40,9 +40,6 @@ namespace Source.Triggers.GUITriggers.Triggers
 
                 BlzFrameSetParent(fh, BlzGetOriginFrame(originframetype.HeroBar, 0));
 
-                fh = BlzGetFrameByName("MiniMapTerrainButton", 0);
-                BlzFrameSetVisible(fh, false);
-
                 fh = BlzGetFrameByName("MiniMapAllyButton", 0);
                 BlzFrameSetVisible(fh, false);
 
