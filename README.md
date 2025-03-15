@@ -15,3 +15,6 @@ https://github.com/Siphoin
 Telegram: @Siphome
 
 Канал: t.me/SiphomeDevelopChannel
+
+![image](https://github.com/user-attachments/assets/baf5af94-60a9-4a6e-8048-aa73144baa7e)
+
