@@ -29,7 +29,7 @@ public static class Regions
 	public static Rectangle Dungeon1RegionGuards7 { get; set; } = new Rectangle(3648f, -13216f, 4704f, -12160f);
 	public static Rectangle Dungeon1RegionGuards8 { get; set; } = new Rectangle(6016f, -12640f, 6656f, -11744f);
 	public static Rectangle Dungeon1RegionGuards9 { get; set; } = new Rectangle(8224f, -13472f, 9120f, -12576f);
-	public static Rectangle Dungeon1RegionGuards10 { get; set; } = new Rectangle(9504f, -11584f, 10560f, -10688f);
+	public static Rectangle Dungeon1RegionGuards10 { get; set; } = new Rectangle(10528f, -8832f, 11584f, -7936f);
 	public static Rectangle Dungeon1RegionGate1 { get; set; } = new Rectangle(-416f, -14208f, 96f, -13152f);
 	public static Rectangle Dungeon1RegionGate2 { get; set; } = new Rectangle(2336f, -11008f, 3040f, -10368f);
 	public static Rectangle Dungeon1RegionGate3 { get; set; } = new Rectangle(3648f, -11232f, 4416f, -10976f);

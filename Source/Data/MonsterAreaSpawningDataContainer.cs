@@ -124,6 +124,34 @@ namespace Source.Data
                     Level = 4
                 },
 
+                new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"nenc", 5 },
+                        {"nenp", 4 },
+                        {"nepl", 2 },
+
+
+                    },
+                    Region = Regions.RegionTreantsSpawn,
+                    Level = 5
+                },
+
+               new ()
+                {
+                    MonstersList = new()
+                    {
+                        {"nsty", 20 },
+                        {"nsat", 4 },
+                        {"nsts", 2 },
+                        {"nsth", 1 },
+
+                    },
+                    Region = Regions.RegionSatyrSpawn,
+                    Level = 7
+                },
+
             };
 
             return data;
