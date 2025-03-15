@@ -12,7 +12,7 @@ namespace Source.Triggers.ArenaTriggers.Triggers
     public class ArenaTrigger : TriggerInstance
     {
         private trigger _timerTrigger;
-        private timer _timerStartArena;
+        private static timer _timerStartArena;
         private timerdialog _dialogWaitArena;
         private GUIHeroWidgetTrigger[] _widgetsTriggers;
         private const int ARENA_TIMER_TURN_SECONDS = 300;
@@ -183,6 +183,16 @@ namespace Source.Triggers.ArenaTriggers.Triggers
             PlayerUnitEvents.Unregister(UnitEvent.Dies, () => RemoveHeroWidget(hero), hero);
 
             GUIHeroWidgetTrigger.DestroyWidget(hero.Owner);
+        }
+
+        public static void StopTickingNewArena ()
+        {
+            _timerStartArena.Pause();
+        }
+
+        public static void ContinueTickingNewArena()
+        {
+            _timerStartArena.Resume();
         }
     }
 }

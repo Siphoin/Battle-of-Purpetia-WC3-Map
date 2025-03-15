@@ -1,5 +1,6 @@
 ﻿
 using Source.Models;
+using Source.Triggers.ArenaTriggers.Triggers;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
 using Source.Triggers.HeroTriggers;
@@ -127,6 +128,8 @@ namespace Source.Data.Dungeons
             _periodicAICommandTrigger = new(0.5f);
             _periodicAICommandTrigger.Add(_periodicAICommandAIAttack);
 
+            ArenaTrigger.StopTickingNewArena();
+
 
         }
         protected abstract string GetDungeonName();
@@ -201,6 +204,8 @@ namespace Source.Data.Dungeons
                 
                 RestartDungeon();
                 DestroyTrigger(triggerRestartDungeon);
+
+                ArenaTrigger.ContinueTickingNewArena();
             });
 
             triggerRestartDungeon.Execute();
