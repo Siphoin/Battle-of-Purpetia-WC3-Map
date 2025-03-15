@@ -132,8 +132,6 @@ namespace Source.Data.Dungeons
             CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
             region = Regions.Dungeon1RegionGate8;
             CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
-            region = Regions.Dungeon1RegionGate9;
-            CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 225, 1, 0);
         }
     }
 }
