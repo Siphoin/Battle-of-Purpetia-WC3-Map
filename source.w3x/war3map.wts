@@ -503,3 +503,15 @@ STRING 97
 Луис
 }
 
+STRING 98
+// Doodads: D00U (Портало), Name (Name)
+{
+Портало
+}
+
+STRING 99
+// Doodads: D00V (Храмик), Name (Name)
+{
+Храмик
+}
+
