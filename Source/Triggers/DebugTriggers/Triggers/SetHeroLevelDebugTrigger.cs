@@ -25,9 +25,14 @@ namespace Source.Triggers.DebugTriggers.Triggers
                 {
                     _selectedUnit = unit;
                 }
+
+                else
+                {
+                    _selectedUnit = null;
+                }
             });
             trigger debugTrigger = trigger.Create();
-            debugTrigger.RegisterPlayerChatEvent(Player(0), "SetHeroLevel", false);
+            debugTrigger.RegisterPlayerChatEvent(Player(0), "SetHeroLevel", true);
             debugTrigger.AddAction(() =>
             {
                 if (_selectedUnit is null)
