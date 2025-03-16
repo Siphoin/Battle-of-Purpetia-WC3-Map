@@ -1,6 +1,8 @@
-﻿using Source.Systems;
+﻿using Source.Data;
+using Source.Systems;
 using Source.Triggers.Base;
 using System;
+using System.Collections.Generic;
 using WCSharp.Api;
 using WCSharp.Shared;
 using static WCSharp.Api.Common;
@@ -19,7 +21,15 @@ namespace Source.Triggers.DebugTriggers.Triggers
 
                 if (parts.Length > 1 && int.TryParse(parts[1], out int dungeonNumber))
                 {
-                    DungeonsSystem.TurnDungeon(dungeonNumber - 1);
+                    List<player> players = new List<player>();
+
+                    var heroes = PlayerHeroesList.Heroes;
+
+                    foreach (var hero in heroes)
+                    {
+                        players.Add(hero.Owner);
+                    }
+                    DungeonsSystem.TurnDungeon(dungeonNumber - 1, players);
                 }
             });
             return debugTrigger;

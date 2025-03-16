@@ -25,18 +25,18 @@ namespace Source.Systems
 
         }
 
-        public static void TurnDungeon (int index)
+        public static void TurnDungeon (int index, IEnumerable<player> players)
         {
             var dungeon = _dungeons[index];
-            dungeon.Start();
+            dungeon.Start(players);
             _activeDungeons.Add(dungeon);
             _notStartedRooms.Remove(dungeon);
         }
 
-        public static void TurnDungeon(DungeonInstance instance)
+        public static void TurnDungeon(DungeonInstance instance, IEnumerable<player> players)
         {
             var dungeon = _dungeons.IndexOf(instance);
-            TurnDungeon(dungeon);
+            TurnDungeon(dungeon, players);
         }
 
         public static void EndDungeon(DungeonInstance dungeonInstance)

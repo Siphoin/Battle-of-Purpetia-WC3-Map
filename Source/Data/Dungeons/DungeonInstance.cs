@@ -80,9 +80,9 @@ namespace Source.Data.Dungeons
             ListenStage(groupGuards, gateRegion);
         }
 
-        public void Start ()
+        public void Start (IEnumerable<player> players)
         {
-            var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
+            var heroes = PlayerHeroesList.GetHeroesOwneringPlayers(players).Where(x => x.Alive);
             var startRegion = GetStartPointDungeon();
             var uniqueOwners = new HashSet<int>(); // Используем HashSet для хранения уникальных идентификаторов владельцев
             foreach (var hero in heroes)

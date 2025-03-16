@@ -161,7 +161,7 @@ namespace Source.Data.Dungeons.Windows
 
         private void StartDungeon()
         {
-            DungeonsSystem.TurnDungeon(Room.TargetDungeon);
+            DungeonsSystem.TurnDungeon(Room.TargetDungeon, Room.GetPlayers());
             Exit();
         }
 
