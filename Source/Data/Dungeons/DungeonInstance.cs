@@ -25,6 +25,9 @@ namespace Source.Data.Dungeons
 
         protected int ID_BLOCK_WALL_STAGE_1 => FourCC("Dofw");
         protected int ID_BLOCK_WALL_STAGE_2 => FourCC("Dofv");
+
+        public bool IsCooldown { get; private set; }
+
         private PeriodicTrigger<PeriodcCommandAIAttack> _periodicAICommandTrigger;
         private Rectangle _currentTargetAIRegion;
         private Queue<Rectangle> _queueAIRegions = new();
@@ -37,6 +40,9 @@ namespace Source.Data.Dungeons
             alliancetype.HelpResponse,
             alliancetype.SharedSpells
         };
+
+        private group _playerGroup;
+
 
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
@@ -80,11 +86,13 @@ namespace Source.Data.Dungeons
             ListenStage(groupGuards, gateRegion);
         }
 
-        public void Start ()
+        public void Start (IEnumerable<player> players)
         {
-            var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
+            Console.WriteLine($"Начался рейд |cffff0000{GetDungeonName()}|r Количество игроков - |cffffff00{players.Count()}|r");
+            var heroes = PlayerHeroesList.GetHeroesOwneringPlayers(players).Where(x => x.Alive);
             var startRegion = GetStartPointDungeon();
             var uniqueOwners = new HashSet<int>(); // Используем HashSet для хранения уникальных идентификаторов владельцев
+            _playerGroup = group.Create();
             foreach (var hero in heroes)
             {
 
@@ -96,6 +104,8 @@ namespace Source.Data.Dungeons
                 hero.IsInvulnerable = false;
                 PauseUnit(hero, false);
                 uniqueOwners.Add(hero.Owner.Id);
+                PlayerUnitEvents.Register(UnitEvent.Dies, OnDieHeroPlayer, hero);
+                _playerGroup.Add(hero);
 
 #if DEBUG
                 if (hero.HeroLevel < GetRequiredLevelHero())
@@ -141,6 +151,21 @@ namespace Source.Data.Dungeons
             ArenaTrigger.StopTickingNewArena();
 
 
+        }
+
+        private void OnDieHeroPlayer()
+        {
+            var hero = GetTriggerUnit();
+            PlayerUnitEvents.Unregister(UnitEvent.Dies, OnDieHeroPlayer, hero);
+            _playerGroup.Remove(hero);
+            var players = _playerGroup.ToList();
+            if (!players.Any())
+            {
+                Console.WriteLine($"Рейд |cffff0000{GetDungeonName()}|r завершился неудачей, все игроки погибли.");
+                DungeonsSystem.EndDungeon(this);
+                DestroyGroup(_playerGroup);
+                ArenaTrigger.ContinueTickingNewArena();
+            }
         }
 
         public DungeonData GetDungeonData()
@@ -239,6 +264,7 @@ namespace Source.Data.Dungeons
                 RestartDungeon();
                 DestroyTrigger(triggerRestartDungeon);
                 DungeonsSystem.EndDungeon(this);
+                Console.WriteLine($"Рейд |cffff0000{GetDungeonName()}|r закончился успешно");
                 ArenaTrigger.ContinueTickingNewArena();
             });
 
@@ -247,6 +273,7 @@ namespace Source.Data.Dungeons
 
         private void RestartDungeon()
         {
+            IsCooldown = true;
             timer timerRestart = timer.Create();
             timerdialog timerdialog = CreateTimerDialog(timerRestart);
             TimerDialogDisplay(timerdialog, true);
@@ -254,6 +281,7 @@ namespace Source.Data.Dungeons
 
             timerRestart.Start(MapConfig.DelayRespawnDungeon, false, () =>
             {
+                IsCooldown = true;
                 RestoreGuards();
                 RestoreBosses();
                 RestoreFinalBoss();
@@ -458,7 +486,7 @@ namespace Source.Data.Dungeons
 
         private void CheckCommandAI ()
         {
-            var heroes = PlayerHeroesList.Heroes.Where(x => AIHeroTrigger.ContainsHero(x));
+            var heroes = _playerGroup.ToList().Where(x => AIHeroTrigger.ContainsHero(x));
             Rectangle targetRegion = _currentTargetAIRegion; 
             foreach (var hero in heroes)
             {

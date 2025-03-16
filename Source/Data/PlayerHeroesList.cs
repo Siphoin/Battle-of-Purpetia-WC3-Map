@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using WCSharp.Api;
 
 namespace Source.Data
@@ -19,6 +20,11 @@ namespace Source.Data
         public static bool Contains (unit hero)
         {
             return _heroes.Contains(hero);
+        }
+
+        public static IEnumerable<unit> GetHeroesOwneringPlayers(IEnumerable<player> players)
+        {
+            return _heroes.Where(hero => players.Contains(hero.Owner));
         }
     }
 }
