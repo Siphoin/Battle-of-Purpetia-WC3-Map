@@ -40,7 +40,9 @@ namespace Source.Data.Dungeons
             alliancetype.HelpResponse,
             alliancetype.SharedSpells
         };
+
         private group _playerGroup;
+
 
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
@@ -484,7 +486,7 @@ namespace Source.Data.Dungeons
 
         private void CheckCommandAI ()
         {
-            var heroes = PlayerHeroesList.Heroes.Where(x => AIHeroTrigger.ContainsHero(x));
+            var heroes = _playerGroup.ToList().Where(x => AIHeroTrigger.ContainsHero(x));
             Rectangle targetRegion = _currentTargetAIRegion; 
             foreach (var hero in heroes)
             {
