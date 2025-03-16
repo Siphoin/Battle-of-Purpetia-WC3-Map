@@ -1,5 +1,6 @@
 ﻿
 using Source.Models;
+using Source.Systems;
 using Source.Triggers.ArenaTriggers.Triggers;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
@@ -39,9 +40,13 @@ namespace Source.Data.Dungeons
 
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
-        protected abstract Rectangle GetEnterRegion();
-        protected abstract int GetRequiredLevelHero();
+        protected abstract Rectangle GetStartPointDungeon();
+        public abstract region GetEnterRegion();
+        public abstract int GetRequiredLevelHero();
         protected abstract Queue<Rectangle> GetAIQueueRegions();
+
+        public abstract string GetDungeonName();
+        protected abstract Rectangle GetRegionFinallBoss();
 
         protected abstract void CreateGates();
 
@@ -76,7 +81,7 @@ namespace Source.Data.Dungeons
         public void Start ()
         {
             var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
-            var startRegion = GetEnterRegion();
+            var startRegion = GetStartPointDungeon();
             var uniqueOwners = new HashSet<int>(); // Используем HashSet для хранения уникальных идентификаторов владельцев
             foreach (var hero in heroes)
             {
@@ -131,8 +136,6 @@ namespace Source.Data.Dungeons
 
 
         }
-        protected abstract string GetDungeonName();
-        protected abstract Rectangle GetRegionFinallBoss();
 
         public DungeonData GetDungeonData()
         {
@@ -156,7 +159,7 @@ namespace Source.Data.Dungeons
 
         private void SetupEnterRegion()
         {
-            Data.EnterRegion = GetEnterRegion();
+            Data.EnterRegion = GetStartPointDungeon();
         }
 
         private void SetupFinalBoss()
@@ -229,7 +232,7 @@ namespace Source.Data.Dungeons
                 
                 RestartDungeon();
                 DestroyTrigger(triggerRestartDungeon);
-
+                DungeonsSystem.EndDungeon(this);
                 ArenaTrigger.ContinueTickingNewArena();
             });
 

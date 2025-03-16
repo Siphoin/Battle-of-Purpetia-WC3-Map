@@ -51,7 +51,7 @@ namespace Source.Data.Dungeons
             return Regions.Dungeon1BossRegionFinalBoss;
         }
 
-        protected override string GetDungeonName()
+        public override string GetDungeonName()
         {
             return "Кладбище Резни";
         }
@@ -80,12 +80,12 @@ namespace Source.Data.Dungeons
 
             base.SetupGates();
         }
-        protected override Rectangle GetEnterRegion()
+        protected override Rectangle GetStartPointDungeon()
         {
             return Regions.Dungeon1EnterRegion;
         }
 
-        protected override int GetRequiredLevelHero()
+        public override int GetRequiredLevelHero()
         {
             return 15;
         }
@@ -132,6 +132,11 @@ namespace Source.Data.Dungeons
             CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
             region = Regions.Dungeon1RegionGate8;
             CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
+        }
+
+        public override region GetEnterRegion()
+        {
+            return Regions.Dungeon1Activator.Region;
         }
     }
 }
