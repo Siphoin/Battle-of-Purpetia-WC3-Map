@@ -1,10 +1,4 @@
-﻿using Source.Systems;
-using Source.Triggers.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Source.Triggers.Base;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.DebugTriggers.Triggers
