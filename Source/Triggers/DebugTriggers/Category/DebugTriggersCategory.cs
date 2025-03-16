@@ -13,7 +13,9 @@ namespace Source.Triggers.DebugTriggers.Category
 
 #if DEBUG
             DungeonDebugExecuterTrigger dungeonDebugExecuterTrigger = new DungeonDebugExecuterTrigger();
+            SetHeroLevelDebugTrigger setHeroLevelDebugTrigger = new SetHeroLevelDebugTrigger();
             triggers.Add(dungeonDebugExecuterTrigger);
+            triggers.Add(setHeroLevelDebugTrigger);
 #endif
             return triggers;
         }
