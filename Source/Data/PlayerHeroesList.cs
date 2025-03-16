@@ -15,5 +15,10 @@ namespace Source.Data
         {
             _heroes.Add(hero);
         }
+
+        public static bool Contains (unit hero)
+        {
+            return _heroes.Contains(hero);
+        }
     }
 }

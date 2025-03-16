@@ -1,5 +1,6 @@
 ﻿
 using Source.Models;
+using Source.Systems;
 using Source.Triggers.ArenaTriggers.Triggers;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
@@ -39,11 +40,17 @@ namespace Source.Data.Dungeons
 
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
-        protected abstract Rectangle GetEnterRegion();
-        protected abstract int GetRequiredLevelHero();
+        protected abstract Rectangle GetStartPointDungeon();
+        public abstract Rectangle GetEnterRegion();
+        public abstract int GetRequiredLevelHero();
         protected abstract Queue<Rectangle> GetAIQueueRegions();
 
+        public abstract string GetDungeonName();
+        protected abstract Rectangle GetRegionFinallBoss();
+
         protected abstract void CreateGates();
+        public abstract object GetDungeonDescription();
+        public abstract string GetPathIconDungeon();
 
         protected virtual void SetupGates()
         {
@@ -76,7 +83,7 @@ namespace Source.Data.Dungeons
         public void Start ()
         {
             var heroes = PlayerHeroesList.Heroes.Where(x => x.Alive);
-            var startRegion = GetEnterRegion();
+            var startRegion = GetStartPointDungeon();
             var uniqueOwners = new HashSet<int>(); // Используем HashSet для хранения уникальных идентификаторов владельцев
             foreach (var hero in heroes)
             {
@@ -84,6 +91,10 @@ namespace Source.Data.Dungeons
                 var point = startRegion.GetRandomPoint();
                 hero.X = point.X;
                 hero.Y = point.Y;
+                hero.Life = hero.MaxLife;
+                hero.Mana = hero.MaxMana;
+                hero.IsInvulnerable = false;
+                PauseUnit(hero, false);
                 uniqueOwners.Add(hero.Owner.Id);
 
 #if DEBUG
@@ -131,8 +142,6 @@ namespace Source.Data.Dungeons
 
 
         }
-        protected abstract string GetDungeonName();
-        protected abstract Rectangle GetRegionFinallBoss();
 
         public DungeonData GetDungeonData()
         {
@@ -156,7 +165,7 @@ namespace Source.Data.Dungeons
 
         private void SetupEnterRegion()
         {
-            Data.EnterRegion = GetEnterRegion();
+            Data.EnterRegion = GetStartPointDungeon();
         }
 
         private void SetupFinalBoss()
@@ -229,7 +238,7 @@ namespace Source.Data.Dungeons
                 
                 RestartDungeon();
                 DestroyTrigger(triggerRestartDungeon);
-
+                DungeonsSystem.EndDungeon(this);
                 ArenaTrigger.ContinueTickingNewArena();
             });
 
@@ -465,8 +474,6 @@ namespace Source.Data.Dungeons
                 }
             }
         }
-
-        
 
     }
 
