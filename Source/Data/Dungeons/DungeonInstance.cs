@@ -162,6 +162,7 @@ namespace Source.Data.Dungeons
                 Console.WriteLine($"Рейд |cffff0000{GetDungeonName()}|r завершился неудачей, все игроки погибли.");
                 DungeonsSystem.EndDungeon(this);
                 DestroyGroup(_playerGroup);
+                ArenaTrigger.ContinueTickingNewArena();
             }
         }
 
