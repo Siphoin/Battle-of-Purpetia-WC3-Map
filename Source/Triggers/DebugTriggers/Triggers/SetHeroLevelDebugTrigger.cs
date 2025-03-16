@@ -1,4 +1,10 @@
-﻿using Source.Triggers.Base;
+﻿using Source.Systems;
+using Source.Triggers.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.DebugTriggers.Triggers
@@ -26,7 +32,7 @@ namespace Source.Triggers.DebugTriggers.Triggers
                 }
             });
             trigger debugTrigger = trigger.Create();
-            debugTrigger.RegisterPlayerChatEvent(Player(0), "SetHeroLevel", true);
+            debugTrigger.RegisterPlayerChatEvent(Player(0), "SetHeroLevel", false);
             debugTrigger.AddAction(() =>
             {
                 if (_selectedUnit is null)
@@ -38,7 +44,7 @@ namespace Source.Triggers.DebugTriggers.Triggers
 
                 if (parts.Length > 1 && int.TryParse(parts[1], out int level))
                 {
-                    SetHeroLevel(_selectedUnit, level, false);
+                    SetHeroLevel(_selectedUnit, level, true);
                 }
             });
             return debugTrigger;

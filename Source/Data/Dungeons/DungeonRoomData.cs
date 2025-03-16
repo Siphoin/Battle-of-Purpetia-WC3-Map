@@ -8,7 +8,7 @@ namespace Source.Data.Dungeons
     {
 
         public DungeonInstance TargetDungeon { get; private set; }
-        private List<player> Players { get; set; }
+        private List<player> Players { get; set; } = new();
         public event Action<player> OnAddPlayer;
         public event Action<player> OnLeavePlayer;
 
@@ -37,6 +37,11 @@ namespace Source.Data.Dungeons
                 Players.Remove(player);
                 OnLeavePlayer?.Invoke(player);
             }
+        }
+
+        public IEnumerable<player> GetPlayers()
+        {
+            return Players;
         }
     }
 }

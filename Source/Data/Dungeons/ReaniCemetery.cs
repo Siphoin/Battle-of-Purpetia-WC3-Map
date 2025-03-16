@@ -138,5 +138,15 @@ namespace Source.Data.Dungeons
         {
             return Regions.Dungeon1Activator;
         }
+
+        public override object GetDungeonDescription()
+        {
+            return "Когда-то это место звалось Склепом Забытого Рыцаря, но один из главарей культистов лич Закжаж Лидер осквернил его, воскресив самого Рыцаря и его мертвых стражей себе во служение. На этом злодеяния Закжажа не закончились: самую глубокую часть склепа он превратил в завод по производству мясных монстров, самым большим и опасным из которых является гомункул Луис.";
+        }
+
+        public override string GetPathIconDungeon()
+        {
+            return "UI/Icons/Dungeons/Dungeon1_icon.blp";
+        }
     }
 }

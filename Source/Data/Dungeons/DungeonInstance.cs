@@ -49,6 +49,8 @@ namespace Source.Data.Dungeons
         protected abstract Rectangle GetRegionFinallBoss();
 
         protected abstract void CreateGates();
+        public abstract object GetDungeonDescription();
+        public abstract string GetPathIconDungeon();
 
         protected virtual void SetupGates()
         {
@@ -468,8 +470,6 @@ namespace Source.Data.Dungeons
                 }
             }
         }
-
-        
 
     }
 

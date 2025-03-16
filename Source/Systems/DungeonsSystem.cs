@@ -47,8 +47,20 @@ namespace Source.Systems
             }
         }
 
-        public static bool JoinDungeon (DungeonInstance dungeon, player player)
+        public static void RemoveRoom (DungeonInstance dungeonInstance)
         {
+            if (_notStartedRooms.TryGetValue(dungeonInstance, out DungeonRoomData room))
+            {
+                if (!room.GetPlayers().Any())
+                {
+                    _notStartedRooms.Remove(dungeonInstance);
+                }
+            }
+        }
+
+        public static bool TryJoinDungeon (DungeonInstance dungeon, player player, out DungeonRoomData result)
+        {
+            result = null;
             if (_activeDungeons.Contains(dungeon))
             {
                 return false;
@@ -60,8 +72,8 @@ namespace Source.Systems
 
             else
             {
-                DungeonRoomData newRoom = new(dungeon, player);
-                _notStartedRooms.Add(dungeon, newRoom);
+                result = new(dungeon, player);
+                _notStartedRooms.Add(dungeon, result);
             }
 
             return true;
@@ -100,6 +112,8 @@ namespace Source.Systems
 
             return baseScale;
         }
+
+        
 
 
     }

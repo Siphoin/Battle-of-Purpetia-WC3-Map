@@ -1,8 +1,10 @@
 ﻿using Source.Data;
 using Source.Data.Dungeons;
+using Source.Data.Dungeons.Windows;
 using Source.Systems;
 using Source.Triggers.Base;
 using System;
+using System.Linq;
 using WCSharp.Api;
 using WCSharp.Shared.Data;
 using static WCSharp.Api.Common;
@@ -54,7 +56,7 @@ namespace Source.Triggers.DungeonsTriggers.Triggers
 
         private void JoinDungeon(unit hero)
         {
-           bool dungeonJoined = DungeonsSystem.JoinDungeon(TargetDungeon, hero.Owner);
+           bool dungeonJoined = DungeonsSystem.TryJoinDungeon(TargetDungeon, hero.Owner, out DungeonRoomData room);
 
             if (!dungeonJoined)
             {
@@ -63,7 +65,13 @@ namespace Source.Triggers.DungeonsTriggers.Triggers
 
             else
             {
-                DungeonsSystem.TurnDungeon(TargetDungeon);
+                if (hero.Owner == player.LocalPlayer)
+                {
+                    DungeonRoomWindow roomWindow = new DungeonRoomWindow(room);
+                    roomWindow.Show();
+                    PauseUnit(hero, true);
+                    hero.IsInvulnerable = true;
+                }
             }
         }
     }

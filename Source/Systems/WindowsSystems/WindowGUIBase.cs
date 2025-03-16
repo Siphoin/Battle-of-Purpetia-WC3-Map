@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Source.Systems.WindowsSystems
+﻿namespace Source.Systems.WindowsSystems
 {
-    internal class WindowGUIBase
+    public abstract class WindowGUIBase 
     {
+        public abstract void Destroy();
+        public abstract void Show();
+        protected virtual void Exit ()
+        {
+            Destroy();
+        }
     }
 }
