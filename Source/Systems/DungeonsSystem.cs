@@ -61,6 +61,10 @@ namespace Source.Systems
         public static bool TryJoinDungeon (DungeonInstance dungeon, player player, out DungeonRoomData result)
         {
             result = null;
+            if (dungeon.IsCooldown)
+            {
+                return false;
+            }
             if (_activeDungeons.Contains(dungeon))
             {
                 return false;

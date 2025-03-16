@@ -60,7 +60,7 @@ namespace Source.Triggers.DungeonsTriggers.Triggers
 
             if (!dungeonJoined)
             {
-                DisplayTextToPlayer(hero.Owner, 0, 0, "Невозможно создать комнату рейда. Текущий начатый рейд не завершен, приходите когда он закончится.");
+                DisplayTextToPlayer(hero.Owner, 0, 0, "Невозможно создать комнату рейда. Текущий начатый рейд не завершен либо тайм-аут, приходите когда он закончится.");
             }
 
             else
