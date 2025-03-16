@@ -65,12 +65,12 @@ namespace Source.Triggers.DungeonsTriggers.Triggers
 
             else
             {
+                PauseUnit(hero, true);
+                hero.IsInvulnerable = true;
                 if (hero.Owner == player.LocalPlayer)
                 {
                     DungeonRoomWindow roomWindow = new DungeonRoomWindow(room);
                     roomWindow.Show();
-                    PauseUnit(hero, true);
-                    hero.IsInvulnerable = true;
                 }
             }
         }
