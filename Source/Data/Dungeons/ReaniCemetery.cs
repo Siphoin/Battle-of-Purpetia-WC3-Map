@@ -134,9 +134,9 @@ namespace Source.Data.Dungeons
             CreateDestructable(ID_BLOCK_WALL_STAGE_1, region.Center.X, region.Center.Y, 270, 1, 0);
         }
 
-        public override region GetEnterRegion()
+        public override Rectangle GetEnterRegion()
         {
-            return Regions.Dungeon1Activator.Region;
+            return Regions.Dungeon1Activator;
         }
     }
 }

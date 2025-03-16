@@ -41,7 +41,7 @@ namespace Source.Data.Dungeons
         protected abstract IEnumerable<Rectangle> GetRegionsGuards();
         protected abstract IEnumerable<Rectangle> GetRegionsMiniBosses();
         protected abstract Rectangle GetStartPointDungeon();
-        public abstract region GetEnterRegion();
+        public abstract Rectangle GetEnterRegion();
         public abstract int GetRequiredLevelHero();
         protected abstract Queue<Rectangle> GetAIQueueRegions();
 
