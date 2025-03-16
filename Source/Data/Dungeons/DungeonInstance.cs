@@ -91,6 +91,10 @@ namespace Source.Data.Dungeons
                 var point = startRegion.GetRandomPoint();
                 hero.X = point.X;
                 hero.Y = point.Y;
+                hero.Life = hero.MaxLife;
+                hero.Mana = hero.MaxMana;
+                hero.IsInvulnerable = false;
+                PauseUnit(hero, false);
                 uniqueOwners.Add(hero.Owner.Id);
 
 #if DEBUG
