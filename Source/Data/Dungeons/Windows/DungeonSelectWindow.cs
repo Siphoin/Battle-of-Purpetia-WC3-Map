@@ -32,67 +32,29 @@ namespace Source.Data.Dungeons.Windows
         private trigger buttonExitTrigger;
         private trigger dungeonElementSelectTrigger;
         private trigger selectButtonTrigger;
+        private framehandle BackdropbuttonExit;
 
         public override void Show()
         {
-            // Создание основного фрейма
             dungeonWindowSelectBackrop = BlzCreateFrameByType("BACKDROP", "BACKDROP", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 1);
-            BlzFrameSetAbsPoint(dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.0236700f, 0.528970f);
-            BlzFrameSetAbsPoint(dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, 0.802020f, 0.0181900f);
-            BlzFrameSetTexture(dungeonWindowSelectBackrop, "UI/dungeonWindowSelectBackrop.blp", 0, true);
-
-            // Создание фрейма для информации
+BlzFrameSetAbsPoint(dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.0236700f, 0.528970f);
+BlzFrameSetAbsPoint(dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, 0.802020f, 0.0181900f);
+BlzFrameSetTexture(dungeonWindowSelectBackrop, "UI/dungeonWindowSelectBackrop.blp", 0, true);
             dungeonWindowSelectInfoBackrop = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonWindowSelectBackrop, "", 1);
-            BlzFrameSetPoint(dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.36740f, -0.038660f);
-            BlzFrameSetPoint(dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.080950f, 0.055380f);
-            BlzFrameSetTexture(dungeonWindowSelectInfoBackrop, "UI/dungeonWindowSelectInfoBackrop.blp", 0, true);
+BlzFrameSetPoint(dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.36740f, -0.038660f);
+BlzFrameSetPoint(dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.080950f, 0.055380f);
+BlzFrameSetTexture(dungeonWindowSelectInfoBackrop, "UI/dungeonWindowSelectInfoBackrop.blp", 0, true);
 
-            // Создание кнопки выхода
-            buttonExit = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectBackrop, 0, 0);
-            BlzFrameSetPoint(buttonExit, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.66667f, -0.024010f);
-            BlzFrameSetPoint(buttonExit, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.051380f, 0.41874f);
-            BlzFrameSetTexture(buttonExit, "UI/dungeonWindowSelectExitButton.blp", 0, true);
+buttonExit = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectBackrop, 0, 0);
+BlzFrameSetPoint(buttonExit, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.66667f, -0.024010f);
+BlzFrameSetPoint(buttonExit, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.051380f, 0.41874f);
 
-            // Триггер для кнопки выхода
+            BackdropbuttonExit = BlzCreateFrameByType("BACKDROP", "BackdropbuttonExit", buttonExit, "", 0);
+            BlzFrameSetAllPoints(BackdropbuttonExit, buttonExit);
+BlzFrameSetTexture(BackdropbuttonExit, "UI/dungeonWindowSelectExitButton.blp", 0, true);
             buttonExitTrigger = CreateTrigger();
             BlzTriggerRegisterFrameEvent(buttonExitTrigger, buttonExit, FRAMEEVENT_CONTROL_CLICK);
-            TriggerAddAction(buttonExitTrigger, ButtonExitFunc);
-
-            // Создание элемента выбора подземелья
-            dungeonElementSelect = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectBackrop, 0, 0);
-            BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.069230f, -0.051510f);
-            BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.39532f, 0.35885f);
-            BlzFrameSetTexture(dungeonElementSelect, "UI/dungeonElementSelect.blp", 0, true);
-
-
-            // Создание текста и других элементов
-            WindowSelectLabelBackrop = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonWindowSelectBackrop, "", 1);
-            BlzFrameSetPoint(WindowSelectLabelBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.19096f, 0.026160f);
-            BlzFrameSetPoint(WindowSelectLabelBackrop, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.23339f, 0.46694f);
-            BlzFrameSetTexture(WindowSelectLabelBackrop, "dungeonWindowSelectLabelBackrop.png", 0, true);
-
-            // Создание кнопки выбора
-            WindowSelectSelectButtonBackrop = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectInfoBackrop, 0, 0);
-            BlzFrameSetPoint(WindowSelectSelectButtonBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.018160f, -0.30763f);
-            BlzFrameSetPoint(WindowSelectSelectButtonBackrop, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.15184f, 0.019110f);
-            BlzFrameSetTexture(WindowSelectSelectButtonBackrop, "UI/dungeonWindowSelectSelectButtonBackrop.blp", 0, true);
-
-            // Триггер для кнопки выбора
-            selectButtonTrigger = CreateTrigger();
-            BlzTriggerRegisterFrameEvent(selectButtonTrigger, WindowSelectSelectButtonBackrop, FRAMEEVENT_CONTROL_CLICK);
-            TriggerAddAction(selectButtonTrigger, SelectButtonFunc);
-
-            // Другие элементы интерфейса
-            // ...
-
-            // Пример создания текста
-            labelText = BlzCreateFrameByType("TEXT", "name", WindowSelectLabelBackrop, "", 0);
-            BlzFrameSetPoint(labelText, FRAMEPOINT_TOPLEFT, WindowSelectLabelBackrop, FRAMEPOINT_TOPLEFT, 0.021210f, -0.0077300f);
-            BlzFrameSetPoint(labelText, FRAMEPOINT_BOTTOMRIGHT, WindowSelectLabelBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.0027900f, 0.012270f);
-            BlzFrameSetText(labelText, "|cffffffffРейды|r");
-            BlzFrameSetEnable(labelText, false);
-            BlzFrameSetScale(labelText, 2.43f);
-            BlzFrameSetTextAlignment(labelText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE);
+TriggerAddAction(buttonExitTrigger, Destroy);
         }
 
         public override void Destroy()
@@ -101,6 +63,7 @@ namespace Source.Data.Dungeons.Windows
             BlzDestroyFrame(dungeonWindowSelectBackrop);
             BlzDestroyFrame(dungeonWindowSelectInfoBackrop);
             BlzDestroyFrame(buttonExit);
+            /*
             BlzDestroyFrame(dungeonElementSelect);
             BlzDestroyFrame(WindowSelectLabelBackrop);
             BlzDestroyFrame(WindowSelectSelectButtonBackrop);
@@ -113,23 +76,13 @@ namespace Source.Data.Dungeons.Windows
             BlzDestroyFrame(dungeonElementSelectOutline);
             BlzDestroyFrame(labelText);
             BlzDestroyFrame(WindowSelectSelectButtonBackropText);
-
+            */
             // Уничтожение триггеров
             DestroyTrigger(buttonExitTrigger);
+            /*
             DestroyTrigger(dungeonElementSelectTrigger);
             DestroyTrigger(selectButtonTrigger);
-        }
-
-        private void ButtonExitFunc()
-        {
-            // Логика при нажатии на кнопку выхода
-            Console.WriteLine("Exit button clicked!");
-        }
-
-        private void DungeonElementSelectFunc()
-        {
-            // Логика при выборе элемента подземелья
-            Console.WriteLine("Dungeon element selected!");
+            */
         }
 
         private void SelectButtonFunc()

@@ -9,12 +9,14 @@ namespace Source.Triggers.GUITriggers.Categories
         protected override IEnumerable<TriggerInstance> GetAllTriggers()
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
+            CustomConsoleUITrigger customConsoleUITrigger = new CustomConsoleUITrigger();
             CustomMinimapGUITrigger customMinimapGUITrigger = new CustomMinimapGUITrigger();
             TurnOffStandardGUITrigger turnOffStandardGUITrigger = new();
             CustomUnitStatsGUITrigger customUnitStatsGUITrigger = new();
+            triggers.Add(customConsoleUITrigger);
             triggers.Add(turnOffStandardGUITrigger);
             triggers.Add(customMinimapGUITrigger);
-            triggers.Add(customUnitStatsGUITrigger) ;
+            triggers.Add(customUnitStatsGUITrigger);
             return triggers;
         }
     }
