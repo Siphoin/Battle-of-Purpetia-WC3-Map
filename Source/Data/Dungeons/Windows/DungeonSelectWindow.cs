@@ -1,9 +1,5 @@
 ﻿using Source.Systems.WindowsSystems;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 namespace Source.Data.Dungeons.Windows
@@ -55,6 +51,19 @@ BlzFrameSetTexture(BackdropbuttonExit, "UI/dungeonWindowSelectExitButton.blp", 0
             buttonExitTrigger = CreateTrigger();
             BlzTriggerRegisterFrameEvent(buttonExitTrigger, buttonExit, FRAMEEVENT_CONTROL_CLICK);
 TriggerAddAction(buttonExitTrigger, Destroy);
+
+            WindowSelectLabelBackrop = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonWindowSelectBackrop, "", 1);
+BlzFrameSetPoint(WindowSelectLabelBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.19096f, 0.026160f);
+BlzFrameSetPoint(WindowSelectLabelBackrop, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.23339f, 0.46694f);
+BlzFrameSetTexture(WindowSelectLabelBackrop, "UI/dungeonWindowSelectLabelBackrop.blp", 0, true);
+
+            labelText = BlzCreateFrameByType("TEXT", "name", WindowSelectLabelBackrop, "", 0);
+BlzFrameSetPoint(labelText, FRAMEPOINT_TOPLEFT, WindowSelectLabelBackrop, FRAMEPOINT_TOPLEFT, 0, 0);
+            BlzFrameSetPoint(labelText, FRAMEPOINT_BOTTOMRIGHT, WindowSelectLabelBackrop, FRAMEPOINT_BOTTOMRIGHT, 0, 0);
+BlzFrameSetText(labelText, "|cffffffffРейды|r");
+BlzFrameSetEnable(labelText, false);
+BlzFrameSetScale(labelText, 2.43f);
+BlzFrameSetTextAlignment(labelText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE);
         }
 
         public override void Destroy()
@@ -63,9 +72,10 @@ TriggerAddAction(buttonExitTrigger, Destroy);
             BlzDestroyFrame(dungeonWindowSelectBackrop);
             BlzDestroyFrame(dungeonWindowSelectInfoBackrop);
             BlzDestroyFrame(buttonExit);
-            /*
-            BlzDestroyFrame(dungeonElementSelect);
+            
             BlzDestroyFrame(WindowSelectLabelBackrop);
+            BlzDestroyFrame(labelText);
+            /*
             BlzDestroyFrame(WindowSelectSelectButtonBackrop);
             BlzDestroyFrame(WindowSelectDungeonIconBackrop);
             BlzDestroyFrame(dungeonWindowSelectNameDungeonText);
@@ -74,7 +84,6 @@ TriggerAddAction(buttonExitTrigger, Destroy);
             BlzDestroyFrame(dungeonElementSelectNameText);
             BlzDestroyFrame(dungeonIcon);
             BlzDestroyFrame(dungeonElementSelectOutline);
-            BlzDestroyFrame(labelText);
             BlzDestroyFrame(WindowSelectSelectButtonBackropText);
             */
             // Уничтожение триггеров
