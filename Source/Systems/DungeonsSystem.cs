@@ -15,6 +15,8 @@ namespace Source.Systems
         private static Dictionary<DungeonInstance, DungeonRoomData> _notStartedRooms = new();
         private static List<DungeonInstance> _activeDungeons = new();
 
+        public static IEnumerable<DungeonInstance> AvalableDungeons => _dungeons.Where(x => !_activeDungeons.Contains(x));
+
         public static void RegisterDungeon (DungeonInstance dungeonInstance)
         {
             _dungeons.Add(dungeonInstance);
