@@ -87,7 +87,7 @@ namespace Source.Data.Dungeons.Windows
             // Создание текста названия подземелья
             dungeonWindowSelectNameDungeonText = BlzCreateFrameByType("TEXT", "name", dungeonWindowSelectInfoBackrop, "", 0);
             BlzFrameSetPoint(dungeonWindowSelectNameDungeonText, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.10103f, -0.14105f);
-            BlzFrameSetPoint(dungeonWindowSelectNameDungeonText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.048970f, 0.20569f);
+            BlzFrameSetPoint(dungeonWindowSelectNameDungeonText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.049970f, 0.20569f);
             BlzFrameSetText(dungeonWindowSelectNameDungeonText, "|cffd9dc1eКладбище Резни|r");
             BlzFrameSetEnable(dungeonWindowSelectNameDungeonText, false);
             BlzFrameSetScale(dungeonWindowSelectNameDungeonText, 1f);
@@ -96,10 +96,11 @@ namespace Source.Data.Dungeons.Windows
             // Создание текста описания подземелья
             dungeonDescriptionText = BlzCreateFrameByType("TEXT", "name", dungeonWindowSelectInfoBackrop, "", 0);
             BlzFrameSetPoint(dungeonDescriptionText, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.098520f, -0.19473f);
-            BlzFrameSetPoint(dungeonDescriptionText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.051480f, 0.11201f);
+            BlzFrameSetPoint(dungeonDescriptionText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.061480f, 0.11201f);
             BlzFrameSetText(dungeonDescriptionText, "|cffffffffКогда-то это место звалось Склепом Забытого Рыцаря, но один из главарей культистов лич Закжаж Лидер осквернил его, воскресив самого Рыцаря и его мертвых стражей себе во служение. На этом злодеяния Закжажа не закончились: самую глубокую часть склепа он превратил в завод по производству мясных монстров, самым большим и опасным из которых является гомункул Луни.|r");
             BlzFrameSetEnable(dungeonDescriptionText, false);
             BlzFrameSetScale(dungeonDescriptionText, 0.98f);
+            BlzFrameSetSize(dungeonDescriptionText, 0.18f, 0.11f);
             BlzFrameSetTextAlignment(dungeonDescriptionText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
 
             // Создание иконки элемента выбора подземелья
@@ -110,11 +111,12 @@ namespace Source.Data.Dungeons.Windows
 
             // Создание текста названия элемента выбора подземелья
             dungeonElementSelectNameText = BlzCreateFrameByType("TEXT", "name", dungeonElementSelect, "", 0);
-            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, 0.097100f, -0.013780f);
-            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, -0.036700f, 0.016640f);
+            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, 0.08f, -0.013780f);
+            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, -0.036f, 0.016640f);
             BlzFrameSetText(dungeonElementSelectNameText, "|cffffffffКладбище Резни|r");
             BlzFrameSetEnable(dungeonElementSelectNameText, false);
-            BlzFrameSetScale(dungeonElementSelectNameText, 2.29f);
+            BlzFrameSetScale(dungeonElementSelectNameText, 1.3f);
+            BlzFrameSetSize(dungeonElementSelectNameText, 0.3f, 0.2f);
             BlzFrameSetTextAlignment(dungeonElementSelectNameText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
 
             // Создание иконки подземелья
