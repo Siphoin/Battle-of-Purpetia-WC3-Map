@@ -2,6 +2,7 @@
 using Source.Systems.WindowsSystems;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 namespace Source.Data.Dungeons.Windows
@@ -126,6 +127,7 @@ namespace Source.Data.Dungeons.Windows
 
             var dungeons = DungeonsSystem.AvalableDungeons;
             float indexDungeon = 0;
+
             foreach (var dungeon in dungeons)
             {
                 DungeonElementFrame dungeonElementFrame = new(dungeon);

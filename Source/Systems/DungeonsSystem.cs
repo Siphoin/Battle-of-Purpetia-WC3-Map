@@ -21,12 +21,16 @@ namespace Source.Systems
             get
             {
                 var localHero = PlayerHeroesList.GetLocalPlayerHero();
+                if (localHero is null)
+                {
+                    return Enumerable.Empty<DungeonInstance>();
+                }
                 if (!_dungeons.Any(x => x.GetRequiredLevelHero() <= localHero.Level))
                 {
                     return Enumerable.Empty<DungeonInstance>();
                 }
 
-
+                return _dungeons.Where(x => !_activeDungeons.Contains(x));
             }
         }
 

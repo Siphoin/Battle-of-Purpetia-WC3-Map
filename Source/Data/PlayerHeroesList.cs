@@ -29,6 +29,10 @@ namespace Source.Data
 
         public static unit GetLocalPlayerHero ()
         {
+            if (!_heroes.Any(hero => hero.Owner == player.LocalPlayer))
+            {
+                return null;
+            }
             return _heroes.Where(hero => hero.Owner == player.LocalPlayer).First();
         }
     }
