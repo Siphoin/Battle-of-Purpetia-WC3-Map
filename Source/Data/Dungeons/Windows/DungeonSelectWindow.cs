@@ -239,6 +239,7 @@ namespace Source.Data.Dungeons.Windows
         private framehandle BackdropdungeonElementSelect;
         private framehandle dungeonElementSelectIcon;
         private DungeonInstance _dungeon;
+        private framehandle dungeonElementSelectNameText;
 
         public DungeonElementFrame (DungeonInstance dungeon)
         {
@@ -264,6 +265,14 @@ namespace Source.Data.Dungeons.Windows
             BlzFrameSetAbsPoint(dungeonElementSelectIcon, FRAMEPOINT_TOPLEFT, 0.110000f, 0.454800f);
             BlzFrameSetAbsPoint(dungeonElementSelectIcon, FRAMEPOINT_BOTTOMRIGHT, 0.170000f, 0.394800f);
             BlzFrameSetTexture(dungeonElementSelectIcon, _dungeon.GetPathIconDungeon(), 0, true);
+
+            dungeonElementSelectNameText = BlzCreateFrameByType("TEXT", "name", dungeonElementSelect, "", 0);
+            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, 0.097100f, -0.013780f);
+            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, -0.036700f, 0.016640f);
+            BlzFrameSetText(dungeonElementSelectNameText, $"|cffffffff{_dungeon.GetDungeonName()}|r");
+            BlzFrameSetEnable(dungeonElementSelectNameText, false);
+            BlzFrameSetScale(dungeonElementSelectNameText, 1.39f);
+            BlzFrameSetTextAlignment(dungeonElementSelectNameText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
         }
 
        public void Destroy ()
@@ -271,6 +280,7 @@ namespace Source.Data.Dungeons.Windows
             BlzDestroyFrame(BackdropdungeonElementSelect);
             BlzDestroyFrame(dungeonElementSelect);
             BlzDestroyFrame(dungeonElementSelectIcon);
+            BlzDestroyFrame(dungeonElementSelectNameText);
             DestroyTrigger(_triggerSelect);
         }
     }
