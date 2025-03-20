@@ -14,8 +14,10 @@ namespace Source.Triggers.DebugTriggers.Category
 #if DEBUG
             DungeonDebugExecuterTrigger dungeonDebugExecuterTrigger = new DungeonDebugExecuterTrigger();
             SetHeroLevelDebugTrigger setHeroLevelDebugTrigger = new SetHeroLevelDebugTrigger();
+            KillAllCreepsDebugTrigger killAllCreepsDebugTrigger = new KillAllCreepsDebugTrigger();
             triggers.Add(dungeonDebugExecuterTrigger);
             triggers.Add(setHeroLevelDebugTrigger);
+            triggers.Add(killAllCreepsDebugTrigger);
 #endif
             return triggers;
         }
