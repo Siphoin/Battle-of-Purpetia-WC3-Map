@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Source.Data;
 using Source.Data.Dungeons;
 using Source.Triggers.DungeonsTriggers.Triggers;
 using WCSharp.Api;
@@ -14,6 +15,24 @@ namespace Source.Systems
         private static List<DungeonInstance> _dungeons = new();
         private static Dictionary<DungeonInstance, DungeonRoomData> _notStartedRooms = new();
         private static List<DungeonInstance> _activeDungeons = new();
+
+        public static IEnumerable<DungeonInstance> AvalableDungeons
+        {
+            get
+            {
+                var localHero = PlayerHeroesList.GetLocalPlayerHero();
+                if (localHero is null)
+                {
+                    return Enumerable.Empty<DungeonInstance>();
+                }
+                if (!_dungeons.Any(x => x.GetRequiredLevelHero() <= localHero.Level))
+                {
+                    return Enumerable.Empty<DungeonInstance>();
+                }
+
+                return _dungeons.Where(x => !_activeDungeons.Contains(x));
+            }
+        }
 
         public static void RegisterDungeon (DungeonInstance dungeonInstance)
         {

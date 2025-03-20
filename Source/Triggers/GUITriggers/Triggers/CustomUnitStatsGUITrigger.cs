@@ -230,9 +230,8 @@ namespace Source.Triggers.GUITriggers.Triggers
                 }
             }
 
-            if (_target.IsInvisibleTo(player.LocalPlayer))
-            {
-                
+            if (_target.IsInvisibleTo(player.LocalPlayer) && _target.Owner != player.LocalPlayer)
+            {               
                 Hide();
             }
         }

@@ -1,4 +1,6 @@
-﻿using Source.Data.Dungeons.Windows;
+﻿using Source.Data;
+using Source.Data.Dungeons.Windows;
+using Source.Systems;
 using Source.Systems.WindowsSystems;
 using Source.Triggers.Base;
 using System;
@@ -55,6 +57,19 @@ namespace Source.Triggers.GUITriggers.Triggers
 
             if (player != player.LocalPlayer)
             {
+                return;
+            }
+            var dungeons = DungeonsSystem.AvalableDungeons;
+
+            if (!dungeons.Any())
+            {
+                DisplayTextToPlayer(player.LocalPlayer, 0, 0, "Ваш уровень героя недостаточен чтобы попасть на рейд.");
+                return;
+            }
+
+            if (PlayerHeroesList.GetLocalPlayerHero() is null)
+            {
+                DisplayTextToPlayer(player.LocalPlayer, 0, 0, "Еще не выбран герой.");
                 return;
             }
             DungeonSelectWindow dungeonSelectWindow = new();

@@ -1,5 +1,8 @@
-﻿using Source.Systems.WindowsSystems;
+﻿using Source.Systems;
+using Source.Systems.WindowsSystems;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 namespace Source.Data.Dungeons.Windows
@@ -13,19 +16,19 @@ namespace Source.Data.Dungeons.Windows
         private framehandle buttonExit;
         private framehandle BackdropbuttonExit;
         private trigger _triggerExit;
-        private framehandle dungeonElementSelect;
         private framehandle BackdropdungeonElementSelect;
         private framehandle WindowSelectLabelBackrop;
         private framehandle WindowSelectSelectButtonBackrop;
+        private trigger _triggerSelect;
         private framehandle BackdropWindowSelectSelectButtonBackrop;
         private framehandle WindowSelectDungeonIconBackrop;
         private framehandle dungeonWindowSelectNameDungeonText;
         private framehandle dungeonDescriptionText;
-        private framehandle dungeonElementSelectIcon;
-        private framehandle dungeonElementSelectNameText;
         private framehandle dungeonIcon;
         private framehandle labelText;
         private framehandle WindowSelectSelectButtonBackropText;
+        private List<DungeonElementFrame> _dungeonsFrames = new();
+        private DungeonInstance _selectedDungeon;
 
         public override void Show()
         {
@@ -53,16 +56,6 @@ namespace Source.Data.Dungeons.Windows
             _triggerExit.RegisterFrameEvent(buttonExit, FRAMEEVENT_CONTROL_CLICK);
             _triggerExit.AddAction(Destroy);
 
-
-            // Создание элемента выбора подземелья
-            dungeonElementSelect = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectBackrop, 0, 0);
-            BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.069230f, -0.051510f);
-            BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.39532f, 0.35885f);
-
-            BackdropdungeonElementSelect = BlzCreateFrameByType("BACKDROP", "BACKROP", dungeonElementSelect, "", 0);
-            BlzFrameSetAllPoints(BackdropdungeonElementSelect, dungeonElementSelect);
-            BlzFrameSetTexture(BackdropdungeonElementSelect, "UI/dungeonElementSelect.blp", 0, true);
-
             // Создание фрейма для текста метки
             WindowSelectLabelBackrop = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonWindowSelectBackrop, "", 1);
             BlzFrameSetPoint(WindowSelectLabelBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.19096f, 0.026160f);
@@ -73,6 +66,9 @@ namespace Source.Data.Dungeons.Windows
             WindowSelectSelectButtonBackrop = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectInfoBackrop, 0, 0);
             BlzFrameSetPoint(WindowSelectSelectButtonBackrop, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.018160f, -0.30763f);
             BlzFrameSetPoint(WindowSelectSelectButtonBackrop, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.15184f, 0.019110f);
+            _triggerSelect = trigger.Create();
+            _triggerSelect.AddAction(TeleportLocalHero);
+            _triggerSelect.RegisterFrameEvent(WindowSelectSelectButtonBackrop, FRAMEEVENT_CONTROL_CLICK);
 
             BackdropWindowSelectSelectButtonBackrop = BlzCreateFrameByType("BACKDROP", "BACKROP", WindowSelectSelectButtonBackrop, "", 0);
             BlzFrameSetAllPoints(BackdropWindowSelectSelectButtonBackrop, WindowSelectSelectButtonBackrop);
@@ -87,8 +83,7 @@ namespace Source.Data.Dungeons.Windows
             // Создание текста названия подземелья
             dungeonWindowSelectNameDungeonText = BlzCreateFrameByType("TEXT", "name", dungeonWindowSelectInfoBackrop, "", 0);
             BlzFrameSetPoint(dungeonWindowSelectNameDungeonText, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.10103f, -0.14105f);
-            BlzFrameSetPoint(dungeonWindowSelectNameDungeonText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.048970f, 0.20569f);
-            BlzFrameSetText(dungeonWindowSelectNameDungeonText, "|cffd9dc1eКладбище Резни|r");
+            BlzFrameSetPoint(dungeonWindowSelectNameDungeonText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.049970f, 0.20569f);
             BlzFrameSetEnable(dungeonWindowSelectNameDungeonText, false);
             BlzFrameSetScale(dungeonWindowSelectNameDungeonText, 1f);
             BlzFrameSetTextAlignment(dungeonWindowSelectNameDungeonText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
@@ -96,31 +91,16 @@ namespace Source.Data.Dungeons.Windows
             // Создание текста описания подземелья
             dungeonDescriptionText = BlzCreateFrameByType("TEXT", "name", dungeonWindowSelectInfoBackrop, "", 0);
             BlzFrameSetPoint(dungeonDescriptionText, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.098520f, -0.19473f);
-            BlzFrameSetPoint(dungeonDescriptionText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.051480f, 0.11201f);
-            BlzFrameSetText(dungeonDescriptionText, "|cffffffffКогда-то это место звалось Склепом Забытого Рыцаря, но один из главарей культистов лич Закжаж Лидер осквернил его, воскресив самого Рыцаря и его мертвых стражей себе во служение. На этом злодеяния Закжажа не закончились: самую глубокую часть склепа он превратил в завод по производству мясных монстров, самым большим и опасным из которых является гомункул Луни.|r");
+            BlzFrameSetPoint(dungeonDescriptionText, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.061480f, 0.11201f);
             BlzFrameSetEnable(dungeonDescriptionText, false);
             BlzFrameSetScale(dungeonDescriptionText, 0.98f);
+            BlzFrameSetSize(dungeonDescriptionText, 0.18f, 0.11f);
             BlzFrameSetTextAlignment(dungeonDescriptionText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
 
-            // Создание иконки элемента выбора подземелья
-            dungeonElementSelectIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonElementSelect, "", 1);
-            BlzFrameSetAbsPoint(dungeonElementSelectIcon, FRAMEPOINT_TOPLEFT, 0.110000f, 0.454800f);
-            BlzFrameSetAbsPoint(dungeonElementSelectIcon, FRAMEPOINT_BOTTOMRIGHT, 0.170000f, 0.394800f);
-            BlzFrameSetTexture(dungeonElementSelectIcon, "ICON_DUNGEON.blp", 0, true);
-
-            // Создание текста названия элемента выбора подземелья
-            dungeonElementSelectNameText = BlzCreateFrameByType("TEXT", "name", dungeonElementSelect, "", 0);
-            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, 0.097100f, -0.013780f);
-            BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, -0.036700f, 0.016640f);
-            BlzFrameSetText(dungeonElementSelectNameText, "|cffffffffКладбище Резни|r");
-            BlzFrameSetEnable(dungeonElementSelectNameText, false);
-            BlzFrameSetScale(dungeonElementSelectNameText, 2.29f);
-            BlzFrameSetTextAlignment(dungeonElementSelectNameText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
-
             // Создание иконки подземелья
-            dungeonIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonElementSelect, "", 1);
-            BlzFrameSetPoint(dungeonIcon, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, 0.43101f, -0.047650f);
-            BlzFrameSetPoint(dungeonIcon, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, 0.20594f, -0.034260f);
+            dungeonIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonWindowSelectInfoBackrop, "", 1);
+            BlzFrameSetPoint(dungeonIcon, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.43101f, -0.047650f);
+            BlzFrameSetPoint(dungeonIcon, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, 0.20594f, -0.034260f);
             BlzFrameSetTexture(dungeonIcon, "ICON_DUNGEON.blp", 0, true);
 
             // Создание текста метки
@@ -140,6 +120,64 @@ namespace Source.Data.Dungeons.Windows
             BlzFrameSetEnable(WindowSelectSelectButtonBackropText, false);
             BlzFrameSetScale(WindowSelectSelectButtonBackropText, 1.7f);
             BlzFrameSetTextAlignment(WindowSelectSelectButtonBackropText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE);
+
+            dungeonIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonWindowSelectInfoBackrop, "", 1);
+            BlzFrameSetPoint(dungeonIcon, FRAMEPOINT_TOPLEFT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_TOPLEFT, 0.13284f, -0.060500f);
+            BlzFrameSetPoint(dungeonIcon, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectInfoBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.10843f, 0.26921f);
+
+            var dungeons = DungeonsSystem.AvalableDungeons;
+            float indexDungeon = 0;
+
+            foreach (var dungeon in dungeons)
+            {
+                DungeonElementFrame dungeonElementFrame = new(dungeon);
+                dungeonElementFrame.Create(dungeonWindowSelectBackrop, OnSelect, indexDungeon);
+                _dungeonsFrames.Add(dungeonElementFrame);
+                indexDungeon += 0.01f;
+            }
+
+            SetStateVisibleSelect(false);
+        }
+
+        private void TeleportLocalHero()
+        {
+            var player = GetTriggerPlayer();
+
+            if (player == player.LocalPlayer)
+            {
+                var hero = PlayerHeroesList.GetLocalPlayerHero();
+                var pointTeleport = _selectedDungeon.GetEnterRegion().Center;
+                hero.X = pointTeleport.X;
+                hero.Y = pointTeleport.Y;
+                Exit();
+            }
+        }
+
+        private void OnSelect(DungeonInstance dungeon)
+        {
+            dungeonWindowSelectNameDungeonText.Text = $"|cffffcc00{dungeon.GetDungeonName()}|r";
+            dungeonDescriptionText.Text = dungeon.GetDungeonDescription();
+            BlzFrameSetTexture(dungeonIcon, dungeon.GetPathIconDungeon(), 0, true);
+            SetStateVisibleSelect(true);
+            _selectedDungeon = dungeon;
+        }
+
+        private void SetStateVisibleSelect (bool visible)
+        {
+            framehandle[] frames = new framehandle[]
+            {
+                dungeonIcon,
+                WindowSelectDungeonIconBackrop,
+                BackdropWindowSelectSelectButtonBackrop,
+                WindowSelectSelectButtonBackropText,
+                dungeonDescriptionText,
+                dungeonWindowSelectNameDungeonText,
+            };
+
+            foreach (var frame in frames)
+            {
+                BlzFrameSetVisible(frame, visible);
+            }
         }
 
         public override void Destroy()
@@ -150,7 +188,6 @@ namespace Source.Data.Dungeons.Windows
         dungeonWindowSelectInfoBackrop,
         buttonExit,
         BackdropbuttonExit,
-        dungeonElementSelect,
         BackdropdungeonElementSelect,
         WindowSelectLabelBackrop,
         WindowSelectSelectButtonBackrop,
@@ -158,8 +195,6 @@ namespace Source.Data.Dungeons.Windows
         WindowSelectDungeonIconBackrop,
         dungeonWindowSelectNameDungeonText,
         dungeonDescriptionText,
-        dungeonElementSelectIcon,
-        dungeonElementSelectNameText,
         dungeonIcon,
         labelText,
         WindowSelectSelectButtonBackropText
@@ -168,7 +203,13 @@ namespace Source.Data.Dungeons.Windows
             trigger[] triggers = new trigger[]
             {
                 _triggerExit,
+                _triggerSelect,
             };
+
+            foreach (var frameDungeon in _dungeonsFrames)
+            {
+                frameDungeon.Destroy();
+            }
 
             foreach (var frame in frames)
             {
@@ -194,45 +235,53 @@ namespace Source.Data.Dungeons.Windows
     public class DungeonElementFrame
     {
         private framehandle dungeonElementSelect;
-        private framehandle dungeonWindowSelectNameDungeonText;
+        private trigger _triggerSelect;
+        private framehandle BackdropdungeonElementSelect;
+        private framehandle dungeonElementSelectIcon;
+        private DungeonInstance _dungeon;
         private framehandle dungeonElementSelectNameText;
-        private framehandle dungeonElementSelectOutline;
-        private trigger dungeonElementSelectTrigger;
 
-        public void Create (framehandle dungeonWindowSelectBackrop, Action selectDungeonAction)
+        public DungeonElementFrame (DungeonInstance dungeon)
+        {
+            _dungeon = dungeon;
+        }
+
+        public void Create (framehandle dungeonWindowSelectBackrop, Action<DungeonInstance> actionSelect, float offset)
         {
             // Создание элемента выбора подземелья
             dungeonElementSelect = BlzCreateFrame("IconButtonTemplate", dungeonWindowSelectBackrop, 0, 0);
             BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_TOPLEFT, dungeonWindowSelectBackrop, FRAMEPOINT_TOPLEFT, 0.069230f, -0.051510f);
-            BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.39532f, 0.35885f);
-            BlzFrameSetTexture(dungeonElementSelect, "UI/dungeonElementSelect.blp", 0, true);
+            BlzFrameSetPoint(dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, dungeonWindowSelectBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.39532f, 0.35885f + offset);
+            _triggerSelect = trigger.Create();
+            _triggerSelect.AddAction(() => actionSelect?.Invoke(_dungeon));
+            _triggerSelect.RegisterFrameEvent(dungeonElementSelect, FRAMEEVENT_CONTROL_CLICK);
+
+            BackdropdungeonElementSelect = BlzCreateFrameByType("BACKDROP", "BACKROP", dungeonElementSelect, "", 0);
+            BlzFrameSetAllPoints(BackdropdungeonElementSelect, dungeonElementSelect);
+            BlzFrameSetTexture(BackdropdungeonElementSelect, "UI/dungeonElementSelect.blp", 0, true);
+
+            // Создание иконки элемента выбора подземелья
+            dungeonElementSelectIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonElementSelect, "", 1);
+            BlzFrameSetAbsPoint(dungeonElementSelectIcon, FRAMEPOINT_TOPLEFT, 0.110000f, 0.454800f);
+            BlzFrameSetAbsPoint(dungeonElementSelectIcon, FRAMEPOINT_BOTTOMRIGHT, 0.170000f, 0.394800f);
+            BlzFrameSetTexture(dungeonElementSelectIcon, _dungeon.GetPathIconDungeon(), 0, true);
 
             dungeonElementSelectNameText = BlzCreateFrameByType("TEXT", "name", dungeonElementSelect, "", 0);
             BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, 0.097100f, -0.013780f);
             BlzFrameSetPoint(dungeonElementSelectNameText, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, -0.036700f, 0.016640f);
-            BlzFrameSetText(dungeonElementSelectNameText, "|cffffffffКладбище Резни|r");
+            BlzFrameSetText(dungeonElementSelectNameText, $"|cffffffff{_dungeon.GetDungeonName()}|r");
             BlzFrameSetEnable(dungeonElementSelectNameText, false);
-            BlzFrameSetScale(dungeonElementSelectNameText, 2.29f);
+            BlzFrameSetScale(dungeonElementSelectNameText, 1.39f);
             BlzFrameSetTextAlignment(dungeonElementSelectNameText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
-
-            dungeonElementSelectOutline = BlzCreateFrameByType("BACKDROP", "BACKDROP", dungeonElementSelect, "", 1);
-            BlzFrameSetPoint(dungeonElementSelectOutline, FRAMEPOINT_TOPLEFT, dungeonElementSelect, FRAMEPOINT_TOPLEFT, -0.0076100f, 0.00054000f);
-            BlzFrameSetPoint(dungeonElementSelectOutline, FRAMEPOINT_BOTTOMRIGHT, dungeonElementSelect, FRAMEPOINT_BOTTOMRIGHT, -0.0014100f, 0.00059000f);
-            BlzFrameSetTexture(dungeonElementSelectOutline, "UI/dungeonElementSelectOutline.blp", 0, true);
-
-            // Триггер для элемента выбора подземелья
-            dungeonElementSelectTrigger = CreateTrigger();
-            BlzTriggerRegisterFrameEvent(dungeonElementSelectTrigger, dungeonElementSelect, FRAMEEVENT_CONTROL_CLICK);
-            TriggerAddAction(dungeonElementSelectTrigger, selectDungeonAction);
-
-
         }
-        public void Destroy ()
+
+       public void Destroy ()
         {
+            BlzDestroyFrame(BackdropdungeonElementSelect);
             BlzDestroyFrame(dungeonElementSelect);
-            BlzDestroyFrame(dungeonElementSelectOutline);
+            BlzDestroyFrame(dungeonElementSelectIcon);
             BlzDestroyFrame(dungeonElementSelectNameText);
-            DestroyTrigger(dungeonElementSelectTrigger);
+            DestroyTrigger(_triggerSelect);
         }
     }
 }
