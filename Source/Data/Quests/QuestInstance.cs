@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 using static Source.Extensions.CommonExtensions;
+using Source.Systems;
+using System.Linq;
 namespace Source.Data.Quests
 {
     public abstract class QuestInstance
@@ -11,8 +13,12 @@ namespace Source.Data.Quests
         private bool _isCreatedQuest;
 
         public bool IsFailed => _quest.IsFailed;
+        public bool IsCompleted { get; private set; }
 
         public bool IsEnabled => _quest.IsEnabled;
+        public int GoldReward { get;  protected set; }
+        public int WoodReward { get; protected set; }
+        public IEnumerable<string> ItemsRewards { get; protected set; }
 
         protected quest Quest => _quest;
         public player PlayerOwner {  get; private set; }
@@ -22,6 +28,27 @@ namespace Source.Data.Quests
         public abstract string GetIconPath();
         public abstract trigger GetTrigger();
         public abstract bool IsRequired();
+        public virtual void GetRewards ()
+        {
+            if (!IsCompleted)
+            {
+                return;
+            }
+
+            PlayerResourcesSystem.AddGold(PlayerOwner, GoldReward);
+            PlayerResourcesSystem.AddWood(PlayerOwner, WoodReward);
+
+            if (ItemsRewards.Any())
+            {
+                var items = new List<item>();
+                foreach (var itemsIDs in ItemsRewards)
+                {
+                    var rewardItem = item.Create(FourCC(itemsIDs), 0, 0);
+                    items.Add(rewardItem);
+                }
+                PlayerHeroItemGettingSystem.AddItems(PlayerOwner, items);
+            }
+        }
         public abstract IEnumerable<questitem> GetQuestitems();
 
         public QuestInstance(player playerOwner)
@@ -56,7 +83,7 @@ namespace Source.Data.Quests
             {
                QuestMessage.DisplayQuestMessage(PlayerOwner, QuestStatus.Completed, GetTitle());
             }
-            Console.WriteLine($"Quest completed: {GetTitle()}");
+            IsCompleted = isCompleted;
         }
     }
 }

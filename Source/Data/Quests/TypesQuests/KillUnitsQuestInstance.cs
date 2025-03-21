@@ -5,6 +5,7 @@ using System.Linq;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 using static Source.Extensions.CommonExtensions;
+using System.Text;
 namespace Source.Data.Quests.TypesQuests
 {
     public abstract class KillUnitsQuestInstance : QuestInstance
@@ -26,7 +27,6 @@ namespace Source.Data.Quests.TypesQuests
             _requireUnits = GetRequiredUnits();
             foreach (var unitData in _requireUnits)
             {
-                Console.WriteLine(unitData.Key);
                 _countersKills.Add(unitData.Key, 0);
             }
         }
@@ -58,6 +58,7 @@ namespace Source.Data.Quests.TypesQuests
             if (AreDictionariesEqual())
             {
                 MarkIsCompleted(true);
+                GetRewards();
                 DestroyTrigger(_triggerListener);
                 _countersKills.Clear();
                 _requireUnits.Clear();
@@ -87,20 +88,20 @@ namespace Source.Data.Quests.TypesQuests
 
         private void UpdateDescriptonQuestItem ()
         {
-            string description = string.Empty;
+            StringBuilder description = new();
 
             foreach (var unitData in _countersKills)
             {
                 var idUnit = unitData.Key;
                 var targetUnit = unit.Create(GetTargetPlayer(), FourCC(idUnit), 0, 0);
-                var currentCount = unitData.Value;
-                var  requireCount = _requireUnits[idUnit];
-                var unitName = targetUnit.Name;
-                description += $"Убить {unitName}: {currentCount}/{requireCount}\n";
+                var currentCount = unitData.Value.ToString().Colorize(YELOOW_TEXT_HEX);
+                var  requireCount = _requireUnits[idUnit].ToString().Colorize(YELOOW_TEXT_HEX);
+                var unitName = targetUnit.Name.Colorize(ENEMY_TEXT_HEX);
+                description.AppendLine($"Убить {unitName}: {currentCount}/{requireCount}");
                 RemoveUnit(targetUnit);
             }
 
-            _killQuestItem.SetDescription(description);
+            _killQuestItem.SetDescription(description.ToString());
 
             Console.WriteLine(description);
         }

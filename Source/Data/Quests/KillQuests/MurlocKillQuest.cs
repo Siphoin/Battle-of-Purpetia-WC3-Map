@@ -1,16 +1,24 @@
 ﻿using Source.Data.Quests.TypesQuests;
 using Source.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WCSharp.Api;
-
+using static WCSharp.Api.Common;
 namespace Source.Data.Quests.KillQuests
 {
     public class MurlocKillQuest : KillUnitsQuestInstance
     {
+        public override void Init()
+        {
+            base.Init();
+            GoldReward = 300;
+
+
+            ItemsRewards = new List<string>()
+            {
+                "phea",
+                "manh",
+            };
+        }
         public MurlocKillQuest(player playerOwner) : base(playerOwner)
         {
         }
