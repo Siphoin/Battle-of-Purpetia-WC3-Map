@@ -13,10 +13,12 @@ namespace Source.Triggers.GUITriggers.Categories
             CustomMinimapGUITrigger customMinimapGUITrigger = new CustomMinimapGUITrigger();
             TurnOffStandardGUITrigger turnOffStandardGUITrigger = new();
             CustomUnitStatsGUITrigger customUnitStatsGUITrigger = new();
+            FloatingDamageTextTrigger floatingDamageTextTrigger = new();
             triggers.Add(customConsoleUITrigger);
             triggers.Add(turnOffStandardGUITrigger);
             triggers.Add(customMinimapGUITrigger);
             triggers.Add(customUnitStatsGUITrigger);
+            triggers.Add(floatingDamageTextTrigger);
             return triggers;
         }
     }
