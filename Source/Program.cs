@@ -34,7 +34,7 @@ namespace Source
              var t = CreateTimer();
             TimerStart(t, 3, false, () =>
             {
-				MurlocKillQuest murlocKillQuest = new MurlocKillQuest();
+				MurlocKillQuest murlocKillQuest = new MurlocKillQuest(Player(0));
 				QuestSystem.RegisterQuest(murlocKillQuest);
                 DestroyTimer(t);
             });

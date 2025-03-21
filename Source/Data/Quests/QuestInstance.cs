@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WCSharp.Api;
-
+using static WCSharp.Api.Common;
 namespace Source.Data.Quests
 {
     public abstract class QuestInstance
@@ -17,12 +17,18 @@ namespace Source.Data.Quests
         public bool IsEnabled => _quest.IsEnabled;
 
         protected quest Quest => _quest;
+        public player PlayerOwner {  get; private set; }
 
         public abstract string GetTitle();
         public abstract string GetDescription();
         public abstract string GetIconPath();
         public abstract trigger GetTrigger();
         public abstract IEnumerable<questitem> GetQuestitems();
+
+        public QuestInstance(player playerOwner)
+        {
+            PlayerOwner = playerOwner;
+        }
 
         public virtual void Init ()
         {
@@ -35,11 +41,13 @@ namespace Source.Data.Quests
             }
 
             _quest = quest.Create();
+            
             _quest.SetTitle(GetTitle());
             _quest.SetDescription(GetDescription());
             _quest.IsRequired = IsRequired();
             _quest.SetIcon(GetIconPath());
             _isCreatedQuest = true;
+            
         }
 
         public abstract bool IsRequired();

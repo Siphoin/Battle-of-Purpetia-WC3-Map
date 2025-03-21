@@ -14,6 +14,10 @@ namespace Source.Data.Quests.TypesQuests
         private questitem _killQuestItem;
         private trigger _triggerListener;
 
+        protected KillUnitsQuestInstance(player playerOwner) : base(playerOwner)
+        {
+        }
+
         protected abstract Dictionary<string, int> GetRequiredUnits();
 
         public override void Init()
@@ -42,9 +46,13 @@ namespace Source.Data.Quests.TypesQuests
         {
             var unit = GetTriggerUnit();
             var id = A2S(unit.UnitType);
-            if (unit.Owner == GetTargetPlayer() && _requireUnits.ContainsKey(id))
+            if (unit.Owner == GetTargetPlayer() && _requireUnits.ContainsKey(id) && GetKillingUnit().Owner == PlayerOwner)
             {
-                _countersKills[id]++;
+                if (_countersKills[id] < _requireUnits[id])
+                {
+                    _countersKills[id]++;
+                    UpdateDescriptonQuestItem();
+                }
             }
 
             if (AreDictionariesEqual())
@@ -84,11 +92,11 @@ namespace Source.Data.Quests.TypesQuests
             foreach (var unitData in _countersKills)
             {
                 var idUnit = unitData.Key;
-                var targetUnit = unit.Create(GetTargetPlayer(), FourCC(idUnit), 10000, 10000);
+                var targetUnit = unit.Create(GetTargetPlayer(), FourCC(idUnit), 0, 0);
                 var currentCount = unitData.Value;
                 var  requireCount = _requireUnits[idUnit];
                 var unitName = targetUnit.Name;
-                description += $"{unitName}: {currentCount}/{requireCount}\n";
+                description += $"Убить {unitName}: {currentCount}/{requireCount}\n";
                 RemoveUnit(targetUnit);
             }
 

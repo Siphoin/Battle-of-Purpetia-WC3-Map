@@ -11,6 +11,10 @@ namespace Source.Data.Quests.KillQuests
 {
     public class MurlocKillQuest : KillUnitsQuestInstance
     {
+        public MurlocKillQuest(player playerOwner) : base(playerOwner)
+        {
+        }
+
         public override string GetDescription()
         {
             return "Змеелюды неоднократно заявляли свои права на Пурпетию и каждый раз получали отказ. Тогда они поклялись завоевать её любой ценой! Любой... но не своей... В своем высокомерии они отправили на захват своих слуг, рыболюдов. Вы знали, что из них получаются отличные деликатесы? Их любит весь народ герцогства (и не только герцогства, но тсс)! Пора становится рыбаками и поварами! Вперед, на юго-западное озеро!";
@@ -35,7 +39,9 @@ namespace Source.Data.Quests.KillQuests
         {
             Dictionary<string, int> murlocList = new Dictionary<string, int>()
             {
-               {"nmrr", 2 },
+               {"nmrr", 4 },
+               {"nmrl", 10 },
+               {"nmpg", 1 }
             };
 
             return murlocList;
