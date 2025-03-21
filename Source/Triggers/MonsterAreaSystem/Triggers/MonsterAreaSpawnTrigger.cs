@@ -153,7 +153,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             }
 
             int addLife = ((int)unit.Life * 3 / 100) * _currentForce;
-            unit.GoldBountyAwardedBase += _currentForce;
+            unit.GoldBountyAwardedBase += 5;
             unit.MaxLife += addLife;
             unit.Life = unit.MaxLife;
             
