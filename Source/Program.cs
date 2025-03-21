@@ -1,4 +1,6 @@
-﻿using Source.Triggers.ArenaTriggers.Categories;
+﻿using Source.Data.Quests.KillQuests;
+using Source.Systems;
+using Source.Triggers.ArenaTriggers.Categories;
 using Source.Triggers.Base;
 using Source.Triggers.CameraTriggers.Categories;
 using Source.Triggers.DebugTriggers.Category;
@@ -28,7 +30,15 @@ namespace Source
 				DestroyTimer(timer);
 				Start();
 			});
-		}
+
+             var t = CreateTimer();
+            TimerStart(t, 3, false, () =>
+            {
+				MurlocKillQuest murlocKillQuest = new MurlocKillQuest();
+				QuestSystem.RegisterQuest(murlocKillQuest);
+                DestroyTimer(t);
+            });
+        }
 
 		private static void Start()
 		{
