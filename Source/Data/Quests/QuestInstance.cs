@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
+using static Source.Extensions.CommonExtensions;
 namespace Source.Data.Quests
 {
     public abstract class QuestInstance
@@ -23,6 +21,7 @@ namespace Source.Data.Quests
         public abstract string GetDescription();
         public abstract string GetIconPath();
         public abstract trigger GetTrigger();
+        public abstract bool IsRequired();
         public abstract IEnumerable<questitem> GetQuestitems();
 
         public QuestInstance(player playerOwner)
@@ -49,12 +48,14 @@ namespace Source.Data.Quests
             _isCreatedQuest = true;
             
         }
-
-        public abstract bool IsRequired();
         
         protected void MarkIsCompleted (bool isCompleted)
         {
             _quest.IsCompleted = isCompleted;
+            if (isCompleted)
+            {
+               QuestMessage.DisplayQuestMessage(PlayerOwner, QuestStatus.Completed, GetTitle());
+            }
             Console.WriteLine($"Quest completed: {GetTitle()}");
         }
     }
