@@ -56,7 +56,6 @@ namespace Source.Triggers.GUITriggers.Triggers
                     fh = BlzGetFrameByName($"InventoryButton_{i}", 0);
                     BlzFrameSetParent(fh, BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0));
                     BlzFrameSetVisible(fh, true);
-                    Console.WriteLine(fh.Alpha);
 
                 }
 

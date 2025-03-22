@@ -47,8 +47,8 @@ namespace Source.Data.Quests.KillQuests
         {
             Dictionary<string, int> murlocList = new Dictionary<string, int>()
             {
-               {"nmrr", 1 },
-               {"nmrl", 1 },
+               {"nmrr", 4 },
+               {"nmrl", 10 },
                {"nmpg", 1 }
             };
 
