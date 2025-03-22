@@ -48,7 +48,6 @@ namespace Source.Triggers.ArenaTriggers.Triggers
             // start arena logic
 
            var allHeroes = PlayerHeroesList.Heroes.Where(h => h.Alive).ToArray();
-            Console.WriteLine(allHeroes.Length);
             if (allHeroes.Length < 2)
             {
                 TurnTimerArena();

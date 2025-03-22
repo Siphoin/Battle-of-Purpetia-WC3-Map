@@ -34,7 +34,6 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         public override trigger GetTrigger()
         {
-            Console.WriteLine(_portail.Alpha);
             trigger triggerListener = trigger.Create();
             triggerListener.RegisterPlayerUnitEvent(player.LocalPlayer, playerunitevent.Selected);
             triggerListener.AddAction(() =>
