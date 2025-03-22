@@ -35,6 +35,7 @@ gg_rct_Dungeon1RegionGate5 = nil
 gg_rct_Dungeon1Activator = nil
 gg_rct_RegionTreantsSpawn = nil
 gg_rct_RegionSatyrSpawn = nil
+gg_rct_QuestNPCCityGoblin = nil
 function InitGlobals()
 end
 
@@ -349,6 +350,16 @@ u = BlzCreateUnitWithSkin(p, FourCC("h002"), -2631.3, 128.0, 204.587, FourCC("h0
 u = BlzCreateUnitWithSkin(p, FourCC("h002"), -2601.3, -665.5, 161.088, FourCC("h002"))
 u = BlzCreateUnitWithSkin(p, FourCC("h002"), -803.0, -2515.5, 271.344, FourCC("h002"))
 u = BlzCreateUnitWithSkin(p, FourCC("h002"), 49.4, -2510.8, 267.701, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n001"), 774.5, 1273.3, 248.672, FourCC("n001"))
+SetUnitColor(u, ConvertPlayerColor(5))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), 542.1, 331.7, 23.006, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n003"), 620.4, -1624.8, 283.412, FourCC("n003"))
+u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2052.6, -1893.2, 79.196, FourCC("n003"))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), -1161.2, 1147.6, 32.125, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), -1102.9, 1212.2, 238.948, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), 705.3, -1689.3, 140.492, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n003"), -1490.2, -1601.9, 0.330, FourCC("n003"))
+u = BlzCreateUnitWithSkin(p, FourCC("n003"), -1383.6, -1534.4, 232.894, FourCC("n003"))
 end
 
 function CreatePlayerBuildings()
@@ -405,6 +416,7 @@ gg_rct_Dungeon1RegionGate5 = Rect(5888.0, -12928.0, 6720.0, -12704.0)
 gg_rct_Dungeon1Activator = Rect(-9568.0, 10240.0, -8960.0, 10720.0)
 gg_rct_RegionTreantsSpawn = Rect(7808.0, 8384.0, 9632.0, 10208.0)
 gg_rct_RegionSatyrSpawn = Rect(-10880.0, 6496.0, -9056.0, 8320.0)
+gg_rct_QuestNPCCityGoblin = Rect(576.0, 1024.0, 992.0, 1472.0)
 end
 
 function InitCustomPlayerSlots()
