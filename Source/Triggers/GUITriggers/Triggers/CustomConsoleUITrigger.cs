@@ -53,7 +53,8 @@ namespace Source.Triggers.GUITriggers.Triggers
             #endregion
 
             #region Player Resources Widget
-
+            PlayerResourcesWidget playerResourcesWidget = new(player.LocalPlayer);
+            playerResourcesWidget.Create();
             #endregion
 
 
@@ -94,10 +95,63 @@ namespace Source.Triggers.GUITriggers.Triggers
 
     public class PlayerResourcesWidget
     {
+        private framehandle playerResourcesBackrop;
+        private framehandle goldResourcesPlayerText;
+        private framehandle woodResourcesPlayerText;
+
         private player TargetPlayer { get; set; }
+
+        public PlayerResourcesWidget(player targetPlayer)
+        {
+            TargetPlayer = targetPlayer;
+            PlayerResourcesSystem.OnWoodChanged += OnWoodChanged;
+            PlayerResourcesSystem.OnGoldChanged += OnGoldChanged;
+        }
+
+        private void OnGoldChanged(player player, int amount)
+        {
+            if (player == TargetPlayer)
+            {
+                goldResourcesPlayerText.Text = amount.ToString();
+            }
+        }
+
+        private void OnWoodChanged(player player, int amount)
+        {
+            if (player == TargetPlayer)
+            {
+                woodResourcesPlayerText.Text = amount.ToString();
+            }
+        }
 
         public void Create ()
         {
+
+
+            playerResourcesBackrop = BlzCreateFrameByType("BACKDROP", "BACKDROP", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 1);
+BlzFrameSetAbsPoint(playerResourcesBackrop, FRAMEPOINT_TOPLEFT, 0.319220f, 0.580140f);
+            BlzFrameSetAbsPoint(playerResourcesBackrop, FRAMEPOINT_BOTTOMRIGHT, 0.476590f, 0.534110f);
+BlzFrameSetTexture(playerResourcesBackrop, "UI/resources_player_backrop.blp", 0, true);
+
+goldResourcesPlayerText = BlzCreateFrameByType("TEXT", "name", playerResourcesBackrop, "", 0);
+            BlzFrameSetPoint(goldResourcesPlayerText, FRAMEPOINT_TOPLEFT, playerResourcesBackrop, FRAMEPOINT_TOPLEFT, 0.035300f, -0.0092900f);
+            BlzFrameSetPoint(goldResourcesPlayerText, FRAMEPOINT_BOTTOMRIGHT, playerResourcesBackrop, FRAMEPOINT_BOTTOMRIGHT, -0.018070f, 0.0067400f);
+            BlzFrameSetTextAlignment(goldResourcesPlayerText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_LEFT);
+            BlzFrameSetEnable(goldResourcesPlayerText, false);
+            BlzFrameSetScale(goldResourcesPlayerText, 1.0f);
+
+woodResourcesPlayerText = BlzCreateFrameByType("TEXT", "name", playerResourcesBackrop, "", 0);
+            BlzFrameSetPoint(woodResourcesPlayerText, FRAMEPOINT_TOPRIGHT, playerResourcesBackrop, FRAMEPOINT_TOPRIGHT, -0.035300f, -0.0092900f);
+BlzFrameSetPoint(woodResourcesPlayerText, FRAMEPOINT_BOTTOMLEFT, playerResourcesBackrop, FRAMEPOINT_BOTTOMLEFT, 0.018070f, 0.0067400f);
+BlzFrameSetTextAlignment(woodResourcesPlayerText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_RIGHT);
+BlzFrameSetEnable(woodResourcesPlayerText, false);
+            BlzFrameSetScale(woodResourcesPlayerText, 1.0f);
+
+            var currentGold = GetPlayerState(TargetPlayer, playerstate.ResourceGold);
+            var currentWood = GetPlayerState(TargetPlayer, playerstate.ResourceLumber);
+            OnGoldChanged(TargetPlayer, currentGold);
+            OnWoodChanged(TargetPlayer, currentWood);
+
 
         }
     }
