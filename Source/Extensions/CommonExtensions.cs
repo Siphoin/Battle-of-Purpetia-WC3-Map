@@ -68,6 +68,19 @@ namespace Source.Extensions
             PauseUnit(unit, true);
         }
 
+        public static sound PlaySound(string soundName)
+        {
+            sound newSound = CreateSound(soundName, false, false, false, 12700, 12700, string.Empty);
+            return PlaySound(newSound);
+        }
+
+        public static sound PlaySound(sound sound)
+        {
+            sound.Start();
+            KillSoundWhenDone(sound);
+            return sound;
+        }
+
         public static string Colorize(this string text, string hexColor)
         {
             if (string.IsNullOrEmpty(text)) return text;
@@ -106,7 +119,8 @@ namespace Source.Extensions
             Updated,
             Completed,
             Failed,
-            Discovered
+            Discovered,
+            Getted
         }
 
         public static class QuestMessage
@@ -115,28 +129,26 @@ namespace Source.Extensions
 
             public static void DisplayQuestMessage(player whichPlayer, QuestStatus status, string message)
             {
-                var (statusText, soundPath) = GetStatusInfo(status);
+                var (statusText, sound) = GetStatusInfo(status);
                 var fullMessage = $"{QuestPrefix} {statusText}: {message}";
 
                 DisplayTextToPlayer(whichPlayer, 0, 0, fullMessage);
 
-                if (!string.IsNullOrEmpty(soundPath))
-                {
-                    soundPath = soundPath.Replace(@"\", "/");
-                    var soundQuest = sound.CreateFromLabel(soundPath, false, false, false, 12700, 12700);
+                    var soundQuest = PlaySound(sound);
                     soundQuest.Start();
 
-                }
+                
             }
 
-            private static (string statusText, string soundPath) GetStatusInfo(QuestStatus status)
+            private static (string statusText, sound sound) GetStatusInfo(QuestStatus status)
             {
                 return status switch
                 {
-                    QuestStatus.Updated => ("|cff00ff00обновилось|r", @"Sound\Interface\QuestNew.wav"),
-                    QuestStatus.Completed => ("|cff00ff00выполнено|r", @"Sound\Interface\QuestCompleted.wav"),
-                    QuestStatus.Failed => ("|cffff0000провалено|r", @"Sound\Interface\QuestFailed.wav"),
-                    QuestStatus.Discovered => ("|cff00ff00обнаружено|r", @"Sound\Interface\QuestNew.wav"),
+                    QuestStatus.Updated => ("|cff00ff00обновилось|r", CreateSoundFromLabel("QuestUpdate", false, false, false, 10000, 10000)),
+                    QuestStatus.Completed => ("|cff00ff00выполнено|r", CreateSoundFromLabel("QuestCompleted", false, false, false, 10000, 10000)),
+                    QuestStatus.Failed => ("|cffff0000провалено|r", CreateSoundFromLabel("QuestFailed", false, false, false, 10000, 10000)),
+                    QuestStatus.Discovered => ("|cff00ff00обнаружено|r", CreateSoundFromLabel("Hint", false, false, false, 10000, 10000)),
+                    QuestStatus.Getted => ("|cffffcc00получено|r", CreateSoundFromLabel("QuestNew", false, false, false, 10000, 10000)),
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
                 };
             }

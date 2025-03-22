@@ -10,8 +10,14 @@ namespace Source.Systems
 {
     public static class PlayerHeroItemGettingSystem
     {
+        private static sound _soundItemReward;
         public static void AddItems (player player, IEnumerable<item> items)
         {
+            if (_soundItemReward is null)
+            {
+                _soundItemReward = CreateSoundFromLabel("ItemReward", false, false, false, 10000, 10000);
+            }
+
             var hero = PlayerHeroesList.Heroes.Where(x => x.Owner == player).First();
             StringBuilder message = new();
             message.AppendLine("Получены новые предметы!".Colorize(YELOOW_TEXT_HEX));
@@ -23,6 +29,7 @@ namespace Source.Systems
             }
 
             DisplayTextToPlayer(player, 0, 0, message.ToString());
+            PlaySound(_soundItemReward);
 
            
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WCSharp.Api;
+using static Source.Extensions.CommonExtensions;
 namespace Source.Systems
 {
     public static class QuestSystem
@@ -39,6 +40,8 @@ namespace Source.Systems
 
                     _quests.Add(quest.PlayerOwner, quests);
                 }
+
+                QuestMessage.DisplayQuestMessage(quest.PlayerOwner, QuestStatus.Getted, quest.GetTitle());
             }
         }
     }

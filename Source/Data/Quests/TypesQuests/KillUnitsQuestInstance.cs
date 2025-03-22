@@ -102,8 +102,6 @@ namespace Source.Data.Quests.TypesQuests
             }
 
             _killQuestItem.SetDescription(description.ToString());
-
-            Console.WriteLine(description);
         }
     }
 }
