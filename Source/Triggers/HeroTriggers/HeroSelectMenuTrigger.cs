@@ -76,7 +76,7 @@ namespace Source.Triggers.HeroTriggers
                         ArenaTrigger arenaTrigger = new();
                         arenaTrigger.GetTrigger().Execute();
                         RemoveButtons();
-                        TurnAI();
+                        //TurnAI();
                     }
                 });
 

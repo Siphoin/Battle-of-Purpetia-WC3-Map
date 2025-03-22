@@ -62,6 +62,16 @@ namespace Source.Extensions
             triggerSpeak.Execute();
         }
 
+        public static void ExecuteActionFromTime(float time, Action action)
+        {
+            timer timerExecution = timer.Create();
+            timerExecution.Start(time, false, () =>
+            {
+                action?.Invoke();
+                DestroyTimer(timerExecution);
+            });
+        }
+
         public static void PauseUnitWithStand(unit unit)
         {
             IssueImmediateOrder(unit, "stop");

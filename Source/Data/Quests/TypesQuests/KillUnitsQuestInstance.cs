@@ -6,6 +6,7 @@ using WCSharp.Api;
 using static WCSharp.Api.Common;
 using static Source.Extensions.CommonExtensions;
 using System.Text;
+using Source.Systems;
 namespace Source.Data.Quests.TypesQuests
 {
     public abstract class KillUnitsQuestInstance : QuestInstance
@@ -101,6 +102,8 @@ namespace Source.Data.Quests.TypesQuests
             }
 
             _killQuestItem.SetDescription(description.ToString());
+            QuestSystem.CallEventQuestStatus(this, QuestStatus.Updated);
+            QuestMessage.DisplayQuestMessage(PlayerOwner, QuestStatus.Updated, $"\n{description.ToString()}");
         }
     }
 }

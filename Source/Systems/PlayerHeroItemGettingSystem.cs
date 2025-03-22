@@ -19,6 +19,11 @@ namespace Source.Systems
             }
 
             var hero = PlayerHeroesList.Heroes.Where(x => x.Owner == player).First();
+            bool isPausewdHero = hero.IsPaused;
+            if (isPausewdHero)
+            {
+                PauseUnit(hero, false);
+            }
             StringBuilder message = new();
             message.AppendLine("Получены новые предметы!".Colorize(YELOOW_TEXT_HEX));
 
@@ -30,6 +35,11 @@ namespace Source.Systems
 
             DisplayTextToPlayer(player, 0, 0, message.ToString());
             PlaySound(_soundItemReward);
+
+            if (isPausewdHero)
+            {
+                PauseUnitWithStand(hero);
+            }
 
            
         }

@@ -1,4 +1,5 @@
 ﻿using Source.Data.Quests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WCSharp.Api;
@@ -7,42 +8,23 @@ namespace Source.Systems
 {
     public static class QuestSystem
     {
-        private static Dictionary<player, List<QuestInstance>> _quests = new();
+        private static List<QuestInstance> _quests = new();
 
-        public static IEnumerable<QuestInstance> GetQuestsByPlayer (player player)
+        public static event Action<QuestInstance, QuestStatus> OnQuestStatusChanged;
+
+        public static void CallEventQuestStatus (QuestInstance instance, QuestStatus questStatus)
         {
-            if (!_quests.TryGetValue(player, out var instance))
-            {
-                return Enumerable.Empty<QuestInstance>();
-            }
-
-            return instance;
+            OnQuestStatusChanged?.Invoke(instance, questStatus);
         }
 
         public static void RegisterQuest (QuestInstance quest)
         {        
-            if (!_quests.Any(x => x.Value.Contains(quest)))
-            {
                 quest.Init();
                 quest.GetTrigger();
+            _quests.Add(quest);
 
-                if (_quests.TryGetValue(quest.PlayerOwner, out var quests))
-                {
-                    quests.Add(quest);
-                }
-
-                else
-                {
-                    List<QuestInstance> newQuestList = new List<QuestInstance>()
-                    {
-                        quest,
-                    };
-
-                    _quests.Add(quest.PlayerOwner, quests);
-                }
-
-                QuestMessage.DisplayQuestMessage(quest.PlayerOwner, QuestStatus.Getted, quest.GetTitle());
+            QuestMessage.DisplayQuestMessage(quest.PlayerOwner, QuestStatus.Getted, quest.GetTitle());
             }
-        }
+        
     }
 }

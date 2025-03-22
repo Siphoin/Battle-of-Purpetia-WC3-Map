@@ -375,7 +375,7 @@ namespace Source.Data.Dungeons
                     float x = guards[i].X;
                     float y = guards[i].Y;
                     var newUnit = unit.Create(MapConfig.DungeonPlayer, id, x, y, face);
-                    newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRange;
+                    newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRangeDungeonPlayer;
                     group.Add(newUnit);
                 }
 
@@ -397,7 +397,7 @@ namespace Source.Data.Dungeons
                     float x = guardData.X;
                     float y = guardData.Y;
                     var newUnit = unit.Create(MapConfig.DungeonPlayer, id, x, y, face);
-                    newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRange;
+                    newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRangeDungeonPlayer;
 
 
 
