@@ -11,6 +11,7 @@ namespace Source.Extensions
         public const string BLUE_TEXT_HEX = "#424ef5";
         public const string GREEN_TEXT_HEX = "#81f542";
         public const string ENEMY_TEXT_HEX = "#cc3a35";
+        public const string DEFAULT_WARCRAFT_III_TEXT_HEX = "#ffffcc";
         public static string A2S(int value)
         {
             string result = string.Empty;
