@@ -42,5 +42,6 @@ public static class Regions
 	public static Rectangle Dungeon1Activator { get; set; } = new Rectangle(-9568f, 10240f, -8960f, 10720f);
 	public static Rectangle RegionTreantsSpawn { get; set; } = new Rectangle(7808f, 8384f, 9632f, 10208f);
 	public static Rectangle RegionSatyrSpawn { get; set; } = new Rectangle(-10880f, 6496f, -9056f, 8320f);
+	public static Rectangle QuestNPCCityGoblin { get; set; } = new Rectangle(576f, 1024f, 992f, 1472f);
 
 }

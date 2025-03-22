@@ -8,6 +8,7 @@ using Source.Triggers.DungeonsTriggers.Categories;
 using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
+using Source.Triggers.NPCTriggers.Categories;
 using Source.Triggers.TownTriggers.Categories;
 using System;
 using WCSharp.Events;
@@ -30,14 +31,6 @@ namespace Source
 				DestroyTimer(timer);
 				Start();
 			});
-
-             var t = CreateTimer();
-            TimerStart(t, 3, false, () =>
-            {
-				MurlocKillQuest murlocKillQuest = new MurlocKillQuest(Player(0));
-				QuestSystem.RegisterQuest(murlocKillQuest);
-                DestroyTimer(t);
-            });
         }
 
 		private static void Start()
@@ -70,6 +63,7 @@ namespace Source
 				new TownTriggersCategory(),
 				new ArenaTriggersCategory(),
 				new DungeonTriggersCategory(),
+			    new NPCTriggersCategory(),
 #if DEBUG
 				new DebugTriggersCategory(),
 	#endif

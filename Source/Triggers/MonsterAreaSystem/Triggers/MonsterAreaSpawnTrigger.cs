@@ -166,7 +166,9 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             {
                 return;
             }
+#if DEBUG
             Console.WriteLine("Infernal die activated");
+#endif
             trigger triggerDie = trigger.Create();
             triggerDie.AddAction(() =>
             {

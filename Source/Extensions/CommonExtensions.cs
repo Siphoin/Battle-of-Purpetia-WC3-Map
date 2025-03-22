@@ -25,6 +25,49 @@ namespace Source.Extensions
             return result;
         }
 
+        public static bool IsHero (this unit unit)
+        {
+            return !string.IsNullOrEmpty(unit.HeroName);
+        }
+
+        public static void TransmissionFromUnit(unit whichUnit, string message, float time, Action action = null, bool isWait = true)
+        {
+            trigger triggerSpeak = trigger.Create();
+            triggerSpeak.AddAction(() =>
+            {
+                SetCinematicScene(whichUnit.UnitType, whichUnit.Owner.Color, whichUnit.Name, message, time, message.Length / 10);
+                if (isWait)
+                {
+                    if (action != null)
+                    {
+
+                        timer timerAction = timer.Create();
+                        timerAction.Start(time, false, () =>
+                        {
+                            action?.Invoke();
+                            DestroyTimer(timerAction);
+                        });
+                    }
+
+
+                }
+
+                else
+                {
+                    action?.Invoke();
+                }
+                DestroyTrigger(triggerSpeak);
+            });
+
+            triggerSpeak.Execute();
+        }
+
+        public static void PauseUnitWithStand(unit unit)
+        {
+            IssueImmediateOrder(unit, "stop");
+            PauseUnit(unit, true);
+        }
+
         public static string Colorize(this string text, string hexColor)
         {
             if (string.IsNullOrEmpty(text)) return text;
