@@ -541,3 +541,21 @@ STRING 102
 Собэр
 }
 
+STRING 103
+// Units: n001 (Хикс Мутный), Name (Name)
+{
+Хикс Мутный
+}
+
+STRING 104
+// Units: n002 (Горожанка), Name (Name)
+{
+Горожанка
+}
+
+STRING 105
+// Units: n003 (Горожанин), Name (Name)
+{
+Горожанин
+}
+

@@ -8,6 +8,7 @@ using System.Linq;
 using WCSharp.Api;
 using WCSharp.Shared.Data;
 using static WCSharp.Api.Common;
+using static Source.Extensions.CommonExtensions;
 namespace Source.Triggers.DungeonsTriggers.Triggers
 {
     public class DungeonRoomZoneTrigger : TriggerInstance
@@ -65,7 +66,7 @@ namespace Source.Triggers.DungeonsTriggers.Triggers
 
             else
             {
-                PauseUnit(hero, true);
+                PauseUnitWithStand(hero);
                 hero.IsInvulnerable = true;
                 if (hero.Owner == player.LocalPlayer)
                 {

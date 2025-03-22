@@ -82,6 +82,7 @@ namespace Source.Data.Quests
             if (isCompleted)
             {
                QuestMessage.DisplayQuestMessage(PlayerOwner, QuestStatus.Completed, GetTitle());
+               QuestSystem.CallEventQuestStatus(this, QuestStatus.Completed);
             }
             IsCompleted = isCompleted;
         }

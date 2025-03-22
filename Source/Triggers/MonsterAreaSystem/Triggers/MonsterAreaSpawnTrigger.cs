@@ -153,9 +153,9 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             }
 
             int addLife = ((int)unit.Life * 3 / 100) * _currentForce;
-            unit.GoldBountyAwardedBase += 5;
             unit.MaxLife += addLife;
             unit.Life = unit.MaxLife;
+            unit.DefaultAcquireRange = MapConfig.DefaultAcquireRangeMonsterPlayer;
             
         }
 
@@ -166,7 +166,9 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             {
                 return;
             }
+#if DEBUG
             Console.WriteLine("Infernal die activated");
+#endif
             trigger triggerDie = trigger.Create();
             triggerDie.AddAction(() =>
             {

@@ -76,7 +76,7 @@ namespace Source.Triggers.HeroTriggers
                         ArenaTrigger arenaTrigger = new();
                         arenaTrigger.GetTrigger().Execute();
                         RemoveButtons();
-                        TurnAI();
+                        //TurnAI();
                     }
                 });
 
@@ -126,7 +126,6 @@ namespace Source.Triggers.HeroTriggers
                         aIHeroTrigger.GetTrigger().Execute();
                         DestroyTimer(t2);
                     });
-                    Console.WriteLine(p.Name);
                 }
 
                 var t = CreateTimer();
