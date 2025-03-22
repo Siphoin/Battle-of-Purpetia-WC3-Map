@@ -31,6 +31,7 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         private void CreateGUI()
         {
+            #region Buttons
             buttonDungeons = BlzCreateFrame("IconButtonTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0);
             BlzFrameSetAbsPoint(buttonDungeons, FRAMEPOINT_TOPLEFT, 0.000220000f, 0.602230f);
             BlzFrameSetAbsPoint(buttonDungeons, FRAMEPOINT_BOTTOMRIGHT, 0.111890f, 0.562080f);
@@ -49,6 +50,13 @@ namespace Source.Triggers.GUITriggers.Triggers
             BlzFrameSetEnable(buttonDungeonsText, false);
             BlzFrameSetScale(buttonDungeonsText, 1.00f);
             BlzFrameSetTextAlignment(buttonDungeonsText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE);
+            #endregion
+
+            #region Player Resources Widget
+
+            #endregion
+
+
         }
 
         private void OpenDungeonsWindow()
@@ -81,6 +89,16 @@ namespace Source.Triggers.GUITriggers.Triggers
             _currentOpenedWindow?.Destroy();
             window.Show();
             _currentOpenedWindow = window;
+        }
+    }
+
+    public class PlayerResourcesWidget
+    {
+        private player TargetPlayer { get; set; }
+
+        public void Create ()
+        {
+
         }
     }
 }
