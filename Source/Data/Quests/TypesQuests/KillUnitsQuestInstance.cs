@@ -58,7 +58,6 @@ namespace Source.Data.Quests.TypesQuests
             if (AreDictionariesEqual())
             {
                 MarkIsCompleted(true);
-                GetRewards();
                 DestroyTrigger(_triggerListener);
                 _countersKills.Clear();
                 _requireUnits.Clear();
