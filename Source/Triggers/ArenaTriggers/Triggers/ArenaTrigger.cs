@@ -7,6 +7,7 @@ using System.Linq;
 using WCSharp.Api;
 using WCSharp.Events;
 using static WCSharp.Api.Common;
+using static Source.Extensions.CommonExtensions;
 namespace Source.Triggers.ArenaTriggers.Triggers
 {
     public class ArenaTrigger : TriggerInstance
@@ -84,8 +85,8 @@ namespace Source.Triggers.ArenaTriggers.Triggers
             firstSelectedHero.X = pointLeft.X;
             firstSelectedHero.Y = pointLeft.Y;
 
-            PauseUnit(enemyPlayer, true);
-            PauseUnit(firstSelectedHero, true);
+            PauseUnitWithStand(enemyPlayer);
+            PauseUnitWithStand(firstSelectedHero);
 
             timer timerBeginBattle = timer.Create();
             timerBeginBattle.Start(5, false, () => BeginBattle(firstSelectedHero, enemyPlayer, timerBeginBattle));
