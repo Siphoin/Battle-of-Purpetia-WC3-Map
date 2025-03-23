@@ -10,7 +10,7 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
 {
     public abstract class QuestNPCRegionTrigger : NPCTalkRegionTrigger
     {
-        private const int TIME_DIALOG_QUEST_DESCRIPTION = 20;
+        private const int TIME_DIALOG_QUEST_DESCRIPTION = 23;
 
         protected unit PlayerUnit { get; set; }
         protected bool IsWaitQuest { get; set; }
