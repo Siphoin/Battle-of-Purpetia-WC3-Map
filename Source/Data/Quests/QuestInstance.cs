@@ -78,13 +78,20 @@ namespace Source.Data.Quests
         
         protected void MarkIsCompleted (bool isCompleted)
         {
-            _quest.IsCompleted = isCompleted;
-            if (isCompleted)
+            if (isCompleted && !_quest.IsCompleted)
             {
+                _quest.IsCompleted = isCompleted;
                QuestMessage.DisplayQuestMessage(PlayerOwner, QuestStatus.Completed, GetTitle());
                QuestSystem.CallEventQuestStatus(this, QuestStatus.Completed);
             }
             IsCompleted = isCompleted;
         }
+
+#if DEBUG
+        public virtual void MarkIsCompleted_Debug(bool isCompleted)
+        {
+            MarkIsCompleted(isCompleted);
+        }
+#endif
     }
 }

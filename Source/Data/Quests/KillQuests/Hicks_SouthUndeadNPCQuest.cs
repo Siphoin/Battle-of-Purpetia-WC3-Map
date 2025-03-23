@@ -5,9 +5,9 @@ using WCSharp.Api;
 
 namespace Source.Data.Quests.KillQuests
 {
-    public class SouthUndeadNPCQuest : KillUnitsQuestInstance
+    public class Hicks_SouthUndeadNPCQuest : KillUnitsQuestInstance
     {
-        public SouthUndeadNPCQuest(player playerOwner) : base(playerOwner)
+        public Hicks_SouthUndeadNPCQuest(player playerOwner) : base(playerOwner)
         {
         }
 

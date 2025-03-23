@@ -1,8 +1,6 @@
 ﻿using Source.Data.Quests;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using WCSharp.Api;
 using static Source.Extensions.CommonExtensions;
 namespace Source.Systems
 {
@@ -16,6 +14,22 @@ namespace Source.Systems
         {
             OnQuestStatusChanged?.Invoke(instance, questStatus);
         }
+
+#if DEBUG
+        public static void SetCompleteQuestStatus_Debug(int index)
+        {
+            try
+            {
+                var instance = _quests[index];
+                instance.MarkIsCompleted_Debug(true);
+            }
+            catch
+            {
+
+                throw;
+            }
+        }
+#endif
 
         public static void RegisterQuest (QuestInstance quest)
         {        

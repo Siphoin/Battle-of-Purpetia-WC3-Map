@@ -8,6 +8,8 @@ using Source.Data.Quests.KillQuests;
 using Source.Data.Quests;
 using System;
 using Source.Triggers.NPCTriggers.Triggers.QuestTriggers;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 {
@@ -25,13 +27,10 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         protected override void OnPlayerEnterRegion(unit playerUnit)
         {
+            base.OnPlayerEnterRegion(playerUnit);
             SaveData saveData = SaveContainerSystem.SaveData;
             int progress = saveData.GetAcquaintanceProgressWithNPC(Unit);
             PlayerUnit = playerUnit;
-            if (IsWaitQuest)
-            {
-                AbortDialog();
-            }
             if (progress == 0)
             {
                 TurnStartDialog(playerUnit);
@@ -51,15 +50,15 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
         private void TuenQuestIII()
         {
                 CurrentQuest.GetRewards();
+
                 SaveData saveData = SaveContainerSystem.SaveData;
-                saveData.SetAcquaintanceProgressWithNPC(Unit);
-            
+            saveData.SetAcquaintanceProgressWithNPC(Unit);
+            PauseUnitWithStand(PlayerUnit);
+                QuestIIDialogeEnd();
+
+
         }
 
-        private void AbortDialog()
-        {
-            TransmissionFromUnit(Unit, "Я же просил не беспокоить меня по пустякам, салага!", 4);
-        }
         #region Start Dialogs
         private void TurnStartDialog(unit playerUnit)
         {
@@ -84,17 +83,39 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void StartDialogPart5()
         {
-            TransmissionFromUnit(Unit, "А теперь бери листовку с данными первого задания и с глаз долой! Беспокоить разрешаю только когда хоть чего-то добьешься, неудачник...", 9, EndStartDialog);
+            var murlocKillQuest = new Hicks_MurlocKillQuest(PlayerUnit.Owner);
+            SetCurrentQuest(murlocKillQuest);
+            ActionBeforeTransmissionQuestDescription = () => EndStartDialog();
+            TransmissionQuestDescription();
         }
 
         private void EndStartDialog()
         {
-            var murlocKillQuest = new MurlocKillQuest(PlayerUnit.Owner);
+            TransmissionFromUnit(Unit, "А теперь бери листовку с данными первого задания и с глаз долой! Беспокоить разрешаю только когда хоть чего-то добьешься, неудачник...", 9, TurnMurlocQuest);
+        }
+
+        private void TurnMurlocQuest()
+        {
             SaveData saveData = SaveContainerSystem.SaveData;
-            QuestSystem.RegisterQuest(murlocKillQuest);
+            QuestSystem.RegisterQuest(CurrentQuest);
             saveData.SetAcquaintanceProgressWithNPC(Unit, 1);
             PauseUnit(PlayerUnit, false);
-            SetCurrentQuest(murlocKillQuest);
+        }
+
+        private void TurnSouthUndeadQuest()
+        {
+            QuestSystem.RegisterQuest(CurrentQuest);
+            SaveData saveData = SaveContainerSystem.SaveData;
+            saveData.SetAcquaintanceProgressWithNPC(Unit);
+            PauseUnit(PlayerUnit, false);
+        }
+
+        private void EndQuestIIStart()
+        {
+            Hicks_SouthUndeadNPCQuest southUndeadNPCQuest = new(PlayerUnit.Owner);
+            SetCurrentQuest(southUndeadNPCQuest);
+            ActionBeforeTransmissionQuestDescription = () => TurnSouthUndeadQuest();
+            TransmissionQuestDescription();
         }
 
 
@@ -122,32 +143,40 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void QuestIIDialogPart4()
         {
-            TransmissionFromUnit(Unit, "Надеюсь эти вкусняшки не попадутся их бывшим хозяевам... За такой улов помимо золота вы заслужили часть этих приготовленных деликатесов. Нет, щедрость тут не причем, мы просто проверяем не принесли ли вы нам ядовитых рыболюдов. Теперь вы наши дегустаторы, салаги!", 17, QuestIIDialogPart5);
+            TransmissionFromUnit(Unit, "Надеюсь эти вкусняшки не попадутся их бывшим хозяевам... За такой улов помимо золота вы заслужили часть этих приготовленных деликатесов. Нет, щедрость тут не причем, мы просто проверяем не принесли ли вы нам ядовитых рыболюдов. Теперь вы наши дегустаторы, салаги!", 17, GiveFishItemBonus);
         }
 
-        private void QuestIIDialogPart5()
+        private void GiveFishItemBonus()
         {
-            TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, EndQuestIIStart);
+            List<item> items = new List<item>()
+            {
+                CreateItem(FourCC("fpem:hslv"), 0, 0)
+            };
+
+            PlayerHeroItemGettingSystem.AddItems(PlayerUnit.Owner, items);
+
+            ExecuteActionFromTime(3, EndQuestIIStart);
         }
 
-        private void EndQuestIIStart()
+        
+private void QuestIIDialogeEnd()
+{
+   TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, StartQuestIVDialog);
+}
+
+        private void StartQuestIVDialog()
         {
-            var southUndeadQuest = new SouthUndeadNPCQuest(PlayerUnit.Owner);
-            QuestSystem.RegisterQuest(southUndeadQuest);
-            SaveData saveData = SaveContainerSystem.SaveData;
-            saveData.SetAcquaintanceProgressWithNPC(Unit, 1);
-            PauseUnit(PlayerUnit, false);
-            SetCurrentQuest(southUndeadQuest);
         }
 
         protected override void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
         {
             if (CurrentQuest == instance && status == QuestStatus.Completed)
             {
-                UncribeEventQuestCompleted();
                 SaveData saveData = SaveContainerSystem.SaveData;
                 saveData.SetAcquaintanceProgressWithNPC(Unit);
             }
+
+            base.OnQuestStatusChanged(instance, status);
         }
 
 

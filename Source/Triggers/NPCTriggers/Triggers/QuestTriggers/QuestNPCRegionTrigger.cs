@@ -1,5 +1,4 @@
 ﻿using Source.Data.Quests;
-using Source.Extensions;
 using Source.Systems;
 using Source.Triggers.NPCTriggers.Triggers.TalkTriggers;
 using System;
@@ -11,11 +10,23 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
 {
     public abstract class QuestNPCRegionTrigger : NPCTalkRegionTrigger
     {
+        private const int TIME_DIALOG_QUEST_DESCRIPTION = 23;
+
         protected unit PlayerUnit { get; set; }
         protected bool IsWaitQuest { get; set; }
         protected QuestInstance CurrentQuest { get; private set; }
+        protected Action ActionBeforeTransmissionQuestDescription { get; set; }
         protected QuestNPCRegionTrigger(Rectangle region) : base(region)
         {
+        }
+
+        protected override void OnPlayerEnterRegion(unit enterUnit)
+        {
+            if (IsWaitQuest)
+            {
+                AbortEnterRegion();
+                return;
+            }
         }
 
         protected void SetCurrentQuest(QuestInstance quest)
@@ -24,16 +35,22 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
             QuestSystem.OnQuestStatusChanged += OnQuestStatusChanged;
             IsWaitQuest = true;
         }
-
-        protected void UncribeEventQuestCompleted ()
+        protected virtual void AbortEnterRegion ()
         {
-            if (CurrentQuest != null)
-            {
-                QuestSystem.OnQuestStatusChanged -= OnQuestStatusChanged;
-                IsWaitQuest = false;
-            }
+            TransmissionFromUnit(Unit, "Я же просил не беспокоить меня по пустякам, салага!", 4);
         }
 
-        protected abstract void OnQuestStatusChanged(QuestInstance instance, QuestStatus status);
+        protected virtual void TransmissionQuestDescription ()
+        {
+            TransmissionFromUnit(Unit, CurrentQuest.GetDescription(), CurrentQuest.GetDescription().Length / TIME_DIALOG_QUEST_DESCRIPTION, ActionBeforeTransmissionQuestDescription, true);
+        }
+        protected virtual void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
+        {
+            if (status == QuestStatus.Completed)
+            {
+                IsWaitQuest = false;
+                QuestSystem.OnQuestStatusChanged -= OnQuestStatusChanged;
+            }
+        }
     }
 }

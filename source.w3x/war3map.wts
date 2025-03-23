@@ -559,3 +559,15 @@ STRING 105
 Горожанин
 }
 
+STRING 106
+// Items: fpem (Мясо рыболюда), Name (Name)
+{
+Мясо рыболюда
+}
+
+STRING 108
+// Items: fpem (Мясо рыболюда), Tip (Tooltip - Basic)
+{
+Купить |cffffff00Мясо рыболюда|r
+}
+
