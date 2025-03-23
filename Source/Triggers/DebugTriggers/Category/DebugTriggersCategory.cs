@@ -26,6 +26,7 @@ namespace Source.Triggers.DebugTriggers.Category
             PauseUnitDebugTrigger pauseUnitDebugTrigger = new PauseUnitDebugTrigger();
             ArenaTimerOnDebugTrigger arenaTimerOnDebugTrigger = new ArenaTimerOnDebugTrigger();
             ArenaTimerOffDebugTrigger arenaTimerOffDebugTrigger = new ArenaTimerOffDebugTrigger();
+            QuestCompleteDebugTrigger questCompleteDebugTrigger = new QuestCompleteDebugTrigger();
 
 
             TriggerInstance[] debugTriggers = new TriggerInstance[]
@@ -44,6 +45,7 @@ namespace Source.Triggers.DebugTriggers.Category
                 arenaTimerOffDebugTrigger,
                 arenaTimerOnDebugTrigger,
                 pauseUnitDebugTrigger,
+                questCompleteDebugTrigger,
             };
             foreach (var triggerInstance in debugTriggers)
             {

@@ -25,13 +25,10 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         protected override void OnPlayerEnterRegion(unit playerUnit)
         {
+            base.OnPlayerEnterRegion(playerUnit);
             SaveData saveData = SaveContainerSystem.SaveData;
             int progress = saveData.GetAcquaintanceProgressWithNPC(Unit);
             PlayerUnit = playerUnit;
-            if (IsWaitQuest)
-            {
-                AbortDialog();
-            }
             if (progress == 0)
             {
                 TurnStartDialog(playerUnit);
@@ -56,10 +53,6 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
             
         }
 
-        private void AbortDialog()
-        {
-            TransmissionFromUnit(Unit, "Я же просил не беспокоить меня по пустякам, салага!", 4);
-        }
         #region Start Dialogs
         private void TurnStartDialog(unit playerUnit)
         {
@@ -90,11 +83,17 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
         private void EndStartDialog()
         {
             var murlocKillQuest = new MurlocKillQuest(PlayerUnit.Owner);
+            SetCurrentQuest(murlocKillQuest);
+            ActionBeforeTransmissionQuestDescription = () => TurnMurlocQuest();
+            TransmissionQuestDescription();
+        }
+
+        private void TurnMurlocQuest()
+        {
             SaveData saveData = SaveContainerSystem.SaveData;
-            QuestSystem.RegisterQuest(murlocKillQuest);
+            QuestSystem.RegisterQuest(CurrentQuest);
             saveData.SetAcquaintanceProgressWithNPC(Unit, 1);
             PauseUnit(PlayerUnit, false);
-            SetCurrentQuest(murlocKillQuest);
         }
 
 

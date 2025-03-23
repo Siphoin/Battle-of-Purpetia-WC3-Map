@@ -1,8 +1,6 @@
 ﻿using Source.Data.Quests;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using WCSharp.Api;
 using static Source.Extensions.CommonExtensions;
 namespace Source.Systems
 {
@@ -15,6 +13,20 @@ namespace Source.Systems
         public static void CallEventQuestStatus (QuestInstance instance, QuestStatus questStatus)
         {
             OnQuestStatusChanged?.Invoke(instance, questStatus);
+        }
+
+        public static void CallEventQuestStatus(int index, QuestStatus questStatus)
+        {
+            try
+            {
+                var instance = _quests[index];
+                CallEventQuestStatus(instance, questStatus);
+            }
+            catch
+            {
+
+                throw;
+            }
         }
 
         public static void RegisterQuest (QuestInstance quest)
