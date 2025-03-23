@@ -15,12 +15,13 @@ namespace Source.Systems
             OnQuestStatusChanged?.Invoke(instance, questStatus);
         }
 
-        public static void CallEventQuestStatus(int index, QuestStatus questStatus)
+#if DEBUG
+        public static void SetCompleteQuestStatus_Debug(int index)
         {
             try
             {
                 var instance = _quests[index];
-                CallEventQuestStatus(instance, questStatus);
+                instance.MarkIsCompleted_Debug(true);
             }
             catch
             {
@@ -28,6 +29,7 @@ namespace Source.Systems
                 throw;
             }
         }
+#endif
 
         public static void RegisterQuest (QuestInstance quest)
         {        

@@ -35,15 +35,6 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
             QuestSystem.OnQuestStatusChanged += OnQuestStatusChanged;
             IsWaitQuest = true;
         }
-
-        protected void UncribeEventQuestCompleted ()
-        {
-            if (CurrentQuest != null)
-            {
-                QuestSystem.OnQuestStatusChanged -= OnQuestStatusChanged;
-                IsWaitQuest = false;
-            }
-        }
         protected virtual void AbortEnterRegion ()
         {
             TransmissionFromUnit(Unit, "Я же просил не беспокоить меня по пустякам, салага!", 4);
@@ -53,6 +44,12 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
         {
             TransmissionFromUnit(Unit, CurrentQuest.GetDescription(), CurrentQuest.GetDescription().Length / TIME_DIALOG_QUEST_DESCRIPTION, ActionBeforeTransmissionQuestDescription, true);
         }
-        protected abstract void OnQuestStatusChanged(QuestInstance instance, QuestStatus status);
+        protected virtual void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
+        {
+            if (status == QuestStatus.Completed)
+            {
+                QuestSystem.OnQuestStatusChanged -= OnQuestStatusChanged;
+            }
+        }
     }
 }

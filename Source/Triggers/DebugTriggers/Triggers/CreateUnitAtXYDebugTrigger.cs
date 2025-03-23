@@ -1,7 +1,6 @@
 ﻿using Source.Triggers.Base;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
-
 namespace Source.Triggers.DebugTriggers.Triggers
 {
     public class CreateUnitAtXYDebugTrigger : TriggerInstance

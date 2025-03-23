@@ -12,6 +12,10 @@ namespace Source.Extensions
         public const string GREEN_TEXT_HEX = "#81f542";
         public const string ENEMY_TEXT_HEX = "#cc3a35";
         public const string DEFAULT_WARCRAFT_III_TEXT_HEX = "#ffffcc";
+
+#if DEBUG
+        public static bool IsFastTransmissionUnit { get; set; } = false;
+#endif
         public static string A2S(int value)
         {
             string result = string.Empty;
@@ -32,6 +36,12 @@ namespace Source.Extensions
 
         public static void TransmissionFromUnit(unit whichUnit, string message, float time, Action action = null, bool isWait = true)
         {
+#if DEBUG
+            if (IsFastTransmissionUnit)
+            {
+                time = 1;
+            }
+#endif
             trigger triggerSpeak = trigger.Create();
             triggerSpeak.AddAction(() =>
             {

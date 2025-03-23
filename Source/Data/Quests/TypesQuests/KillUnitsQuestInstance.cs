@@ -58,11 +58,16 @@ namespace Source.Data.Quests.TypesQuests
 
             if (AreDictionariesEqual())
             {
-                MarkIsCompleted(true);
-                DestroyTrigger(_triggerListener);
-                _countersKills.Clear();
-                _requireUnits.Clear();
+                EndConditions();
             }
+        }
+
+        private void EndConditions()
+        {
+            MarkIsCompleted(true);
+            DestroyTrigger(_triggerListener);
+            _countersKills.Clear();
+            _requireUnits.Clear();
         }
 
         private bool AreDictionariesEqual()
@@ -105,5 +110,13 @@ namespace Source.Data.Quests.TypesQuests
             QuestSystem.CallEventQuestStatus(this, QuestStatus.Updated);
             QuestMessage.DisplayQuestMessage(PlayerOwner, QuestStatus.Updated, $"\n{description.ToString()}");
         }
+
+#if DEBUG
+        public override void MarkIsCompleted_Debug(bool isCompleted)
+        {
+            EndConditions();
+            base.MarkIsCompleted_Debug(isCompleted);
+        }
+#endif
     }
 }

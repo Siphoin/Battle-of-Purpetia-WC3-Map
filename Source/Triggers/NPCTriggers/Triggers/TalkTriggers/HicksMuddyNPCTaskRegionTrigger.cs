@@ -77,15 +77,15 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void StartDialogPart5()
         {
-            TransmissionFromUnit(Unit, "А теперь бери листовку с данными первого задания и с глаз долой! Беспокоить разрешаю только когда хоть чего-то добьешься, неудачник...", 9, EndStartDialog);
+            var murlocKillQuest = new MurlocKillQuest(PlayerUnit.Owner);
+            SetCurrentQuest(murlocKillQuest);
+            ActionBeforeTransmissionQuestDescription = () => EndStartDialog();
+            TransmissionQuestDescription();
         }
 
         private void EndStartDialog()
         {
-            var murlocKillQuest = new MurlocKillQuest(PlayerUnit.Owner);
-            SetCurrentQuest(murlocKillQuest);
-            ActionBeforeTransmissionQuestDescription = () => TurnMurlocQuest();
-            TransmissionQuestDescription();
+            TransmissionFromUnit(Unit, "А теперь бери листовку с данными первого задания и с глаз долой! Беспокоить разрешаю только когда хоть чего-то добьешься, неудачник...", 9, TurnMurlocQuest);
         }
 
         private void TurnMurlocQuest()
@@ -94,6 +94,22 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
             QuestSystem.RegisterQuest(CurrentQuest);
             saveData.SetAcquaintanceProgressWithNPC(Unit, 1);
             PauseUnit(PlayerUnit, false);
+        }
+
+        private void TurnSouthUndeadQuest()
+        {
+            QuestSystem.RegisterQuest(CurrentQuest);
+            SaveData saveData = SaveContainerSystem.SaveData;
+            saveData.SetAcquaintanceProgressWithNPC(Unit);
+            PauseUnit(PlayerUnit, false);
+        }
+
+        private void EndQuestIIStart()
+        {
+            Hicks_SouthUndeadNPCQuest southUndeadNPCQuest = new(PlayerUnit.Owner);
+            SetCurrentQuest(southUndeadNPCQuest);
+            ActionBeforeTransmissionQuestDescription = () => TurnSouthUndeadQuest();
+            TransmissionQuestDescription();
         }
 
 
@@ -121,32 +137,25 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void QuestIIDialogPart4()
         {
-            TransmissionFromUnit(Unit, "Надеюсь эти вкусняшки не попадутся их бывшим хозяевам... За такой улов помимо золота вы заслужили часть этих приготовленных деликатесов. Нет, щедрость тут не причем, мы просто проверяем не принесли ли вы нам ядовитых рыболюдов. Теперь вы наши дегустаторы, салаги!", 17, QuestIIDialogPart5);
+            TransmissionFromUnit(Unit, "Надеюсь эти вкусняшки не попадутся их бывшим хозяевам... За такой улов помимо золота вы заслужили часть этих приготовленных деликатесов. Нет, щедрость тут не причем, мы просто проверяем не принесли ли вы нам ядовитых рыболюдов. Теперь вы наши дегустаторы, салаги!", 17, EndQuestIIStart);
         }
-
+        /*
         private void QuestIIDialogPart5()
         {
             TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, EndQuestIIStart);
         }
 
-        private void EndQuestIIStart()
-        {
-            var southUndeadQuest = new SouthUndeadNPCQuest(PlayerUnit.Owner);
-            QuestSystem.RegisterQuest(southUndeadQuest);
-            SaveData saveData = SaveContainerSystem.SaveData;
-            saveData.SetAcquaintanceProgressWithNPC(Unit, 1);
-            PauseUnit(PlayerUnit, false);
-            SetCurrentQuest(southUndeadQuest);
-        }
+        */
 
         protected override void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
         {
             if (CurrentQuest == instance && status == QuestStatus.Completed)
             {
-                UncribeEventQuestCompleted();
                 SaveData saveData = SaveContainerSystem.SaveData;
                 saveData.SetAcquaintanceProgressWithNPC(Unit);
             }
+
+            base.OnQuestStatusChanged(instance, status);
         }
 
 

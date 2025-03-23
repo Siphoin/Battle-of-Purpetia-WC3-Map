@@ -11,6 +11,7 @@ namespace Source.Triggers.DebugTriggers.Triggers
         {
             trigger debugTrigger = trigger.Create();
             debugTrigger.RegisterPlayerChatEvent(Player(0), "QuestComplete", false);
+#if DEBUG
             debugTrigger.AddAction(() =>
             {
                 var message = GetEventPlayerChatString();
@@ -18,9 +19,10 @@ namespace Source.Triggers.DebugTriggers.Triggers
 
                 if (parts.Length > 1 && int.TryParse(parts[1], out int questNumber))
                 {
-                    QuestSystem.CallEventQuestStatus(questNumber, QuestStatus.Completed);
+                    QuestSystem.SetCompleteQuestStatus_Debug(questNumber - 1);
                 }
             });
+#endif
             return debugTrigger;
         }
     }
