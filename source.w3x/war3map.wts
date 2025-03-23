@@ -560,14 +560,14 @@ STRING 105
 }
 
 STRING 106
-// Items: I000 (Мясо рыболюда), Name (Name)
+// Items: fpem (Мясо рыболюда), Name (Name)
 {
 Мясо рыболюда
 }
 
-STRING 107
-// Items: I000 (Мясо рыболюда), Tip (Tooltip - Basic)
+STRING 108
+// Items: fpem (Мясо рыболюда), Tip (Tooltip - Basic)
 {
-Мясо рыболюда
+Купить |cffffff00Мясо рыболюда|r
 }
 

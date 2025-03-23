@@ -8,6 +8,8 @@ using Source.Data.Quests.KillQuests;
 using Source.Data.Quests;
 using System;
 using Source.Triggers.NPCTriggers.Triggers.QuestTriggers;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 {
@@ -137,15 +139,28 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void QuestIIDialogPart4()
         {
-            TransmissionFromUnit(Unit, "Надеюсь эти вкусняшки не попадутся их бывшим хозяевам... За такой улов помимо золота вы заслужили часть этих приготовленных деликатесов. Нет, щедрость тут не причем, мы просто проверяем не принесли ли вы нам ядовитых рыболюдов. Теперь вы наши дегустаторы, салаги!", 17, EndQuestIIStart);
-        }
-        /*
-        private void QuestIIDialogPart5()
-        {
-            TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, EndQuestIIStart);
+            TransmissionFromUnit(Unit, "Надеюсь эти вкусняшки не попадутся их бывшим хозяевам... За такой улов помимо золота вы заслужили часть этих приготовленных деликатесов. Нет, щедрость тут не причем, мы просто проверяем не принесли ли вы нам ядовитых рыболюдов. Теперь вы наши дегустаторы, салаги!", 17, GiveFishItemBonus);
         }
 
-        */
+        private void GiveFishItemBonus()
+        {
+            List<item> items = new List<item>()
+            {
+                CreateItem(FourCC("fpem:hslv"), 0, 0)
+            };
+
+            PlayerHeroItemGettingSystem.AddItems(PlayerUnit.Owner, items);
+
+            ExecuteActionFromTime(3, EndQuestIIStart);
+        }
+
+        /*
+private void QuestIIDialogPart5()
+{
+   TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, EndQuestIIStart);
+}
+
+*/
 
         protected override void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
         {
