@@ -48,6 +48,7 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
         {
             if (status == QuestStatus.Completed)
             {
+                IsWaitQuest = false;
                 QuestSystem.OnQuestStatusChanged -= OnQuestStatusChanged;
             }
         }

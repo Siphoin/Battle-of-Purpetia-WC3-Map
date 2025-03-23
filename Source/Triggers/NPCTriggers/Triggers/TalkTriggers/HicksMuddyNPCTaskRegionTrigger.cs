@@ -50,9 +50,13 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
         private void TuenQuestIII()
         {
                 CurrentQuest.GetRewards();
+
                 SaveData saveData = SaveContainerSystem.SaveData;
-                saveData.SetAcquaintanceProgressWithNPC(Unit);
-            
+            saveData.SetAcquaintanceProgressWithNPC(Unit);
+            PauseUnitWithStand(PlayerUnit);
+                QuestIIDialogeEnd();
+
+
         }
 
         #region Start Dialogs
@@ -154,13 +158,15 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
             ExecuteActionFromTime(3, EndQuestIIStart);
         }
 
-        /*
-private void QuestIIDialogPart5()
+        
+private void QuestIIDialogeEnd()
 {
-   TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, EndQuestIIStart);
+   TransmissionFromUnit(Unit, "Ой, а куда же делись гости? Неужто вы их гостеприимно выпроводили сапогом под зад? Ай-ай-ай... Впрочем, так им и надо, нечего ломится без приглашения, а горы мертвецов ни один здравомыслящий не будет приглашать. Я ж правильно говорю, салага?", 12, StartQuestIVDialog);
 }
 
-*/
+        private void StartQuestIVDialog()
+        {
+        }
 
         protected override void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
         {
