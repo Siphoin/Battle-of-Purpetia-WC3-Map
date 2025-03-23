@@ -77,7 +77,7 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void StartDialogPart5()
         {
-            var murlocKillQuest = new MurlocKillQuest(PlayerUnit.Owner);
+            var murlocKillQuest = new Hicks_MurlocKillQuest(PlayerUnit.Owner);
             SetCurrentQuest(murlocKillQuest);
             ActionBeforeTransmissionQuestDescription = () => EndStartDialog();
             TransmissionQuestDescription();

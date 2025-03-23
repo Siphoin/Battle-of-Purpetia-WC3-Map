@@ -5,7 +5,7 @@ using WCSharp.Api;
 using static WCSharp.Api.Common;
 namespace Source.Data.Quests.KillQuests
 {
-    public class MurlocKillQuest : KillUnitsQuestInstance
+    public class Hicks_MurlocKillQuest : KillUnitsQuestInstance
     {
         public override void Init()
         {
@@ -19,7 +19,7 @@ namespace Source.Data.Quests.KillQuests
                 "manh",
             };
         }
-        public MurlocKillQuest(player playerOwner) : base(playerOwner)
+        public Hicks_MurlocKillQuest(player playerOwner) : base(playerOwner)
         {
         }
 
