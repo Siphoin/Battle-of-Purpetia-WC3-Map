@@ -8,6 +8,8 @@ namespace Source.Systems
     {
         private static List<QuestInstance> _quests = new();
 
+        public static IEnumerable<QuestInstance> Quests => _quests;
+
         public static event Action<QuestInstance, QuestStatus> OnQuestStatusChanged;
 
         public static void CallEventQuestStatus (QuestInstance instance, QuestStatus questStatus)

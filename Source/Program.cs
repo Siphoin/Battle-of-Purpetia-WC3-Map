@@ -1,6 +1,4 @@
-﻿using Source.Data.Quests.KillQuests;
-using Source.Systems;
-using Source.Triggers.ArenaTriggers.Categories;
+﻿using Source.Triggers.ArenaTriggers.Categories;
 using Source.Triggers.Base;
 using Source.Triggers.CameraTriggers.Categories;
 using Source.Triggers.DebugTriggers.Category;
@@ -9,6 +7,7 @@ using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
 using Source.Triggers.NPCTriggers.Categories;
+using Source.Triggers.QuestTriggers.Categories;
 using Source.Triggers.TownTriggers.Categories;
 using System;
 using WCSharp.Events;
@@ -64,6 +63,7 @@ namespace Source
 				new ArenaTriggersCategory(),
 				new DungeonTriggersCategory(),
 			    new NPCTriggersCategory(),
+				new QuestTriggersCategory(),
 #if DEBUG
 				new DebugTriggersCategory(),
 	#endif
