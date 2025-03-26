@@ -39,6 +39,15 @@ gg_rct_QuestNPCCityGoblin = nil
 function InitGlobals()
 end
 
+function CreateAllItems()
+local itemID
+
+BlzCreateItemWithSkin(FourCC("manh"), -3.1, -337.3, FourCC("manh"))
+BlzCreateItemWithSkin(FourCC("odef"), -96.3, -441.9, FourCC("odef"))
+BlzCreateItemWithSkin(FourCC("ratc"), 52.8, -176.8, FourCC("ratc"))
+BlzCreateItemWithSkin(FourCC("rde3"), -51.4, -142.8, FourCC("rde3"))
+end
+
 function CreateUnitsForPlayer12()
 local p = Player(12)
 local u
@@ -523,6 +532,7 @@ SetAmbientDaySound("CityScapeDay")
 SetAmbientNightSound("CityScapeNight")
 SetMapMusic("Music", true, 0)
 CreateRegions()
+CreateAllItems()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()

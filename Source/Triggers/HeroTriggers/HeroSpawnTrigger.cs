@@ -1,6 +1,7 @@
 ﻿using Source.Data;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
+using System;
 using WCSharp.Api;
 using WCSharp.Events;
 using static WCSharp.Api.Common;

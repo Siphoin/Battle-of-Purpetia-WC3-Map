@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
+using static WCSharp.Api.Blizzard;
+using static Source.Extensions.CommonExtensions;
 using System.Collections;
+using System.Linq;
 namespace Source.Data
 {
     public class CustomInventory : ICollection<item>, IEnumerable<item>
@@ -13,6 +16,7 @@ namespace Source.Data
 
         public bool IsReadOnly => false;
 
+        private const int POSOTION_COPY_ITEM = -30000;
         private List<item> _items;
         private trigger _triggerListenereGiveItem;
         private trigger _triggerDropItem;
@@ -27,7 +31,7 @@ namespace Source.Data
 
             _triggerDropItem = trigger.Create();
             _triggerDropItem.RegisterUnitEvent(TargetUnit, unitevent.DropItem);
-            _triggerDropItem.AddAction(RemoveItem);
+            _triggerDropItem.AddAction(RemoveItemFromInventory);
 
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
@@ -35,7 +39,7 @@ namespace Source.Data
 
         }
 
-        private void RemoveItem()
+        private void RemoveItemFromInventory()
         {
             var item = GetManipulatedItem();
             Remove(item);
@@ -44,14 +48,14 @@ namespace Source.Data
         private void AddItem()
         {
             var item = GetManipulatedItem();
-            Add(item);
+            var copyItem = item.Create(item.TypeId, POSOTION_COPY_ITEM, POSOTION_COPY_ITEM);
+            Add(copyItem);
 
-            timer timerRemoveFromOriginalInventory = timer.Create();
-            timerRemoveFromOriginalInventory.Start(0.01f, false, () =>
-            {
-                UnitRemoveItem(TargetUnit, item);
-                DestroyTimer(timerRemoveFromOriginalInventory);
-            });
+            var abilityItem = BlzGetItemAbilityByIndex(item, 0);
+            int id = BlzGetAbilityId(abilityItem);
+            RemoveItem(item);
+            bool addedA = UnitAddAbility(TargetUnit, id);
+            BlzUnitHideAbility(TargetUnit, id, true);
         }
 
 #if DEBUG
