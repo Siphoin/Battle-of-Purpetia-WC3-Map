@@ -166,7 +166,6 @@ namespace Source.Triggers.GUITriggers.Triggers
             {
                 path += "Magic.blp";
             }
-            Console.WriteLine(path);
             return path;
         }
 
@@ -207,7 +206,6 @@ namespace Source.Triggers.GUITriggers.Triggers
                 {
                     targetTextureHealth = "hero_bar_fill_hitPoints_low.blp";
                 }
-
                 BlzFrameSetTexture(_hpBar, targetTextureHealth, 0, true); //change the BarTexture of bar to color red
 
                 if (!string.IsNullOrEmpty(_target.HeroName))
