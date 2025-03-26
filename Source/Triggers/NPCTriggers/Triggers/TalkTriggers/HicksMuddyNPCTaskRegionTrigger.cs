@@ -30,6 +30,7 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
             base.OnPlayerEnterRegion(playerUnit);
             SaveData saveData = SaveContainerSystem.SaveData;
             int progress = saveData.GetAcquaintanceProgressWithNPC(Unit);
+
             PlayerUnit = playerUnit;
             if (progress == 0)
             {
@@ -49,12 +50,11 @@ namespace Source.Triggers.NPCTriggers.Triggers.TalkTriggers
 
         private void TuenQuestIII()
         {
-                CurrentQuest.GetRewards();
-
-                SaveData saveData = SaveContainerSystem.SaveData;
+            SaveData saveData = SaveContainerSystem.SaveData;
             saveData.SetAcquaintanceProgressWithNPC(Unit);
             PauseUnitWithStand(PlayerUnit);
-                QuestIIDialogeEnd();
+             QuestIIDialogeEnd();
+            CurrentQuest.GetRewards();
 
 
         }
@@ -166,6 +166,7 @@ private void QuestIIDialogeEnd()
 
         private void StartQuestIVDialog()
         {
+
         }
 
         protected override void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
