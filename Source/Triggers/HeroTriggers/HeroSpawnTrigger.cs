@@ -45,6 +45,7 @@ namespace Source.Triggers.HeroTriggers
                 });
 
                 Hero.HeroName = Hero.Owner.Name;
+                CustomInventory inventoryHero = new(Hero);
             });
 
             return newTrigger;
