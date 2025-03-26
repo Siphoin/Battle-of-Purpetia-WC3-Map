@@ -166,8 +166,12 @@ private void QuestIIDialogeEnd()
 
         private void StartQuestIVDialog()
         {
-
+            var gnollKillQuest = new Hicks_WestGnollsNPCQuest(PlayerUnit.Owner);
+            SetCurrentQuest(gnollKillQuest);
+            ActionBeforeTransmissionQuestDescription = () => EndStartDialog();
+            TransmissionQuestDescription();
         }
+    
 
         protected override void OnQuestStatusChanged(QuestInstance instance, QuestStatus status)
         {
