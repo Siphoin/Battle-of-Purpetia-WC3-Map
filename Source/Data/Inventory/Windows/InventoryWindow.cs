@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
+using static WCSharp.Api.Blizzard;
 using static Source.Extensions.CommonExtensions;
 namespace Source.Data.Inventory.Windows
 {
@@ -86,6 +87,8 @@ namespace Source.Data.Inventory.Windows
                 InventoryCell cell = new InventoryCell(
                     items.ElementAt(i),
                     _inventoryFrame,
+                    TargetInventory.TargetUnit,
+                    UseItem,
                     xPos,
                     yPos,
                     i
@@ -94,6 +97,11 @@ namespace Source.Data.Inventory.Windows
                 cell.Create();
                 _cells.Add(cell);
             }
+        }
+
+        private void UseItem(item item)
+        {
+            TargetInventory.UseItem(item);
         }
 
         private void UpdateCells(item item)
@@ -115,21 +123,27 @@ namespace Source.Data.Inventory.Windows
 
         private framehandle _button;
         private framehandle _icon;
+        private trigger _triggerUse;
         private const float SCALE_ICON_WIDTH = 0.029f;
+        private const float DELAY_REMOVE_ITEM = 0.3f;
 
         public item Item { get; set; }
         private framehandle Parent { get; set; }
         private int IndexCreate { get; set; }
         private float X { get; set; }
         private float Y { get; set; }
+        private unit TargetUnit { get; set; }
+        private Action<item> UseAction { get; set; }
 
-        public InventoryCell(item item, framehandle parent, float x, float y, int indexCreate)
+        public InventoryCell(item item, framehandle parent, unit targetUnit, Action<item> useAction, float x, float y, int indexCreate)
         {
             Item = item;
             Parent = parent;
             IndexCreate = indexCreate;
             X = x;
             Y = y;
+            TargetUnit = targetUnit;
+            UseAction = useAction;
         }
 
         public void Create()
@@ -141,12 +155,23 @@ namespace Source.Data.Inventory.Windows
             BlzFrameSetPoint(_button, framepointtype.TopLeft, Parent, framepointtype.TopLeft, 0.046410f + X, -0.068880f + Y);
             var iconItem = BlzGetAbilityIcon(Item.TypeId);
             BlzFrameSetTexture(_icon, iconItem, 0, true);
+
+            _triggerUse = trigger.Create();
+            _triggerUse.AddAction(() => UseAction?.Invoke(Item));
+            BlzTriggerRegisterFrameEvent(_triggerUse, _button, frameeventtype.Click);
+        }
+        private void RemoveUsedItemFromSlot(trigger trggerClick)
+        {
+            var item = GetManipulatedItem();
+            UnitRemoveItem(TargetUnit, item);
+            DestroyTrigger(trggerClick);
         }
 
         public void Destroy()
         {
             BlzDestroyFrame(_button);
             BlzDestroyFrame(_icon);
+            DestroyTrigger(_triggerUse);
         }
 
 

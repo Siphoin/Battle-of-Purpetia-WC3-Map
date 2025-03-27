@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;
-using static Source.Extensions.CommonExtensions;
 using System.Collections;
-using System.Linq;
 using Source.Models;
 namespace Source.Data.Inventory
 {
@@ -25,6 +23,7 @@ namespace Source.Data.Inventory
         private List<item> _items;
         private trigger _triggerListenereGiveitem;
         private trigger _triggerDropitem;
+        private trigger _triggerUseItem;
 
         public CustomInventory(unit targetUnit, int limititems = 0)
         {
@@ -44,6 +43,10 @@ namespace Source.Data.Inventory
             _triggerDropitem.RegisterUnitEvent(TargetUnit, unitevent.DropItem);
             _triggerDropitem.AddAction(RemoveitemFromInventory);
 
+            _triggerUseItem = trigger.Create();
+            _triggerUseItem.RegisterUnitEvent(TargetUnit, unitevent.UseItem);
+            _triggerUseItem.AddAction(UseItem);
+
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
 #endif
@@ -56,14 +59,36 @@ namespace Source.Data.Inventory
 
         }
 
+        private void UseItem()
+        {
+            var item = GetManipulatedItem();
+            UnitRemoveItem(TargetUnit, item);
+            RemoveitemFromInventory();
+
+#if DEBUG
+            Log($"Detected use item: {item.Name}");
+#endif
+        }
+
         private void RemoveitemFromInventory()
         {
             var item = GetManipulatedItem();
+            if (Contains(item) && item != null)
+            {
+               Remove(item);
+            }
+
         }
 
         private void Additem()
         {
             var item = GetManipulatedItem();
+
+            if (Contains(item))
+            {
+                return;
+            }
+            _triggerDropitem.Disable();
 
             if (Count >= Limititems && Limititems > 0)
             {
@@ -72,14 +97,15 @@ namespace Source.Data.Inventory
                 return;
             }
 
-            var copyItem = item.Create(item.TypeId, MapConfig.POSITION_ITEM_ON_CUSTOM_INVENTORY, MapConfig.POSITION_ITEM_ON_CUSTOM_INVENTORY);
-
             var abilityItem = BlzGetItemAbilityByIndex(item, 0);
             int id = BlzGetAbilityId(abilityItem);
-            RemoveItem(item);
 
-            BlzUnitHideAbility(TargetUnit, id, true);
-            Add(copyItem);
+            Add(item);
+            UnitRemoveItem(TargetUnit, item);
+            SetItemVisible(item, false);
+            UnitAddAbility(TargetUnit, id);
+            BlzUnitHideAbility(TargetUnit, id,  true);
+            _triggerDropitem.Enable();
         }
 
 #if DEBUG
@@ -111,7 +137,7 @@ namespace Source.Data.Inventory
 
         public bool Contains(item item)
         {
-            throw new NotImplementedException();
+            return _items.Contains(item);
         }
 
         public void CopyTo(item[] array, int arrayIndex)
@@ -143,5 +169,23 @@ namespace Source.Data.Inventory
         {
             return GetEnumerator();
         }
+
+        public void UseItem(item Item)
+        {
+            if (Contains(Item))
+            {
+                UnitAddItem(TargetUnit, Item);
+                bool used = UnitUseItem(TargetUnit, Item);
+
+                if (!used)
+                {
+                    _triggerDropitem.Disable();
+                    UnitRemoveItem(TargetUnit, Item);
+                    SetItemVisible(Item, false);
+                    _triggerDropitem.Enable();
+                }
+            }
+        }
+
     }
 }
