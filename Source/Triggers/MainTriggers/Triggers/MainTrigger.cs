@@ -2,6 +2,7 @@
 using Source.Triggers.Base;
 using System;
 using WCSharp.Api;
+using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
 namespace Source.Triggers.MainTriggers.Triggers
 {
@@ -18,6 +19,7 @@ namespace Source.Triggers.MainTriggers.Triggers
         {
             InitPurpetiaAliance();
             InvertyionColorsPlayers();
+            SetBehaviourPurpetiaPlayer();
         }
 
         private void InitPurpetiaAliance()
@@ -45,6 +47,21 @@ namespace Source.Triggers.MainTriggers.Triggers
         {
             MapConfig.PurpetiaPlayer.Color = playercolor.Purple;
             Player(4).Color = playercolor.Violet;
+        }
+
+        private void SetBehaviourPurpetiaPlayer()
+        {
+            group group = group.Create();
+
+            GroupEnumUnitsOfPlayer(group, MapConfig.PurpetiaPlayer, null);
+
+            foreach (var unit in group.ToList())
+            {
+                unit.IsInvulnerable = true;
+                PauseUnit(unit, true);
+            }
+
+            DestroyGroup(group);
         }
     }
 }
