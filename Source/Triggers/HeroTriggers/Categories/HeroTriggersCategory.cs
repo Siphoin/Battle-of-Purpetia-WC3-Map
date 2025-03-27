@@ -1,5 +1,6 @@
 ﻿using Source.Models;
 using Source.Triggers.Base;
+using Source.Triggers.HeroTriggers.Triggers;
 using System.Collections.Generic;
 using WCSharp.Api;
 using static WCSharp.Api.Common;

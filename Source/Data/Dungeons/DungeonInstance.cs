@@ -4,7 +4,7 @@ using Source.Systems;
 using Source.Triggers.ArenaTriggers.Triggers;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
-using Source.Triggers.HeroTriggers;
+using Source.Triggers.HeroTriggers.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

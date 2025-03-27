@@ -1,4 +1,5 @@
 ﻿using Source.Data;
+using Source.Data.Inventory;
 using Source.Models;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
@@ -6,14 +7,14 @@ using System;
 using WCSharp.Api;
 using WCSharp.Events;
 using static WCSharp.Api.Common;
-namespace Source.Triggers.HeroTriggers
+namespace Source.Triggers.HeroTriggers.Triggers
 {
     public class HeroSpawnTrigger : TriggerInstance
     {
         private const int TIME_RESPAWN = 60;
         private player PlayerOwner { get; set; }
         private string IdHeroUnit { get; set; }
-        public unit Hero { get;  private set; }
+        public unit Hero { get; private set; }
 
         private bool IsLocalHero => Hero.Owner == player.LocalPlayer;
 

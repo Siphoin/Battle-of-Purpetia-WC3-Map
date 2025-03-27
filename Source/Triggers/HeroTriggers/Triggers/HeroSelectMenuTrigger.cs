@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
-namespace Source.Triggers.HeroTriggers
+namespace Source.Triggers.HeroTriggers.Triggers
 {
     public class HeroSelectMenuTrigger : TriggerInstance
     {
@@ -20,7 +20,7 @@ namespace Source.Triggers.HeroTriggers
 
         public static bool AllUsersSelectedHero => _countUsers == _countSelectedUsers;
 
-        public HeroSelectMenuTrigger ()
+        public HeroSelectMenuTrigger()
         {
             for (int i = 0; i < player.MaxPlayerSlots; i++)
             {
@@ -42,7 +42,7 @@ namespace Source.Triggers.HeroTriggers
 
         }
 
-        private void DrawMenu ()
+        private void DrawMenu()
         {
             var heroes = HeroSelectMenuDataContainer.GetHeroSelectButtons().ToArray();
             for (int i = 0; i < heroes.Length; i++)
@@ -82,11 +82,11 @@ namespace Source.Triggers.HeroTriggers
 
                 triggerSelect.RegisterFrameEvent(button, FRAMEEVENT_CONTROL_CLICK);
                 _buttons.Add(button);
-               
+
             }
         }
 
-        private void RemoveButtons ()
+        private void RemoveButtons()
         {
             for (int i = 0; i < _buttons.Count; i++)
             {
@@ -96,7 +96,7 @@ namespace Source.Triggers.HeroTriggers
             _buttons.Clear();
         }
 
-        private void TurnAI ()
+        private void TurnAI()
         {
             var heroes = HeroSelectMenuDataContainer.GetHeroSelectButtons().ToArray();
             for (int i = 1; i < player.MaxPlayerSlots; i++)
@@ -130,8 +130,8 @@ namespace Source.Triggers.HeroTriggers
 
                 var t = CreateTimer();
             }
-            }
         }
-
-        
     }
+
+
+}

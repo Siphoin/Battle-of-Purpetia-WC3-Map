@@ -6,13 +6,15 @@ using static WCSharp.Api.Blizzard;
 using static Source.Extensions.CommonExtensions;
 using System.Collections;
 using System.Linq;
-namespace Source.Data
+namespace Source.Data.Inventory
 {
     public class CustomInventory : ICollection<item>, IEnumerable<item>
     {
-        private unit TargetUnit {  get; set; }
+        private unit TargetUnit { get; set; }
 
         public int Count => _items.Count;
+
+        public static CustomInventory LocalPlayerInventory {  get; private set; }
 
         public bool IsReadOnly => false;
 
@@ -36,6 +38,11 @@ namespace Source.Data
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
 #endif
+
+            if (LocalPlayerInventory is null && TargetUnit.Owner == player.LocalPlayer)
+            {
+                LocalPlayerInventory = this;
+            }
 
         }
 
@@ -102,7 +109,7 @@ namespace Source.Data
             if (isRemoved)
             {
                 Log($"Removed item {item.Name} from unit {TargetUnit.Name}");
-            } 
+            }
 #endif
 
             return isRemoved;
