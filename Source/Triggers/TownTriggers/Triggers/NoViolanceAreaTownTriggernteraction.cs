@@ -10,12 +10,12 @@ namespace Source.Triggers.TownTriggers.Triggers
 
         protected override void OnEnterTown(unit unit)
         {
-            unit.IsInvulnerable = false;
+            unit.IsInvulnerable = true;
         }
 
         protected override void OnLeaveTown(unit unit)
         {
-            unit.IsInvulnerable = true;
+            unit.IsInvulnerable = false;
         }
     }
 }

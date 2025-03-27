@@ -23,7 +23,7 @@ namespace Source.Triggers.TownTriggers.Triggers
         private void Init()
         {
             trigger enterTrigger = trigger.Create();
-            enterTrigger.RegisterLeaveRegion(Rectangle.Region);
+            enterTrigger.RegisterEnterRegion(Rectangle.Region);
             enterTrigger.AddAction(() =>
             {
                 var unit = GetTriggerUnit();
