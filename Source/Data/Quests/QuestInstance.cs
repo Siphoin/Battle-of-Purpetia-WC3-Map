@@ -58,9 +58,6 @@ namespace Source.Data.Quests
 
         public virtual void Init ()
         {
-#if DEBUG
-            Console.WriteLine($"Created new quest {GetTitle()}");
-#endif
             if (_isCreatedQuest)
             {
                 return;

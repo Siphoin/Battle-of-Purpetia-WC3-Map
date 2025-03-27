@@ -1,13 +1,13 @@
 ﻿using Source.Data;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
-using Source.Triggers.HeroTriggers;
 using System;
 using System.Linq;
 using WCSharp.Api;
 using WCSharp.Events;
 using static WCSharp.Api.Common;
 using static Source.Extensions.CommonExtensions;
+using Source.Triggers.HeroTriggers.Triggers;
 namespace Source.Triggers.ArenaTriggers.Triggers
 {
     public class ArenaTrigger : TriggerInstance

@@ -22,6 +22,8 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
 
         private Dictionary<int, int> MonstersListCached { get; set; }
 
+        private float TimeWalking => GetRandomReal(15, 100);
+
         private Rectangle Rectangle { get; set; }
 
 
@@ -91,16 +93,48 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             }
 
             CalculatePowerUnit(newUnit);
-
+            newUnit.DefaultAcquireRange = MapConfig.DefaultAcquireRangeMonsterPlayer;
             PlayerUnitEvents.Register(UnitEvent.Dies, () => MonsterDie(newUnit), newUnit);
             InfernalTimeDie(newUnit);
+            timer timerInitWalking = timer.Create();
+            timerInitWalking.Start(0.3f, false, () =>
+            {
+                CreateTriggerWalking(newUnit);
+                DestroyTimer(timerInitWalking);
+            });
+        }
+
+        private void CreateTriggerWalking (unit unit)
+        {
+            timer timerWalking = timer.Create();
+
+            TimerStart(timerWalking,  TimeWalking, false, () => UpdateTriggerWalking(unit, timerWalking));
+        }
+
+       private void UpdateTriggerWalking (unit unit, timer timer)
+        {
+            if (!unit.Alive)
+            {
+                DestroyTimer(timer);
+                return;
+            }
+
+            var currentOrder = GetUnitCurrentOrder(unit);
+            if (currentOrder == Constants.ORDER_STAND_DOWN || currentOrder == 0)
+            {
+                var point = Rectangle.GetRandomPoint();
+                RemoveGuardPosition(unit);
+                IssuePointOrder(unit, "attack", point.X, point.Y);
+            }
+            else
+            {
+                RecycleGuardPosition(unit);
+            }
+            timer.Start(TimeWalking, false, () => UpdateTriggerWalking(unit, timer));
         }
 
         private void MonsterDie(unit unit)
         {
-#if DEBUG
-            Console.WriteLine($"respawn new unit monster");
-#endif
             PlayerUnitEvents.Unregister(UnitEvent.Dies, () => MonsterDie(unit), unit);
             if (!MonstersListCached.TryGetValue(GetUnitTypeId(unit), out int count))
             {
@@ -121,7 +155,7 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
 
                     SpawnRandomUnit();
 
-                    respawnTrigger.Dispose();
+                    DestroyTrigger(respawnTrigger);
                 });
             });
 
@@ -151,11 +185,12 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             {
                 return;
             }
-
+            
             int addLife = ((int)unit.Life * 3 / 100) * _currentForce;
             unit.MaxLife += addLife;
             unit.Life = unit.MaxLife;
-            unit.DefaultAcquireRange = MapConfig.DefaultAcquireRangeMonsterPlayer;
+            unit.AttackBaseDamage1 = (unit.AttackBaseDamage1 * 3 / 100);
+            unit.AttackBaseDamage2 += (unit.AttackBaseDamage2 * 3 / 100);
             
         }
 
@@ -166,9 +201,6 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
             {
                 return;
             }
-#if DEBUG
-            Console.WriteLine("Infernal die activated");
-#endif
             trigger triggerDie = trigger.Create();
             triggerDie.AddAction(() =>
             {
@@ -178,10 +210,6 @@ namespace Source.Triggers.MonsterAreaSystem.Triggers
                     DestroyTimer(t);
                     unit.Kill();
                     DestroyTrigger(triggerDie);
-
-#if DEBUG
-                    Console.WriteLine("Infernal die finished");
-#endif
                 });
             });
 

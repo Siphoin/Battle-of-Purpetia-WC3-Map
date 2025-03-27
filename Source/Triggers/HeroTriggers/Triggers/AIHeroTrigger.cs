@@ -9,7 +9,7 @@ using WCSharp.Events;
 using WCSharp.Shared.Data;
 using WCSharp.Shared.Extensions;
 using static WCSharp.Api.Common;
-namespace Source.Triggers.HeroTriggers
+namespace Source.Triggers.HeroTriggers.Triggers
 {
     public class AIHeroTrigger : TriggerInstance
     {
@@ -57,11 +57,11 @@ namespace Source.Triggers.HeroTriggers
         #endregion
 
 
-        private unit Hero {  get; set; }
+        private unit Hero { get; set; }
         private trigger AiTrigger { get; set; }
         public timer MainTimer { get; private set; }
 
-        public timer TimerCheckHealth { get;  private set; }
+        public timer TimerCheckHealth { get; private set; }
         public bool CoomandsEnabled { get => _coomandsEnabled; set => _coomandsEnabled = value; }
 
         public override trigger GetTrigger()
@@ -103,7 +103,7 @@ namespace Source.Triggers.HeroTriggers
         {
             trigger enterTownTrigger = trigger.Create();
 
-            enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceArea.Region);
+            enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceAreaTown1.Region);
 
             enterTownTrigger.AddAction(() =>
             {
@@ -113,7 +113,7 @@ namespace Source.Triggers.HeroTriggers
 
             trigger exitTownTrigger = trigger.Create();
 
-            exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceArea.Region);
+            exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceAreaTown1.Region);
 
             exitTownTrigger.AddAction(() =>
             {
@@ -180,7 +180,7 @@ namespace Source.Triggers.HeroTriggers
             {
                 var speelList = _abilityList[Hero.Name];
                 int indexSpell = GetRandomInt(0, Hero.HeroLevel - 1);
-                
+
 
                 if (indexSpell > speelList.Length - 1)
                 {
@@ -205,7 +205,7 @@ namespace Source.Triggers.HeroTriggers
 
         }
 
-        private void AICommand ()
+        private void AICommand()
         {
             if (_coomandsEnabled)
             {
@@ -273,7 +273,7 @@ namespace Source.Triggers.HeroTriggers
             }
         }
 
-        public static AIHeroTrigger GetAI (unit hero)
+        public static AIHeroTrigger GetAI(unit hero)
         {
             AIHeroTrigger trigger = null;
             for (int i = 0; i < _aiList.Count; i++)
@@ -289,7 +289,7 @@ namespace Source.Triggers.HeroTriggers
             return trigger;
         }
 
-        public static bool ContainsHero (unit hero)
+        public static bool ContainsHero(unit hero)
         {
             return _aiList.Any(ai => ai.Hero == hero);
         }

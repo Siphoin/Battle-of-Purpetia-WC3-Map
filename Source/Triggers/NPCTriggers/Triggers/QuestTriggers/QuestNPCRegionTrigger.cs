@@ -22,7 +22,7 @@ namespace Source.Triggers.NPCTriggers.Triggers.QuestTriggers
 
         protected override void OnPlayerEnterRegion(unit enterUnit)
         {
-            if (IsWaitQuest)
+            if (IsWaitQuest && enterUnit.Owner == player.LocalPlayer)
             {
                 AbortEnterRegion();
                 return;

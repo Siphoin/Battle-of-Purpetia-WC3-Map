@@ -9,6 +9,8 @@ using System.Linq;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
 using static Source.Extensions.CommonExtensions;
+using Source.Data.Inventory.Windows;
+using Source.Data.Inventory;
 namespace Source.Triggers.GUITriggers.Triggers
 {
     public class CustomConsoleUITrigger : TriggerInstance
@@ -21,9 +23,13 @@ namespace Source.Triggers.GUITriggers.Triggers
         private framehandle buttonMenu;
         private framehandle buttonMenuText;
         private framehandle BackdropbuttonMenu;
+        private framehandle localPlayerInventoryButton;
+        private framehandle BackdroplocalPlayerInventoryButton;
+        private InventoryWindow _inventoryWindow;
 
         public trigger TriggerbuttonDungeons { get; private set; }
         public trigger TriggerbuttonMenu { get; private set; }
+        public trigger TriggerlocalPlayerInventoryButton { get; private set; }
 
         public override trigger GetTrigger()
         {
@@ -85,7 +91,50 @@ BlzFrameSetScale(buttonMenuText, 1.00f);
             playerResourcesWidget.Create();
             #endregion
 
+            #region Inventory Local Player
 
+
+
+
+            localPlayerInventoryButton = BlzCreateFrame("IconButtonTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0);
+            BlzFrameSetAbsPoint(localPlayerInventoryButton, FRAMEPOINT_TOPLEFT, 0.738010f, 0.211870f);
+BlzFrameSetAbsPoint(localPlayerInventoryButton, FRAMEPOINT_BOTTOMRIGHT, 0.795010f, 0.150890f);
+
+BackdroplocalPlayerInventoryButton = BlzCreateFrameByType("BACKDROP", "BackdroplocalPlayerInventoryButton", localPlayerInventoryButton, "", 0);
+            BlzFrameSetAllPoints(BackdroplocalPlayerInventoryButton, localPlayerInventoryButton);
+            BlzFrameSetTexture(BackdroplocalPlayerInventoryButton, "UI/Icons/inventory_icon.blp", 0, true);
+            TriggerlocalPlayerInventoryButton = CreateTrigger();
+BlzTriggerRegisterFrameEvent(TriggerlocalPlayerInventoryButton, localPlayerInventoryButton, FRAMEEVENT_CONTROL_CLICK);
+TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
+
+
+            #endregion
+
+
+        }
+
+        private void OpenLocalPlayerInventory()
+        {
+            var localPlayer = PlayerHeroesList.GetLocalPlayerHero();
+
+            _inventoryWindow = new InventoryWindow(CustomInventory.LocalPlayerInventory);
+            _inventoryWindow.Show();
+            SetStateEnabledLocalPlayerInventoryButton(false);
+            _inventoryWindow.OnExit += OnExitInventoryWindow;
+        }
+
+        private void OnExitInventoryWindow()
+        {
+            _inventoryWindow.OnExit -= OnExitInventoryWindow;
+            SetStateEnabledLocalPlayerInventoryButton(true);
+        }
+
+        private void SetStateEnabledLocalPlayerInventoryButton(bool state)
+        {
+            BlzFrameSetVisible(BackdroplocalPlayerInventoryButton, state);
+            BlzFrameSetVisible(localPlayerInventoryButton, state);
+            BlzFrameSetEnable(BackdroplocalPlayerInventoryButton, state);
+            BlzFrameSetEnable(localPlayerInventoryButton, state);
         }
 
         private void OpenMenu()
