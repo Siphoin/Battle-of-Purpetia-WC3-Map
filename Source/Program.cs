@@ -5,6 +5,7 @@ using Source.Triggers.DebugTriggers.Category;
 using Source.Triggers.DungeonsTriggers.Categories;
 using Source.Triggers.GUITriggers.Categories;
 using Source.Triggers.HeroTriggers.Categories;
+using Source.Triggers.MainTriggers.Categories;
 using Source.Triggers.MonsterAreaSystem.Categories;
 using Source.Triggers.NPCTriggers.Categories;
 using Source.Triggers.QuestTriggers.Categories;
@@ -55,6 +56,7 @@ namespace Source
 		{
 			var categories = new TriggerCategory[]
 			{
+				new MainTriggersCategory(),
 				new GUITriggersCategory(),
 				new HeroTriggersCategory(),
 				new CameraTriggersCategory(),

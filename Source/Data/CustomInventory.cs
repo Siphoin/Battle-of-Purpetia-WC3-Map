@@ -50,7 +50,7 @@ namespace Source.Data
             var item = GetManipulatedItem();
             var copyItem = item.Create(item.TypeId, POSOTION_COPY_ITEM, POSOTION_COPY_ITEM);
             Add(copyItem);
-
+            Console.WriteLine(copyItem.Name);
             var abilityItem = BlzGetItemAbilityByIndex(item, 0);
             int id = BlzGetAbilityId(abilityItem);
             RemoveItem(item);

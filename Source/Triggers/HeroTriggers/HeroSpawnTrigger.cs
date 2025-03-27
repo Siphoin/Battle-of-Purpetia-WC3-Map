@@ -1,4 +1,5 @@
 ﻿using Source.Data;
+using Source.Models;
 using Source.Triggers.Base;
 using Source.Triggers.GUITriggers.Triggers;
 using System;
@@ -35,8 +36,8 @@ namespace Source.Triggers.HeroTriggers
 
                 if (Hero.Owner == player.LocalPlayer)
                 {
-                        GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
-                        heroWidgetTrigger.GetTrigger().Execute();
+                    GUIHeroWidgetTrigger heroWidgetTrigger = new(Hero);
+                    heroWidgetTrigger.GetTrigger().Execute();
                 }
                 var t = CreateTimer();
                 TimerStart(t, 0.3f, false, () =>

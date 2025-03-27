@@ -589,14 +589,14 @@ STRING 112
 Коммандер Тавер
 }
 
-STRING 113
-{
-Пурпетия
-}
-
 STRING 114
 // Units: h005 (Рекрут), Name (Name)
 {
 Рекрут
+}
+
+STRING 115
+{
+|cffcc88ffПурпетия|r
 }
 
