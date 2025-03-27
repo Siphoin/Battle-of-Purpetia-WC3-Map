@@ -1,4 +1,5 @@
-﻿using Source.Triggers.Base;
+﻿using Source.Data.Towns;
+using Source.Triggers.Base;
 using Source.Triggers.TownTriggers.Triggers;
 using System.Collections.Generic;
 
@@ -9,10 +10,12 @@ namespace Source.Triggers.TownTriggers.Categories
         protected override IEnumerable<TriggerInstance> GetAllTriggers()
         {
             List<TriggerInstance> triggers = new List<TriggerInstance>();
-            NoViolanceAreaTownTriggerOff noViolanceAreaTownTriggerOff = new();
-            NoViolanceAreaTownTriggerOn noViolanceAreaTownTriggerOn = new();
-            triggers.Add(noViolanceAreaTownTriggerOff);
-            triggers.Add(noViolanceAreaTownTriggerOn);
+            var towns = TownRegionsContanerData.GetRegions();
+            foreach (var region in towns)
+            {
+                NoViolanceAreaTownTriggernteraction trigger = new(region);
+                triggers.Add(trigger);
+            } 
             return triggers;
         }
     }
