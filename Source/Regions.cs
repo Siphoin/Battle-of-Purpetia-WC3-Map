@@ -10,7 +10,7 @@ public static class Regions
 	public static Rectangle HeroSpawn { get; set; } = new Rectangle(-896f, -736f, 96f, 224f);
 	public static Rectangle RegionUndeadSpawnZombieMore { get; set; } = new Rectangle(5504f, 4224f, 7968f, 7264f);
 	public static Rectangle RegionUndeadSpawnDemons { get; set; } = new Rectangle(-5792f, 4608f, -4032f, 7360f);
-	public static Rectangle NoViolanceArea { get; set; } = new Rectangle(-3392f, -2944f, 2240f, 2784f);
+	public static Rectangle NoViolanceAreaTown1 { get; set; } = new Rectangle(-2848f, -2720f, 2784f, 3008f);
 	public static Rectangle RegionBanditsSpawn { get; set; } = new Rectangle(10304f, -544f, 11552f, 800f);
 	public static Rectangle RegionGnollSpawn { get; set; } = new Rectangle(-11328f, -1024f, -8608f, 288f);
 	public static Rectangle RegionGhostsSpawn { get; set; } = new Rectangle(5856f, 832f, 8608f, 2976f);
@@ -43,5 +43,6 @@ public static class Regions
 	public static Rectangle RegionTreantsSpawn { get; set; } = new Rectangle(7808f, 8384f, 9632f, 10208f);
 	public static Rectangle RegionSatyrSpawn { get; set; } = new Rectangle(-10880f, 6496f, -9056f, 8320f);
 	public static Rectangle QuestNPCCityGoblin { get; set; } = new Rectangle(576f, 1024f, 992f, 1472f);
+	public static Rectangle NoViolanceAreaTown2 { get; set; } = new Rectangle(-13600f, -17408f, -10272f, -13536f);
 
 }

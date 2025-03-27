@@ -571,3 +571,32 @@ STRING 108
 Купить |cffffff00Мясо рыболюда|r
 }
 
+STRING 109
+// Doodads: D00X (Казармы не орков), Name (Name)
+{
+Казармы не орков
+}
+
+STRING 111
+// Units: PALA (Подполковник), Name (Name)
+{
+Подполковник
+}
+
+STRING 112
+// Units: PALA (Подполковник), Propernames (Proper Names)
+{
+Коммандер Тавер
+}
+
+STRING 113
+{
+Пурпетия
+}
+
+STRING 114
+// Units: h005 (Рекрут), Name (Name)
+{
+Рекрут
+}
+

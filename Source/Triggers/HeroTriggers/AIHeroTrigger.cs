@@ -103,7 +103,7 @@ namespace Source.Triggers.HeroTriggers
         {
             trigger enterTownTrigger = trigger.Create();
 
-            enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceArea.Region);
+            enterTownTrigger.RegisterEnterRegion(Regions.NoViolanceAreaTown1.Region);
 
             enterTownTrigger.AddAction(() =>
             {
@@ -113,7 +113,7 @@ namespace Source.Triggers.HeroTriggers
 
             trigger exitTownTrigger = trigger.Create();
 
-            exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceArea.Region);
+            exitTownTrigger.RegisterLeaveRegion(Regions.NoViolanceAreaTown1.Region);
 
             exitTownTrigger.AddAction(() =>
             {

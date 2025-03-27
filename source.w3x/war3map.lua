@@ -3,7 +3,7 @@ gg_rct_RegionUndeadSpawn = nil
 gg_rct_HeroSpawn = nil
 gg_rct_RegionUndeadSpawnZombieMore = nil
 gg_rct_RegionUndeadSpawnDemons = nil
-gg_rct_NoViolanceArea = nil
+gg_rct_NoViolanceAreaTown1 = nil
 gg_rct_RegionBanditsSpawn = nil
 gg_rct_RegionGnollSpawn = nil
 gg_rct_RegionGhostsSpawn = nil
@@ -36,16 +36,8 @@ gg_rct_Dungeon1Activator = nil
 gg_rct_RegionTreantsSpawn = nil
 gg_rct_RegionSatyrSpawn = nil
 gg_rct_QuestNPCCityGoblin = nil
+gg_rct_NoViolanceAreaTown2 = nil
 function InitGlobals()
-end
-
-function CreateAllItems()
-local itemID
-
-BlzCreateItemWithSkin(FourCC("manh"), -3.1, -337.3, FourCC("manh"))
-BlzCreateItemWithSkin(FourCC("odef"), -96.3, -441.9, FourCC("odef"))
-BlzCreateItemWithSkin(FourCC("ratc"), 52.8, -176.8, FourCC("ratc"))
-BlzCreateItemWithSkin(FourCC("rde3"), -51.4, -142.8, FourCC("rde3"))
 end
 
 function CreateUnitsForPlayer12()
@@ -324,17 +316,13 @@ u = BlzCreateUnitWithSkin(p, FourCC("u005"), 1361.1, -12743.1, 252.430, FourCC("
 SetUnitAcquireRange(u, 200.0)
 end
 
-function CreateNeutralPassiveBuildings()
-local p = Player(PLAYER_NEUTRAL_PASSIVE)
+function CreateBuildingsForPlayer15()
+local p = Player(15)
 local u
 local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -1536.0, 896.0, 270.000, FourCC("nfoh"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 768.0, -1408.0, 270.000, FourCC("nfoh"))
-u = BlzCreateUnitWithSkin(p, FourCC("ncp3"), -4096.0, -16000.0, 270.000, FourCC("ncp3"))
-u = BlzCreateUnitWithSkin(p, FourCC("ncp3"), -6016.0, -16000.0, 270.000, FourCC("ncp3"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), -12928.0, -14336.0, 270.000, FourCC("h003"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), -11136.0, -14336.0, 270.000, FourCC("h003"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), -12928.0, -16128.0, 270.000, FourCC("h003"))
@@ -342,10 +330,11 @@ u = BlzCreateUnitWithSkin(p, FourCC("h003"), -11136.0, -16128.0, 270.000, FourCC
 u = BlzCreateUnitWithSkin(p, FourCC("h004"), -12032.0, -15232.0, 270.000, FourCC("h004"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), -6848.0, -12736.0, 270.000, FourCC("h003"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), -16000.0, -11456.0, 270.000, FourCC("h003"))
+u = BlzCreateUnitWithSkin(p, FourCC("h003"), -11904.0, -17280.0, 270.000, FourCC("h003"))
 end
 
-function CreateNeutralPassive()
-local p = Player(PLAYER_NEUTRAL_PASSIVE)
+function CreateUnitsForPlayer15()
+local p = Player(15)
 local u
 local unitID
 local t
@@ -359,8 +348,47 @@ u = BlzCreateUnitWithSkin(p, FourCC("h002"), -2631.3, 128.0, 204.587, FourCC("h0
 u = BlzCreateUnitWithSkin(p, FourCC("h002"), -2601.3, -665.5, 161.088, FourCC("h002"))
 u = BlzCreateUnitWithSkin(p, FourCC("h002"), -803.0, -2515.5, 271.344, FourCC("h002"))
 u = BlzCreateUnitWithSkin(p, FourCC("h002"), 49.4, -2510.8, 267.701, FourCC("h002"))
-u = BlzCreateUnitWithSkin(p, FourCC("n001"), 774.5, 1273.3, 248.672, FourCC("n001"))
+u = BlzCreateUnitWithSkin(p, FourCC("n001"), 774.5, 1273.3, 248.670, FourCC("n001"))
 SetUnitColor(u, ConvertPlayerColor(5))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -12201.3, -14005.2, 72.338, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -11786.4, -13998.1, 122.174, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -13285.2, -14984.1, 165.430, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("h002"), -10753.7, -15469.7, 36.990, FourCC("h002"))
+u = BlzCreateUnitWithSkin(p, FourCC("PALA"), -12036.7, -16297.3, 89.540, FourCC("PALA"))
+SetHeroLevel(u, 15, false)
+SetUnitColor(u, ConvertPlayerColor(19))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -12097.2, -15928.7, 268.239, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -11942.0, -15946.6, 268.001, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -12022.0, -16004.5, 272.355, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -13086.1, -14447.8, 178.300, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -12136.3, -15568.3, 228.649, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -12295.1, -15424.5, 236.993, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -11321.1, -16315.5, 278.940, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -10992.3, -14212.6, 51.450, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -6995.0, -12569.1, 119.400, FourCC("h005"))
+u = BlzCreateUnitWithSkin(p, FourCC("h005"), -15767.6, -11375.4, 64.130, FourCC("h005"))
+end
+
+function CreateNeutralPassiveBuildings()
+local p = Player(PLAYER_NEUTRAL_PASSIVE)
+local u
+local unitID
+local t
+local life
+
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -1536.0, 896.0, 270.000, FourCC("nfoh"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 768.0, -1408.0, 270.000, FourCC("nfoh"))
+u = BlzCreateUnitWithSkin(p, FourCC("ncp3"), -4096.0, -16000.0, 270.000, FourCC("ncp3"))
+u = BlzCreateUnitWithSkin(p, FourCC("ncp3"), -6016.0, -16000.0, 270.000, FourCC("ncp3"))
+end
+
+function CreateNeutralPassive()
+local p = Player(PLAYER_NEUTRAL_PASSIVE)
+local u
+local unitID
+local t
+local life
+
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 542.1, 331.7, 23.006, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n003"), 620.4, -1624.8, 283.412, FourCC("n003"))
 u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2052.6, -1893.2, 79.196, FourCC("n003"))
@@ -372,10 +400,12 @@ u = BlzCreateUnitWithSkin(p, FourCC("n003"), -1383.6, -1534.4, 232.894, FourCC("
 end
 
 function CreatePlayerBuildings()
+CreateBuildingsForPlayer15()
 end
 
 function CreatePlayerUnits()
 CreateUnitsForPlayer12()
+CreateUnitsForPlayer15()
 end
 
 function CreateAllUnits()
@@ -393,7 +423,7 @@ gg_rct_RegionUndeadSpawn = Rect(-1568.0, -8384.0, 320.0, -4736.0)
 gg_rct_HeroSpawn = Rect(-896.0, -736.0, 96.0, 224.0)
 gg_rct_RegionUndeadSpawnZombieMore = Rect(5504.0, 4224.0, 7968.0, 7264.0)
 gg_rct_RegionUndeadSpawnDemons = Rect(-5792.0, 4608.0, -4032.0, 7360.0)
-gg_rct_NoViolanceArea = Rect(-2848.0, -2720.0, 2784.0, 3008.0)
+gg_rct_NoViolanceAreaTown1 = Rect(-2848.0, -2720.0, 2784.0, 3008.0)
 gg_rct_RegionBanditsSpawn = Rect(10304.0, -544.0, 11552.0, 800.0)
 gg_rct_RegionGnollSpawn = Rect(-11328.0, -1024.0, -8608.0, 288.0)
 gg_rct_RegionGhostsSpawn = Rect(5856.0, 832.0, 8608.0, 2976.0)
@@ -426,6 +456,7 @@ gg_rct_Dungeon1Activator = Rect(-9568.0, 10240.0, -8960.0, 10720.0)
 gg_rct_RegionTreantsSpawn = Rect(7808.0, 8384.0, 9632.0, 10208.0)
 gg_rct_RegionSatyrSpawn = Rect(-10880.0, 6496.0, -9056.0, 8320.0)
 gg_rct_QuestNPCCityGoblin = Rect(576.0, 1024.0, 992.0, 1472.0)
+gg_rct_NoViolanceAreaTown2 = Rect(-13600.0, -17408.0, -10272.0, -13536.0)
 end
 
 function InitCustomPlayerSlots()
@@ -474,6 +505,12 @@ SetPlayerColor(Player(12), ConvertPlayerColor(12))
 SetPlayerRacePreference(Player(12), RACE_PREF_HUMAN)
 SetPlayerRaceSelectable(Player(12), false)
 SetPlayerController(Player(12), MAP_CONTROL_COMPUTER)
+SetPlayerStartLocation(Player(15), 9)
+ForcePlayerStartLocation(Player(15), 9)
+SetPlayerColor(Player(15), ConvertPlayerColor(15))
+SetPlayerRacePreference(Player(15), RACE_PREF_HUMAN)
+SetPlayerRaceSelectable(Player(15), false)
+SetPlayerController(Player(15), MAP_CONTROL_COMPUTER)
 end
 
 function InitCustomTeams()
@@ -486,6 +523,7 @@ SetPlayerTeam(Player(5), 0)
 SetPlayerTeam(Player(6), 0)
 SetPlayerTeam(Player(11), 0)
 SetPlayerTeam(Player(12), 0)
+SetPlayerTeam(Player(15), 0)
 end
 
 function InitAllyPriorities()
@@ -514,14 +552,30 @@ SetEnemyStartLocPrio(2, 4, 5, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(2, 5, 6, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrio(2, 6, 7, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrio(2, 7, 8, MAP_LOC_PRIO_HIGH)
+SetStartLocPrioCount(4, 1)
+SetStartLocPrio(4, 0, 9, MAP_LOC_PRIO_HIGH)
 SetStartLocPrioCount(5, 4)
 SetStartLocPrio(5, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(5, 1, 1, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(5, 2, 2, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(5, 3, 3, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(5, 2)
+SetEnemyStartLocPrioCount(5, 3)
 SetEnemyStartLocPrio(5, 0, 1, MAP_LOC_PRIO_HIGH)
 SetEnemyStartLocPrio(5, 1, 4, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(5, 2, 9, MAP_LOC_PRIO_LOW)
+SetStartLocPrioCount(9, 6)
+SetStartLocPrio(9, 0, 0, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(9, 1, 3, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(9, 2, 4, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(9, 3, 5, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(9, 4, 7, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(9, 6)
+SetEnemyStartLocPrio(9, 0, 0, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(9, 1, 1, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(9, 2, 2, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(9, 3, 3, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(9, 4, 5, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(9, 5, 8, MAP_LOC_PRIO_HIGH)
 end
 
 function main()
@@ -532,7 +586,6 @@ SetAmbientDaySound("CityScapeDay")
 SetAmbientNightSound("CityScapeNight")
 SetMapMusic("Music", true, 0)
 CreateRegions()
-CreateAllItems()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()
@@ -541,8 +594,8 @@ end
 function config()
 SetMapName("TRIGSTR_004")
 SetMapDescription("TRIGSTR_006")
-SetPlayers(9)
-SetTeams(9)
+SetPlayers(10)
+SetTeams(10)
 SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
 DefineStartLocation(0, -384.0, -256.0)
 DefineStartLocation(1, -384.0, -256.0)
@@ -553,6 +606,7 @@ DefineStartLocation(5, -384.0, -256.0)
 DefineStartLocation(6, -384.0, -256.0)
 DefineStartLocation(7, -384.0, -256.0)
 DefineStartLocation(8, -384.0, -256.0)
+DefineStartLocation(9, -12032.0, -16128.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()

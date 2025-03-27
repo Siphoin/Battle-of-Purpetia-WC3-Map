@@ -9,7 +9,7 @@ namespace Source.Triggers.TownTriggers.Triggers
         public override trigger GetTrigger()
         {
             trigger newTrigger = trigger.Create();
-            newTrigger.RegisterEnterRegion(Regions.NoViolanceArea.Region);
+            newTrigger.RegisterEnterRegion(Regions.NoViolanceAreaTown1.Region);
             newTrigger.AddAction(SetOffViolance);
             return newTrigger;
         }
