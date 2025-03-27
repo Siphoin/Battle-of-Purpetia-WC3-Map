@@ -48,7 +48,7 @@ namespace Source.Triggers.HeroTriggers.Triggers
                 });
 
                 Hero.HeroName = Hero.Owner.Name;
-                CustomInventory inventoryHero = new(Hero);
+                CustomInventory inventoryHero = new(Hero, MapConfig.MAX_COUNT_ITEMS_ON_PLAYER_HERO_NVENTORY);
             });
 
             return newTrigger;

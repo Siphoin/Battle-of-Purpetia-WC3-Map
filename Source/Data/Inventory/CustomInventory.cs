@@ -6,11 +6,15 @@ using static WCSharp.Api.Blizzard;
 using static Source.Extensions.CommonExtensions;
 using System.Collections;
 using System.Linq;
+using Source.Models;
 namespace Source.Data.Inventory
 {
     public class CustomInventory : ICollection<item>, IEnumerable<item>
     {
-        private unit TargetUnit { get; set; }
+        public event Action<item> OnAddAItem;
+        public event Action<item> OnRemoveItem;
+        public unit TargetUnit { get; private set; }
+        public int Limititems { get; private set; }
 
         public int Count => _items.Count;
 
@@ -18,22 +22,27 @@ namespace Source.Data.Inventory
 
         public bool IsReadOnly => false;
 
-        private const int POSOTION_COPY_ITEM = -30000;
         private List<item> _items;
-        private trigger _triggerListenereGiveItem;
-        private trigger _triggerDropItem;
+        private trigger _triggerListenereGiveitem;
+        private trigger _triggerDropitem;
 
-        public CustomInventory(unit targetUnit)
+        public CustomInventory(unit targetUnit, int limititems = 0)
         {
             TargetUnit = targetUnit;
-            _items = new();
-            _triggerListenereGiveItem = trigger.Create();
-            _triggerListenereGiveItem.RegisterUnitEvent(TargetUnit, unitevent.PickupItem);
-            _triggerListenereGiveItem.AddAction(AddItem);
+            if (limititems < 0)
+            {
+                limititems = 0;
+            }
 
-            _triggerDropItem = trigger.Create();
-            _triggerDropItem.RegisterUnitEvent(TargetUnit, unitevent.DropItem);
-            _triggerDropItem.AddAction(RemoveItemFromInventory);
+            Limititems = limititems;
+            _items = new();
+            _triggerListenereGiveitem = trigger.Create();
+            _triggerListenereGiveitem.RegisterUnitEvent(TargetUnit, unitevent.PickupItem);
+            _triggerListenereGiveitem.AddAction(Additem);
+
+            _triggerDropitem = trigger.Create();
+            _triggerDropitem.RegisterUnitEvent(TargetUnit, unitevent.DropItem);
+            _triggerDropitem.AddAction(RemoveitemFromInventory);
 
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
@@ -43,26 +52,34 @@ namespace Source.Data.Inventory
             {
                 LocalPlayerInventory = this;
             }
+            
 
         }
 
-        private void RemoveItemFromInventory()
+        private void RemoveitemFromInventory()
         {
             var item = GetManipulatedItem();
-            Remove(item);
         }
 
-        private void AddItem()
+        private void Additem()
         {
             var item = GetManipulatedItem();
-            var copyItem = item.Create(item.TypeId, POSOTION_COPY_ITEM, POSOTION_COPY_ITEM);
-            Add(copyItem);
-            Console.WriteLine(copyItem.Name);
+
+            if (Count >= Limititems && Limititems > 0)
+            {
+                DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Недостачно места в инвентаре");
+                UnitRemoveItem(TargetUnit, item);
+                return;
+            }
+
+            var copyItem = item.Create(item.TypeId, MapConfig.POSITION_ITEM_ON_CUSTOM_INVENTORY, MapConfig.POSITION_ITEM_ON_CUSTOM_INVENTORY);
+
             var abilityItem = BlzGetItemAbilityByIndex(item, 0);
             int id = BlzGetAbilityId(abilityItem);
             RemoveItem(item);
-            bool addedA = UnitAddAbility(TargetUnit, id);
+
             BlzUnitHideAbility(TargetUnit, id, true);
+            Add(copyItem);
         }
 
 #if DEBUG
@@ -80,6 +97,7 @@ namespace Source.Data.Inventory
 #if DEBUG
             Log($"Added item {item.Name} to unit {TargetUnit.Name}");
 #endif
+            OnAddAItem?.Invoke(item);
         }
 
         public void Clear()
@@ -109,6 +127,7 @@ namespace Source.Data.Inventory
             if (isRemoved)
             {
                 Log($"Removed item {item.Name} from unit {TargetUnit.Name}");
+                OnRemoveItem?.Invoke(item);
             }
 #endif
 

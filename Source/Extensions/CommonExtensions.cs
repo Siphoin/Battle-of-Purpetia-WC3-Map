@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Source.Data.Inventory;
+using Source.Models;
+using System;
 using System.Linq;
 using WCSharp.Api;
 using static WCSharp.Api.Common;
@@ -12,6 +14,14 @@ namespace Source.Extensions
         public const string GREEN_TEXT_HEX = "#81f542";
         public const string ENEMY_TEXT_HEX = "#cc3a35";
         public const string DEFAULT_WARCRAFT_III_TEXT_HEX = "#ffffcc";
+
+        private readonly static string[] _abilitesOrdersRawCodes = new string[]
+        {
+            "ause",
+            "aubt",
+            "aord",
+            "aoac",
+        };
 
 #if DEBUG
         public static bool IsFastTransmissionUnit { get; set; } = false;
@@ -100,6 +110,8 @@ namespace Source.Extensions
             KillSoundWhenDone(sound);
             return sound;
         }
+        
+
 
         public static string Colorize(this string text, string hexColor)
         {
