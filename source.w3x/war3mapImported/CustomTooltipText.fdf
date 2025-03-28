@@ -1,9 +1,0 @@
-Frame "TEXT" "TextTooltip" {	
-	//FontFlags "FIXEDSIZE",
-	UseActiveContext,
-	FontColor 1.0 1.0 1.0 1.0,
-	FontShadowColor 0.0 0.0 0.0 0.9,	
-	FontShadowOffset 0.001 -0.001,	
-        FontJustificationH JUSTIFYCENTER,
-        FrameFont "Fonts\roboto.ttf", 0.012 , "",  
-} 
