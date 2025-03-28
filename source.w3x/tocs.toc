@@ -1,2 +1,3 @@
 war3mapImported\myBar.fdf
-war3mapImported/mySimpleFrame.fdf
+war3mapimported\CustomTooltip.fdf
+war3mapimported\FDFText.fdf
