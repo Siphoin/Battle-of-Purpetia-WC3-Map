@@ -48,7 +48,7 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         private void CreateGUI()
         {
-
+            BlzLoadTOCFile("tocs.toc");
             BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), true);
 BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), true);
             #region Buttons

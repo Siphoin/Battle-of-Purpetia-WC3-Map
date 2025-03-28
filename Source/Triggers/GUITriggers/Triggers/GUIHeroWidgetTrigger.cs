@@ -103,7 +103,6 @@ namespace Source.Triggers.GUITriggers.Triggers
         {
             var heroBar = BlzGetOriginFrame(originframetype.HeroBar, 0);
             BlzFrameSetSize(heroBar, heroBar.Width * 2f, heroBar.Height * 2f);
-            BlzLoadTOCFile("war3mapimported\\myBar.toc");
             _hpBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), Hero.Owner.Id); //Create Bar at createContext 1
             _manaBar = BlzCreateSimpleFrame("MyBarEx", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), Hero.Owner.Id + 1); //createContext 2
             _heroMainWidget = BlzCreateSimpleFrame($"MyBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0),  Hero.Owner.Id + 2); //createContext 4, other names so would not be needed.
