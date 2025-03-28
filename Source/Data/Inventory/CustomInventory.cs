@@ -177,6 +177,10 @@ namespace Source.Data.Inventory
 
         public void UseItem(item Item)
         {
+            if (UnitItemInSlot(TargetUnit, 0) != null)
+            {
+                UnitRemoveItem(TargetUnit, Item);
+            }
             if (Contains(Item))
             {
                 _triggerDropitem.Disable();
@@ -185,6 +189,7 @@ namespace Source.Data.Inventory
                 if (!IsTargetedItem(Item))
                 {
                     bool used = UnitUseItem(TargetUnit, Item);
+                    UnitRemoveItem(TargetUnit, Item);
                 }
 
                 else
@@ -196,9 +201,10 @@ namespace Source.Data.Inventory
                     {
                         var unit = GetTriggerUnit();
 
-                        SelectTargetUnit(Item, unit);
+                       bool isUsed =  SelectTargetUnit(Item, unit);
                         CustomConsoleUITrigger.SetModeShow(CustomConsoleUIMode.Normal);
                         DestroyTrigger(_triggerSelectTarget);
+                        UnitRemoveItem(TargetUnit, Item);
                         SetItemVisible(Item, false);
                         _triggerDropitem.Enable();
                         _triggerSelectTarget = null;
@@ -207,7 +213,7 @@ namespace Source.Data.Inventory
             }
         }
 
-        private void SelectTargetUnit(item Item, unit targetUnit)
+        private bool SelectTargetUnit(item Item, unit targetUnit)
         {
             if (Item.Charges > 0)
             {
@@ -226,6 +232,8 @@ namespace Source.Data.Inventory
                     Remove(Item);
                 }
             }
+
+            return sucessUse;
         }
 
         private bool IsTargetedItem(item item)

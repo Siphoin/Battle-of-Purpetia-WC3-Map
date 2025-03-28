@@ -26,13 +26,19 @@ namespace Source.Data.Inventory.Windows
             TargetInventory.OnAddAItem += UpdateCells;
             TargetInventory.OnRemoveItem += UpdateCells;
             CustomConsoleUITrigger.OnModeChanged += OnModeConsoleUIChanged;
+
+            TriggerUnitDied = trigger.Create();
+            TriggerUnitDied.RegisterUnitEvent(TargetInventory.TargetUnit, unitevent.Death);
+            TriggerUnitDied.AddAction(() => Exit());
         }
 
         public trigger TriggerbuttonExit { get; private set; }
+        public trigger TriggerUnitDied { get; private set; }
         private CustomInventory TargetInventory { get; set; }
         public override void Destroy()
         {
             DestroyTrigger(TriggerbuttonExit);
+            DestroyTrigger(TriggerUnitDied);
 
             foreach (var cell in _cells)
             {

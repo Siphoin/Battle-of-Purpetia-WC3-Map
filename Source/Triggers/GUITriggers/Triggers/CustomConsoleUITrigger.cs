@@ -11,6 +11,7 @@ using static WCSharp.Api.Common;
 using static Source.Extensions.CommonExtensions;
 using Source.Data.Inventory.Windows;
 using Source.Data.Inventory;
+using System.Diagnostics;
 namespace Source.Triggers.GUITriggers.Triggers
 {
     public class CustomConsoleUITrigger : TriggerInstance
@@ -32,6 +33,8 @@ namespace Source.Triggers.GUITriggers.Triggers
         private static trigger TriggerbuttonDungeons { get; set; }
         private static trigger TriggerbuttonMenu { get; set; }
         private static trigger TriggerlocalPlayerInventoryButton { get; set; }
+        private static trigger TriggerUntSelectHero { get; set; }
+        private static trigger TriggerUnitHeroDied {  get; set; }
 
         public static bool IsOpenedTopButtonWindow => _currentOpenedWindow != null;
         public static CustomConsoleUIMode CurrentShowMode {  get; private set; } = CustomConsoleUIMode.Normal;
@@ -115,6 +118,36 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
 
             #endregion
 
+            TriggerUntSelectHero = trigger.Create();
+            TriggerUntSelectHero.RegisterPlayerUnitEvent(player.LocalPlayer, playerunitevent.Selected, Filter(() =>
+            {
+                var unit = GetFilterUnit();
+                // Здесь вы можете добавить вашу логику
+                return unit.IsHero() && unit.Owner == player.LocalPlayer;
+            }));
+
+            TriggerUntSelectHero.RegisterPlayerUnitEvent(player.LocalPlayer, playerunitevent.HeroRevivable, Filter(() =>
+            {
+                var unit = GetFilterUnit();
+                // Здесь вы можете добавить вашу логику
+                return unit.IsHero() && unit.Owner == player.LocalPlayer;
+            }));
+
+            TriggerUntSelectHero.AddAction(() => SetStateEnabledLocalPlayerInventoryButton(true));
+
+            TriggerUnitHeroDied = trigger.Create();
+            TriggerUnitHeroDied.RegisterPlayerUnitEvent(player.LocalPlayer, playerunitevent.Death, Filter(() =>
+            {
+                var unit = GetFilterUnit();
+                // Здесь вы можете добавить вашу логику
+                return unit.IsHero() && unit.Owner == player.LocalPlayer;
+            }));
+
+            TriggerUnitHeroDied.AddAction(() => SetStateEnabledLocalPlayerInventoryButton(false));
+
+            SetStateEnabledLocalPlayerInventoryButton(false);
+
+
 
         }
 
@@ -136,6 +169,16 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
 
         private void SetStateEnabledLocalPlayerInventoryButton(bool state)
         {
+            if (!PlayerHeroesList.GetLocalPlayerHero().Alive)
+            {
+                BlzFrameSetVisible(BackdroplocalPlayerInventoryButton, false);
+                BlzFrameSetVisible(localPlayerInventoryButton, false);
+                BlzFrameSetEnable(BackdroplocalPlayerInventoryButton, false);
+                BlzFrameSetEnable(localPlayerInventoryButton, false);
+                return;
+            }
+
+
             BlzFrameSetVisible(BackdroplocalPlayerInventoryButton, state);
             BlzFrameSetVisible(localPlayerInventoryButton, state);
             BlzFrameSetEnable(BackdroplocalPlayerInventoryButton, state);
