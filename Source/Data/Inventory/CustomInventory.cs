@@ -24,6 +24,9 @@ namespace Source.Data.Inventory
         private trigger _triggerListenereGiveitem;
         private trigger _triggerDropitem;
         private trigger _triggerUseItem;
+        private trigger _triggerSelectTarget;
+        private unit _currentTarget;
+
 
         public CustomInventory(unit targetUnit, int limititems = 0)
         {
@@ -46,6 +49,16 @@ namespace Source.Data.Inventory
             _triggerUseItem = trigger.Create();
             _triggerUseItem.RegisterUnitEvent(TargetUnit, unitevent.UseItem);
             _triggerUseItem.AddAction(UseItem);
+
+            _triggerSelectTarget = trigger.Create();
+            _triggerSelectTarget.RegisterPlayerUnitEvent(TargetUnit.Owner, playerunitevent.Selected);
+            _triggerSelectTarget.AddAction(() =>
+            {
+                var unit = GetTriggerUnit();
+
+                _currentTarget = unit;
+                Console.WriteLine(_currentTarget.Name);
+            });
 
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
@@ -174,17 +187,52 @@ namespace Source.Data.Inventory
         {
             if (Contains(Item))
             {
+                _triggerDropitem.Disable();
                 UnitAddItem(TargetUnit, Item);
-                bool used = UnitUseItem(TargetUnit, Item);
 
-                if (!used)
+                if (!IsTargetedItem(Item))
                 {
-                    _triggerDropitem.Disable();
-                    UnitRemoveItem(TargetUnit, Item);
-                    SetItemVisible(Item, false);
-                    _triggerDropitem.Enable();
+                    bool used = UnitUseItem(TargetUnit, Item);
                 }
+
+                else
+                {
+                    if (Item.Charges > 0)
+                    {
+                        _triggerUseItem.Disable();
+                    }
+                    if (!_currentTarget.Alive)
+                    {
+                        _currentTarget = null;
+                    }
+                    if (_currentTarget is null)
+                    {
+                        DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Не выбрана цель для предмета. Данный предмет требует указать цель.");
+                        return;
+                    }
+                   bool sucessUse = UnitUseItemTarget(TargetUnit, Item, _currentTarget);
+                    if (!sucessUse)
+                    {
+                        DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Не удалось применить предмет");
+                    }
+
+                    else
+                    {
+                        if (Item.Charges == 0)
+                        {
+                            Remove(Item);
+                        }
+                    }
+                }
+                UnitRemoveItem(TargetUnit, Item);
+                SetItemVisible(Item, false);
+                _triggerDropitem.Enable();
             }
+        }
+
+        private bool IsTargetedItem(item item)
+        {
+            return ConstantsDBItemsIDS.itemsIds.Contains(item.TypeId);
         }
 
     }

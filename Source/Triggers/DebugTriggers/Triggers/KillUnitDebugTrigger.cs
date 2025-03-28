@@ -15,15 +15,7 @@ namespace Source.Triggers.DebugTriggers.Triggers
             {
                 var unit = GetTriggerUnit();
 
-                if (!string.IsNullOrEmpty(unit.HeroName))
-                {
-                    _selectedUnit = unit;
-                }
-
-                else
-                {
-                    _selectedUnit = null;
-                }
+                _selectedUnit = unit;
             });
             trigger debugTrigger = trigger.Create();
             debugTrigger.RegisterPlayerChatEvent(Player(0), "KillUnit", true);

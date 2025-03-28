@@ -7,7 +7,35 @@
 /// </summary>
 public static class Constants
 {
-	public const int UNIT_DUMMY = 1848651824;
+	public const int ABILITY_ABLM = 1094872173;
+	public const int ABILITY_R000 = 1378889776;
+	public const int ABILITY_A001 = 1093677105;
+	public const int ABILITY_Z000 = 1513107504;
+	public const int ABILITY_A000 = 1093677104;
+	public const int ABILITY_A002 = 1093677106;
+	public const int ABILITY_A003 = 1093677107;
+	public const int ABILITY_A004 = 1093677108;
+	public const int ABILITY_A005 = 1093677109;
+	public const int ITEM_FPEM = 1718642029;
+	public const int UNIT_N000_DUMMY = 1848651824;
+	public const int UNIT_H000 = 1211117616;
+	public const int UNIT_H001 = 1211117617;
+	public const int UNIT_VHER = 1447585138;
+	public const int UNIT_O000 = 1328558128;
+	public const int UNIT_H002 = 1747988530;
+	public const int UNIT_U000 = 1429221424;
+	public const int UNIT_U001 = 1429221425;
+	public const int UNIT_U003 = 1966092339;
+	public const int UNIT_U004 = 1966092340;
+	public const int UNIT_U005 = 1966092341;
+	public const int UNIT_U006 = 1966092342;
+	public const int UNIT_U007 = 1966092343;
+	public const int UNIT_U002 = 1429221426;
+	public const int UNIT_N001 = 1848651825;
+	public const int UNIT_N002 = 1848651826;
+	public const int UNIT_N003 = 1848651827;
+	public const int UNIT_PALA = 1346456641;
+	public const int UNIT_H005 = 1747988533;
 	public const int ORDER_OFFSET = 851970;
 	public const int ORDER_WAND_ILLUSION = 852274;
 	public const int ORDER_ABSORB = 852529;

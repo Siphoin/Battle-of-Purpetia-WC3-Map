@@ -44,6 +44,8 @@ function CreateAllItems()
 local itemID
 
 BlzCreateItemWithSkin(FourCC("pghe"), -732.3, -264.8, FourCC("pghe"))
+BlzCreateItemWithSkin(FourCC("ssil"), -566.1, -436.5, FourCC("ssil"))
+BlzCreateItemWithSkin(FourCC("wlsd"), -427.7, 147.7, FourCC("wlsd"))
 end
 
 function CreateUnitsForPlayer12()
