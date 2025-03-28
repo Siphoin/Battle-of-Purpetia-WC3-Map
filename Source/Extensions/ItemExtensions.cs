@@ -6,7 +6,7 @@ namespace Source.Extensions
     {
         private static readonly (int MinLevel, int MaxLevel, string Color)[] _levelColorRanges =
         {
-            (1, 4, "#bfc2be"),    // 1-3 - серый
+            (1, 4, "#d1d1d1"),    // 1-3 - серый
             (5, 8, "#ffffff"),    // 4-6 - белый
             (9, 12, "#81f542"),    // 7-9 - зеленый
             (13, 16, "#e869ff"), // 10-12 - синий

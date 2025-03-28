@@ -1,3 +1,4 @@
 [Misc]
 MaxHeroLevel=25
+PawnItemRate=2.5
 

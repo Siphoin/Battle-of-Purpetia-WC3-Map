@@ -6,6 +6,7 @@ using static WCSharp.Api.Blizzard;
 using System.Collections;
 using Source.Models;
 using Source.Triggers.GUITriggers.Triggers;
+using static Source.Extensions.CommonExtensions;
 namespace Source.Data.Inventory
 {
     public class CustomInventory : ICollection<item>, IEnumerable<item>
@@ -93,6 +94,7 @@ namespace Source.Data.Inventory
             {
                 return;
             }
+            CacheGoldCostItem(item);
             _triggerDropitem.Disable();
 
             if (Count >= Limititems && Limititems > 0)

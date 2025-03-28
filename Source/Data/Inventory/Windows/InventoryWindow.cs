@@ -10,6 +10,7 @@ using static WCSharp.Api.Blizzard;
 using static Source.Extensions.CommonExtensions;
 using Source.Triggers.GUITriggers.Triggers;
 using System.Runtime.Intrinsics.X86;
+using Source.Extensions;
 namespace Source.Data.Inventory.Windows
 {
     public class InventoryWindow : WindowGUIBase
@@ -212,15 +213,14 @@ namespace Source.Data.Inventory.Windows
             tolltipTextNameItem = BlzCreateFrameByType("TEXT", "name", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(tolltipTextNameItem, FRAMEPOINT_TOPLEFT, 0.374570f, 0.379420f);
             BlzFrameSetAbsPoint(tolltipTextNameItem, FRAMEPOINT_BOTTOMRIGHT, 0.489970f, 0.352410f);
-            BlzFrameSetText(tolltipTextNameItem, "|cffffffffLorem ipsum|r");
+            BlzFrameSetText(tolltipTextNameItem, Item.ColorizeByLevel());
             BlzFrameSetEnable(tolltipTextNameItem, false);
-            BlzFrameSetScale(tolltipTextNameItem, 1.00f);
+            BlzFrameSetScale(tolltipTextNameItem, 0.8f);
             BlzFrameSetTextAlignment(tolltipTextNameItem, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
-
             tolltipTextNameItemDescription = BlzCreateFrameByType("TEXT", "name", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(tolltipTextNameItemDescription, FRAMEPOINT_TOPLEFT, 0.335780F, 0.345130F);
             BlzFrameSetAbsPoint(tolltipTextNameItemDescription, FRAMEPOINT_BOTTOMRIGHT, 0.490600F, 0.225640F);
-            BlzFrameSetText(tolltipTextNameItemDescription, "|cffffffffLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.|r");
+            BlzFrameSetText(tolltipTextNameItemDescription, BlzGetItemDescription(Item));
             BlzFrameSetEnable(tolltipTextNameItemDescription, false);
             BlzFrameSetScale(tolltipTextNameItemDescription, 0.9f);
             BlzFrameSetTextAlignment(tolltipTextNameItemDescription, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
@@ -234,11 +234,12 @@ namespace Source.Data.Inventory.Windows
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_TOPLEFT, 0.377070F, 0.364750F);
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_BOTTOMRIGHT, 0.387070F, 0.354750F);
             BlzFrameSetTexture(goldItemTolltipIcon, "CustomFrame.png", 0, true);
-
+            string price = GetItemGoldCost(Item).ToString();
+            Console.WriteLine(price);
             goldItemTolltipIconText = BlzCreateFrameByType("TEXT", "name", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_TOPLEFT, 0.389100F, 0.362720F);
             BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_BOTTOMRIGHT, 0.430700F, 0.352710F);
-            BlzFrameSetText(goldItemTolltipIconText, "|cffffcc00Lorem ipsum|r");
+            BlzFrameSetText(goldItemTolltipIconText, price);
             BlzFrameSetEnable(goldItemTolltipIconText, false);
             BlzFrameSetScale(goldItemTolltipIconText, 0.000571F);
             BlzFrameSetTextAlignment(goldItemTolltipIconText, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
