@@ -220,7 +220,7 @@ namespace Source.Data.Inventory.Windows
             tolltipTextNameItemDescription = BlzCreateFrameByType("TEXT", "name", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(tolltipTextNameItemDescription, FRAMEPOINT_TOPLEFT, 0.335780F, 0.345130F);
             BlzFrameSetAbsPoint(tolltipTextNameItemDescription, FRAMEPOINT_BOTTOMRIGHT, 0.490600F, 0.225640F);
-            BlzFrameSetText(tolltipTextNameItemDescription, BlzGetItemDescription(Item));
+            BlzFrameSetText(tolltipTextNameItemDescription, BlzGetItemExtendedTooltip(Item));
             BlzFrameSetEnable(tolltipTextNameItemDescription, false);
             BlzFrameSetScale(tolltipTextNameItemDescription, 0.9f);
             BlzFrameSetTextAlignment(tolltipTextNameItemDescription, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
@@ -228,18 +228,16 @@ namespace Source.Data.Inventory.Windows
             iconItemTooltip = BlzCreateFrameByType("BACKDROP", "BACKDROP", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(iconItemTooltip, FRAMEPOINT_TOPLEFT, 0.341010F, 0.383410F);
             BlzFrameSetAbsPoint(iconItemTooltip, FRAMEPOINT_BOTTOMRIGHT, 0.362950F, 0.359260F);
-            BlzFrameSetTexture(iconItemTooltip, "CustomFrame.png", 0, true);
+            BlzFrameSetTexture(iconItemTooltip, BlzGetAbilityIcon(Item.TypeId), 0, true);
 
             goldItemTolltipIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_TOPLEFT, 0.377070F, 0.364750F);
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_BOTTOMRIGHT, 0.387070F, 0.354750F);
-            BlzFrameSetTexture(goldItemTolltipIcon, "CustomFrame.png", 0, true);
-            string price = GetItemGoldCost(Item).ToString();
-            Console.WriteLine(price);
+            BlzFrameSetTexture(goldItemTolltipIcon, "UI\\Widgets\\Console\\Human\\infocard-gold.blp", 0, true);
             goldItemTolltipIconText = BlzCreateFrameByType("TEXT", "name", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_TOPLEFT, 0.389100F, 0.362720F);
             BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_BOTTOMRIGHT, 0.430700F, 0.352710F);
-            BlzFrameSetText(goldItemTolltipIconText, price);
+            BlzFrameSetText(goldItemTolltipIconText, string.Empty);
             BlzFrameSetEnable(goldItemTolltipIconText, false);
             BlzFrameSetScale(goldItemTolltipIconText, 0.000571F);
             BlzFrameSetTextAlignment(goldItemTolltipIconText, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
