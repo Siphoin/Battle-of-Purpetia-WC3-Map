@@ -5,12 +5,14 @@ using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;
 using System.Collections;
 using Source.Models;
+using Source.Triggers.GUITriggers.Triggers;
 namespace Source.Data.Inventory
 {
     public class CustomInventory : ICollection<item>, IEnumerable<item>
     {
         public event Action<item> OnAddAItem;
         public event Action<item> OnRemoveItem;
+        public event Action<item> OnStartUseTargetedItem;
         public unit TargetUnit { get; private set; }
         public int Limititems { get; private set; }
 
@@ -49,16 +51,6 @@ namespace Source.Data.Inventory
             _triggerUseItem = trigger.Create();
             _triggerUseItem.RegisterUnitEvent(TargetUnit, unitevent.UseItem);
             _triggerUseItem.AddAction(UseItem);
-
-            _triggerSelectTarget = trigger.Create();
-            _triggerSelectTarget.RegisterPlayerUnitEvent(TargetUnit.Owner, playerunitevent.Selected);
-            _triggerSelectTarget.AddAction(() =>
-            {
-                var unit = GetTriggerUnit();
-
-                _currentTarget = unit;
-                Console.WriteLine(_currentTarget.Name);
-            });
 
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
@@ -197,36 +189,42 @@ namespace Source.Data.Inventory
 
                 else
                 {
-                    if (Item.Charges > 0)
+                    CustomConsoleUITrigger.SetModeShow(CustomConsoleUIMode.SelectTarget);
+                    _triggerSelectTarget = trigger.Create();
+                    _triggerSelectTarget.RegisterPlayerUnitEvent(TargetUnit.Owner, playerunitevent.Selected);
+                    _triggerSelectTarget.AddAction(() =>
                     {
-                        _triggerUseItem.Disable();
-                    }
-                    if (!_currentTarget.Alive)
-                    {
-                        _currentTarget = null;
-                    }
-                    if (_currentTarget is null)
-                    {
-                        DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Не выбрана цель для предмета. Данный предмет требует указать цель.");
-                        return;
-                    }
-                   bool sucessUse = UnitUseItemTarget(TargetUnit, Item, _currentTarget);
-                    if (!sucessUse)
-                    {
-                        DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Не удалось применить предмет");
-                    }
+                        var unit = GetTriggerUnit();
 
-                    else
-                    {
-                        if (Item.Charges == 0)
-                        {
-                            Remove(Item);
-                        }
-                    }
+                        SelectTargetUnit(Item, unit);
+                        CustomConsoleUITrigger.SetModeShow(CustomConsoleUIMode.Normal);
+                        DestroyTrigger(_triggerSelectTarget);
+                        SetItemVisible(Item, false);
+                        _triggerDropitem.Enable();
+                        _triggerSelectTarget = null;
+                    });
                 }
-                UnitRemoveItem(TargetUnit, Item);
-                SetItemVisible(Item, false);
-                _triggerDropitem.Enable();
+            }
+        }
+
+        private void SelectTargetUnit(item Item, unit targetUnit)
+        {
+            if (Item.Charges > 0)
+            {
+                _triggerUseItem.Disable();
+            }
+            bool sucessUse = UnitUseItemTarget(TargetUnit, Item, targetUnit);
+            if (!sucessUse)
+            {
+                DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Не удалось применить предмет");
+            }
+
+            else
+            {
+                if (Item.Charges == 0)
+                {
+                    Remove(Item);
+                }
             }
         }
 

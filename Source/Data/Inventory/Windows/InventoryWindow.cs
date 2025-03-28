@@ -8,6 +8,7 @@ using WCSharp.Api;
 using static WCSharp.Api.Common;
 using static WCSharp.Api.Blizzard;
 using static Source.Extensions.CommonExtensions;
+using Source.Triggers.GUITriggers.Triggers;
 namespace Source.Data.Inventory.Windows
 {
     public class InventoryWindow : WindowGUIBase
@@ -24,6 +25,7 @@ namespace Source.Data.Inventory.Windows
             _cells = new();
             TargetInventory.OnAddAItem += UpdateCells;
             TargetInventory.OnRemoveItem += UpdateCells;
+            CustomConsoleUITrigger.OnModeChanged += OnModeConsoleUIChanged;
         }
 
         public trigger TriggerbuttonExit { get; private set; }
@@ -43,6 +45,20 @@ namespace Source.Data.Inventory.Windows
             BlzDestroyFrame(_inventoryFrame);
             TargetInventory.OnAddAItem -= UpdateCells;
             TargetInventory.OnRemoveItem -= UpdateCells;
+            CustomConsoleUITrigger.OnModeChanged -= OnModeConsoleUIChanged;
+        }
+
+        private void OnModeConsoleUIChanged(CustomConsoleUIMode mode)
+        {
+            if (mode == CustomConsoleUIMode.Normal)
+            {
+                SetHideState(false);
+            }
+
+            else
+            {
+                SetHideState(true);
+            }
         }
 
         public override void Show()
@@ -66,6 +82,14 @@ namespace Source.Data.Inventory.Windows
 
             CreateCells();
 
+        }
+
+        protected override void SetHideState(bool state)
+        {
+            BlzFrameSetVisible(buttonExit, !state);
+            BlzFrameSetVisible(BackdropbuttonExit, !state);
+            BlzFrameSetVisible(_inventoryFrame, !state);
+            base.SetHideState(state);
         }
 
         private void CreateCells()
@@ -173,6 +197,8 @@ namespace Source.Data.Inventory.Windows
             BlzDestroyFrame(_icon);
             DestroyTrigger(_triggerUse);
         }
+
+        
 
 
     }

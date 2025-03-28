@@ -15,21 +15,26 @@ namespace Source.Triggers.GUITriggers.Triggers
 {
     public class CustomConsoleUITrigger : TriggerInstance
     {
-        private framehandle buttonDungeons;
-        private framehandle buttonDungeonsText;
-        private framehandle BackdropbuttonDungeons;
+        public static event Action<CustomConsoleUIMode> OnModeChanged; 
 
-        private WindowGUIBase _currentOpenedWindow;
-        private framehandle buttonMenu;
-        private framehandle buttonMenuText;
-        private framehandle BackdropbuttonMenu;
-        private framehandle localPlayerInventoryButton;
-        private framehandle BackdroplocalPlayerInventoryButton;
-        private InventoryWindow _inventoryWindow;
+        private static framehandle buttonDungeons;
+        private static framehandle buttonDungeonsText;
+        private static framehandle BackdropbuttonDungeons;
 
-        public trigger TriggerbuttonDungeons { get; private set; }
-        public trigger TriggerbuttonMenu { get; private set; }
-        public trigger TriggerlocalPlayerInventoryButton { get; private set; }
+        private static WindowGUIBase _currentOpenedWindow;
+        private static framehandle buttonMenu;
+        private static framehandle buttonMenuText;
+        private static framehandle BackdropbuttonMenu;
+        private static framehandle localPlayerInventoryButton;
+        private static framehandle BackdroplocalPlayerInventoryButton;
+        private static InventoryWindow _inventoryWindow;
+
+        private static trigger TriggerbuttonDungeons { get; set; }
+        private static trigger TriggerbuttonMenu { get; set; }
+        private static trigger TriggerlocalPlayerInventoryButton { get; set; }
+
+        public static bool IsOpenedTopButtonWindow => _currentOpenedWindow != null;
+        public static CustomConsoleUIMode CurrentShowMode {  get; private set; } = CustomConsoleUIMode.Normal;
 
         public override trigger GetTrigger()
         {
@@ -172,8 +177,22 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
         private void OpenWindow(WindowGUIBase window)
         {
             _currentOpenedWindow?.Destroy();
+            _currentOpenedWindow = null;
             window.Show();
             _currentOpenedWindow = window;
+            _currentOpenedWindow.OnExit += OnExitWindow;
+        }
+
+        private void OnExitWindow()
+        {
+            _currentOpenedWindow.OnExit -= OnExitWindow;
+            _currentOpenedWindow = null;
+        }
+
+        public static void SetModeShow (CustomConsoleUIMode mode)
+        {
+            CurrentShowMode = mode;
+            OnModeChanged?.Invoke(CurrentShowMode);
         }
     }
 
@@ -238,5 +257,12 @@ BlzFrameSetEnable(woodResourcesPlayerText, false);
 
 
         }
+    }
+
+    public enum CustomConsoleUIMode
+    {
+        Normal,
+        SelectTarget,
+        SelectLoc, // Выбор области
     }
 }
