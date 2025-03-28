@@ -2,7 +2,7 @@
 
 Скрипты и триггеры написаны на языке C#
 
-Автор инструментария для C#: github.com/Orden4/WCSharp
+Автор инструментария для C#: https://github.com/Orden4/WCSharp
 
 Ландшафт: Nick: www.youtube.com/@imnormal2k
 
