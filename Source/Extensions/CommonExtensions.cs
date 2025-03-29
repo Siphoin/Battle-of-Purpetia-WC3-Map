@@ -18,16 +18,13 @@ namespace Source.Extensions
         public const string ENEMY_TEXT_HEX = "#cc3a35";
         public const string DEFAULT_WARCRAFT_III_TEXT_HEX = "#ffffcc";
 
-        private static readonly Dictionary<int, int> _cachedGoldCostsItems = new();
-        private static PeriodicTrigger<CheckSellGoldtem> _periodicCheckGold;
 
-        private readonly static string[] _abilitesOrdersRawCodes = new string[]
-        {
-            "ause",
-            "aubt",
-            "aord",
-            "aoac",
-        };
+        public static readonly Dictionary<string, int> _itemsPrices = new Dictionary<string, int>()
+    {
+        // Постоянные предметы (Permanent)
+        {"wlsd", 150},    // Ankh of Reincarnation
+        
+    };
 
 #if DEBUG
         public static bool IsFastTransmissionUnit { get; set; } = false;
@@ -154,45 +151,17 @@ namespace Source.Extensions
 
         public static int GetItemGoldCost(item item)
         {
-
-            return _cachedGoldCostsItems[item.TypeId];
-        }
-
-        public static void CacheGoldCostItem (item item)
-        {
-            if (!_cachedGoldCostsItems.ContainsKey(item.TypeId))
+            try
             {
-                SetPlayerState(Player(12), PLAYER_STATE_RESOURCE_GOLD, 0);
-                // Позиции для создания юнитов (избегайте воды)
-                float x = 0f;
-                float y = 0f;
-
-                unit seller = CreateUnit(Player(12), GetUnitSell(), x, y - 100f, 90f);
-                unit buyer = CreateUnit(Player(12), GetUnitShop(), x, y, 0f);
-                item tempItem = UnitAddItemById(seller, item.TypeId);
-                UnitAddItem(seller, tempItem);
-
-                // Добавляем предмет продавцу
-                UnitDropItemTarget(buyer, tempItem, seller);
-
-                // Возвращаем золото в исходное состояние
-                _periodicCheckGold = new(0.1f);
-                CheckSellGoldtem checkSellGoldtem = new(tempItem, seller, buyer);
-                _periodicCheckGold.Add(checkSellGoldtem);
-
-
+                return _itemsPrices.Where(x => FourCC(x.Key) == item.TypeId).First().Value;
+            }
+            catch
+            {
+                DisplayTextToPlayer(player.LocalPlayer, 0, 0, $"Предмет {item.Name} не найден в базе данных цен.");
+                return 100;
             }
         }
 
-        private static int GetUnitShop()
-        {
-            return FourCC("ngme"); // Код гоблинского мага (Goblin Merchant)
-        }
-
-        private static int GetUnitSell()
-        {
-            return FourCC("Hpal"); // Код паладина (Paladin)
-        }
 
         public enum QuestStatus
         {
@@ -231,38 +200,6 @@ namespace Source.Extensions
                     QuestStatus.Getted => ("|cffffcc00получено|r", CreateSoundFromLabel("QuestNew", false, false, false, 10000, 10000)),
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
                 };
-            }
-        }
-
-        public class CheckSellGoldtem : IPeriodicAction
-        {
-            private int InitGold {  get; set; }
-            private item Item { get; set; }
-            private unit Seller { get; }
-            private unit Buyer { get; }
-            public bool Active {  get; set; }
-
-            public CheckSellGoldtem(item item, unit seller, unit buyer)
-            {
-               InitGold = GetPlayerState(Player(12), PLAYER_STATE_RESOURCE_GOLD);
-               Item = item;
-               Seller = seller;
-               Buyer = buyer;
-            }
-
-            public void Action()
-            {
-              int gold =  GetPlayerState(Player(12), PLAYER_STATE_RESOURCE_GOLD);
-
-                if (gold > InitGold)
-                {
-                    int result = gold;
-                    _cachedGoldCostsItems.Add(Item.TypeId, result);
-                    SetPlayerState(Player(12), PLAYER_STATE_RESOURCE_GOLD, 0);
-                    RemoveUnit(Seller);
-                    RemoveUnit(Buyer);
-                    RemoveItem(Item);
-                }
             }
         }
     }

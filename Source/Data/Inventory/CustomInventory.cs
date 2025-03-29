@@ -94,7 +94,7 @@ namespace Source.Data.Inventory
             {
                 return;
             }
-            CacheGoldCostItem(item);
+
             _triggerDropitem.Disable();
 
             if (Count >= Limititems && Limititems > 0)

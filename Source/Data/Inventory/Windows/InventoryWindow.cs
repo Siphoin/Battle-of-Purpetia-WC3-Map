@@ -234,12 +234,14 @@ namespace Source.Data.Inventory.Windows
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_TOPLEFT, 0.377070F, 0.364750F);
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_BOTTOMRIGHT, 0.387070F, 0.354750F);
             BlzFrameSetTexture(goldItemTolltipIcon, "UI\\Widgets\\Console\\Human\\infocard-gold.blp", 0, true);
+
             goldItemTolltipIconText = BlzCreateFrameByType("TEXT", "name", itemTolltip, "", IndexCreate);
-            BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_TOPLEFT, 0.389100F, 0.362720F);
-            BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_BOTTOMRIGHT, 0.430700F, 0.352710F);
-            BlzFrameSetText(goldItemTolltipIconText, string.Empty);
+            // Измененные координаты для лучшего выравнивания (подняли текст немного выше)
+            BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_TOPLEFT, 0.389100F, 0.36400F);  // Было 0.36220F
+            BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_BOTTOMRIGHT, 0.430700F, 0);
+            BlzFrameSetText(goldItemTolltipIconText, GetItemGoldCost(Item).ToString());
             BlzFrameSetEnable(goldItemTolltipIconText, false);
-            BlzFrameSetScale(goldItemTolltipIconText, 0.000571F);
+            BlzFrameSetScale(goldItemTolltipIconText, 1f);
             BlzFrameSetTextAlignment(goldItemTolltipIconText, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
 
         }
