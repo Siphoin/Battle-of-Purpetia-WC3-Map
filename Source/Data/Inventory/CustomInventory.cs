@@ -27,7 +27,6 @@ namespace Source.Data.Inventory
         private List<item> _items;
         private trigger _triggerListenereGiveitem;
         private trigger _triggerDropitem;
-        private trigger _triggerUseItem;
         private trigger _triggerSelectTarget;
         private unit _currentTarget;
 
@@ -50,9 +49,6 @@ namespace Source.Data.Inventory
             _triggerDropitem.RegisterUnitEvent(TargetUnit, unitevent.DropItem);
             _triggerDropitem.AddAction(RemoveitemFromInventory);
 
-            _triggerUseItem = trigger.Create();
-            _triggerUseItem.RegisterUnitEvent(TargetUnit, unitevent.UseItem);
-            _triggerUseItem.AddAction(UseItem);
 
 #if DEBUG
             Log($"created for unit {TargetUnit.Name}");
@@ -66,16 +62,6 @@ namespace Source.Data.Inventory
 
         }
 
-        private void UseItem()
-        {
-            var item = GetManipulatedItem();
-            UnitRemoveItem(TargetUnit, item);
-            RemoveitemFromInventory();
-
-#if DEBUG
-            Log($"Detected use item: {item.Name}");
-#endif
-        }
 
         private void RemoveitemFromInventory()
         {
@@ -246,19 +232,11 @@ namespace Source.Data.Inventory
 
         private bool SelectTargetUnit(item Item, unit targetUnit)
         {
-            if (Item.Charges > 0)
-            {
-                _triggerUseItem.Disable();
-            }
             bool sucessUse = UnitUseItemTarget(TargetUnit, Item, targetUnit);
 
             if (sucessUse)
             {
                 OnUseItem?.Invoke(Item);
-                if (Item.Charges == 0)
-                {
-                    Remove(Item);
-                }
             }
 
             return sucessUse;
