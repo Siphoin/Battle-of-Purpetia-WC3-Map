@@ -15,7 +15,7 @@ namespace Source.Data.Inventory.Windows
 {
     public class InventoryWindow : WindowGUIBase
     {
-        private const float OFFSET_CELLS = 0.0253f;
+        private const float OFFSET_CELLS = 0.027f;
         private List<InventoryCell> _cells;
         private framehandle _inventoryFrame;
         private framehandle BackdropbuttonExit;
@@ -190,9 +190,8 @@ namespace Source.Data.Inventory.Windows
             _icon = BlzGetFrameByName("ScoreScreenButtonBackdrop", IndexCreate);
             
             BlzFrameSetSize(_button, SCALE_ICON_WIDTH, SCALE_ICON_WIDTH);
-            BlzFrameSetPoint(_button, framepointtype.TopLeft, Parent, framepointtype.TopLeft, 0.046410f + X, -0.068880f + Y);
-            var iconItem = BlzGetAbilityIcon(Item.TypeId);
-            BlzFrameSetTexture(_icon, iconItem, 0, true);
+            BlzFrameSetPoint(_button, framepointtype.TopLeft, Parent, framepointtype.TopLeft, 0.04f + X, -0.065f + Y);;
+            BlzFrameSetTexture(_icon, Item.Icon, 0, true);
 
             _triggerUse = trigger.Create();
             _triggerUse.AddAction(() => UseAction?.Invoke(Item));
@@ -228,7 +227,7 @@ namespace Source.Data.Inventory.Windows
             iconItemTooltip = BlzCreateFrameByType("BACKDROP", "BACKDROP", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(iconItemTooltip, FRAMEPOINT_TOPLEFT, 0.341010F, 0.383410F);
             BlzFrameSetAbsPoint(iconItemTooltip, FRAMEPOINT_BOTTOMRIGHT, 0.362950F, 0.359260F);
-            BlzFrameSetTexture(iconItemTooltip, BlzGetAbilityIcon(Item.TypeId), 0, true);
+            BlzFrameSetTexture(iconItemTooltip, Item.Icon, 0, true);
 
             goldItemTolltipIcon = BlzCreateFrameByType("BACKDROP", "BACKDROP", itemTolltip, "", IndexCreate);
             BlzFrameSetAbsPoint(goldItemTolltipIcon, FRAMEPOINT_TOPLEFT, 0.377070F, 0.364750F);
@@ -239,17 +238,11 @@ namespace Source.Data.Inventory.Windows
             // Измененные координаты для лучшего выравнивания (подняли текст немного выше)
             BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_TOPLEFT, 0.389100F, 0.36400F);  // Было 0.36220F
             BlzFrameSetAbsPoint(goldItemTolltipIconText, FRAMEPOINT_BOTTOMRIGHT, 0.430700F, 0);
-            BlzFrameSetText(goldItemTolltipIconText, GetItemGoldCost(Item).ToString());
+            BlzFrameSetText(goldItemTolltipIconText, GetItemGoldCost(Item).ToString().Colorize(DEFAULT_WARCRAFT_III_TEXT_HEX));
             BlzFrameSetEnable(goldItemTolltipIconText, false);
             BlzFrameSetScale(goldItemTolltipIconText, 1f);
             BlzFrameSetTextAlignment(goldItemTolltipIconText, TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_LEFT);
 
-        }
-        private void RemoveUsedItemFromSlot(trigger trggerClick)
-        {
-            var item = GetManipulatedItem();
-            UnitRemoveItem(TargetUnit, item);
-            DestroyTrigger(trggerClick);
         }
 
         public void Destroy()
@@ -257,6 +250,12 @@ namespace Source.Data.Inventory.Windows
             BlzDestroyFrame(_button);
             BlzDestroyFrame(_icon);
             DestroyTrigger(_triggerUse);
+            BlzDestroyFrame(itemTolltip);
+            BlzDestroyFrame(iconItemTooltip);
+            BlzDestroyFrame(goldItemTolltipIcon);
+            BlzDestroyFrame(goldItemTolltipIconText);
+            BlzDestroyFrame(tolltipTextNameItemDescription);
+            BlzDestroyFrame(tolltipTextNameItem);
         }
 
         
