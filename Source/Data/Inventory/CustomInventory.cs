@@ -14,6 +14,7 @@ namespace Source.Data.Inventory
         public event Action<item> OnAddAItem;
         public event Action<item> OnRemoveItem;
         public event Action<item> OnStartUseTargetedItem;
+        public event Action<item> OnUseItem;
         public unit TargetUnit { get; private set; }
         public int Limititems { get; private set; }
 
@@ -179,35 +180,63 @@ namespace Source.Data.Inventory
 
         public void UseItem(item Item)
         {
-            if (UnitItemInSlot(TargetUnit, 0) != null)
-            {
-                UnitRemoveItem(TargetUnit, Item);
-            }
             if (Contains(Item))
             {
+                if (IsItemColldown(Item))
+                {
+                    PlayerMessage.DisplayPlayerMessage(TargetUnit.Owner, MessagePlayerType.Failed, "Предмет на перезарядке.");
+                    return;
+                }
+                if (UnitItemInSlot(TargetUnit, 0) != null)
+                {
+                    UnitRemoveItem(TargetUnit, Item);
+                }
                 _triggerDropitem.Disable();
                 UnitAddItem(TargetUnit, Item);
 
                 if (!IsTargetedItem(Item))
                 {
+                    
                     bool used = UnitUseItem(TargetUnit, Item);
-                    UnitRemoveItem(TargetUnit, Item);
+
+                    if (!used)
+                    {
+                        PlayerMessage.DisplayPlayerMessage(TargetUnit.Owner, MessagePlayerType.Failed, "Не удалось использовать предмет.");
+                    }
+
+                    else
+                    {
+                        OnUseItem?.Invoke(Item);
+                        UnitRemoveItem(TargetUnit, Item);
+                        SetItemVisible(Item, false);
+                    }
                 }
 
                 else
                 {
+                    DestroyTrigger(_triggerSelectTarget);
                     CustomConsoleUITrigger.SetModeShow(CustomConsoleUIMode.SelectTarget);
+                    CustomConsoleUITrigger.SetTextHintAction($"Применить предмет {Item.Name} на...");
                     _triggerSelectTarget = trigger.Create();
                     _triggerSelectTarget.RegisterPlayerUnitEvent(TargetUnit.Owner, playerunitevent.Selected);
                     _triggerSelectTarget.AddAction(() =>
                     {
+                        DestroyTrigger(_triggerSelectTarget);
                         var unit = GetTriggerUnit();
 
                        bool isUsed =  SelectTargetUnit(Item, unit);
+
+                        if (isUsed)
+                        {
+                            UnitRemoveItem(TargetUnit, Item);
+                            SetItemVisible(Item, false);
+                        }
+
+                        else
+                        {
+                            PlayerMessage.DisplayPlayerMessage(TargetUnit.Owner, MessagePlayerType.Failed, "Не подходящая цель или цель слишком далеко.");
+                        }
                         CustomConsoleUITrigger.SetModeShow(CustomConsoleUIMode.Normal);
-                        DestroyTrigger(_triggerSelectTarget);
-                        UnitRemoveItem(TargetUnit, Item);
-                        SetItemVisible(Item, false);
                         _triggerDropitem.Enable();
                         _triggerSelectTarget = null;
                     });
@@ -222,13 +251,10 @@ namespace Source.Data.Inventory
                 _triggerUseItem.Disable();
             }
             bool sucessUse = UnitUseItemTarget(TargetUnit, Item, targetUnit);
-            if (!sucessUse)
-            {
-                DisplayTextToPlayer(TargetUnit.Owner, 0, 0, "Не удалось применить предмет");
-            }
 
-            else
+            if (sucessUse)
             {
+                OnUseItem?.Invoke(Item);
                 if (Item.Charges == 0)
                 {
                     Remove(Item);
@@ -238,10 +264,6 @@ namespace Source.Data.Inventory
             return sucessUse;
         }
 
-        private bool IsTargetedItem(item item)
-        {
-            return ConstantsDBItemsIDS.itemsIds.Contains(item.TypeId);
-        }
 
     }
 }

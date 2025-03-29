@@ -7,6 +7,7 @@ using System.Linq;
 using WCSharp.Api;
 using WCSharp.Events;
 using static WCSharp.Api.Common;
+using static WCSharp.Api.Blizzard;
 namespace Source.Extensions
 {
     public static class CommonExtensions
@@ -18,13 +19,48 @@ namespace Source.Extensions
         public const string ENEMY_TEXT_HEX = "#cc3a35";
         public const string DEFAULT_WARCRAFT_III_TEXT_HEX = "#ffffcc";
 
-
-        public static readonly Dictionary<string, int> _itemsPrices = new Dictionary<string, int>()
+        #region DB Item Prices
+        private static readonly Dictionary<string, int> _itemsPrices = new Dictionary<string, int>()
     {
         // Постоянные предметы (Permanent)
         {"wlsd", 150},    // Ankh of Reincarnation
         
     };
+        #endregion
+
+        #region Targeted Items DB
+        private static readonly HashSet<int> itemTargetedsIds = new HashSet<int>()
+        {
+           FourCC("ssil"), // Посох немоты
+           Constants.ITEM_FPEM, // Мясо рыболюда
+           // ПОСТОЯННЫЕ
+            FourCC("stel"), // Посох Телепортации
+            // ИМЕЮЩИЕ ЗАРЯДЫ
+            FourCC("wshs"), // Жезл Чужих глаз
+            FourCC("woms"), // Жезл Похищения маны
+            FourCC("wlsd"), // Жезл Молний
+            FourCC("will"), // Жезл Иллюзий
+            FourCC("wcyc"), // Жезл Ветров
+            // АРТЕФАКТЫ
+            FourCC("desc"), // Кинжал мага
+            // ПОДЛЕЖАЩИЕ ПРОДАЖЕ
+            FourCC("ssan"), // Посох Спасения
+            FourCC("silk"), // Моток паутины
+            FourCC("hslv"), // Лечебный эликсир
+            FourCC("wneu"), // Жезл Рассеивания
+            FourCC("hlsv"), // Лечебный бальзам
+            // РАЗНЫЕ
+            FourCC("shtm"), // Шаманский тотем
+            FourCC("ccmd"), // Скипетр Власти
+            FourCC("spre"), // Посох Возвращения
+            FourCC("gvsm"), // Перчатки волшебника
+            FourCC("crdt"), // Корона Смерти
+            FourCC("tmsc"), // Книга Жертв
+            FourCC("schl"), // Жезл Исцеления
+            FourCC("esaz"), // Душа Азуны
+
+        };
+        #endregion
 
 #if DEBUG
         public static bool IsFastTransmissionUnit { get; set; } = false;
@@ -138,11 +174,6 @@ namespace Source.Extensions
             return $"|c{cleanHex}{text}|r";
         }
 
-        public static string Colorize(this string text, uint argbColor)
-        {
-            return text.Colorize(argbColor.ToString("X8"));
-        }
-
         private static bool IsValidHex(string hex)
         {
             return hex.All(c => (c >= '0' && c <= '9') ||
@@ -162,6 +193,23 @@ namespace Source.Extensions
             }
         }
 
+        public static bool IsTargetedItem (item item)
+        {
+            return itemTargetedsIds.Contains(item.TypeId);
+        }
+
+        public static float GetItemColldown (item item)
+        {
+            var ability = BlzGetItemAbilityByIndex(item, 0);
+            var value = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_COOLDOWN, ability.Levels);
+            return value;
+        }
+
+        public static bool IsItemColldown (item item)
+        {
+            return GetItemColldown(item) > 0;
+        }
+
 
         public enum QuestStatus
         {
@@ -170,6 +218,13 @@ namespace Source.Extensions
             Failed,
             Discovered,
             Getted
+        }
+
+        public enum MessagePlayerType
+        {
+            Success,
+            Failed,
+            Hint,
         }
 
         public static class QuestMessage
@@ -183,7 +238,7 @@ namespace Source.Extensions
 
                 DisplayTextToPlayer(whichPlayer, 0, 0, fullMessage);
 
-                    var soundQuest = PlaySound(sound);
+                    var soundQuest = PlaySound("Error");
                     soundQuest.Start();
 
                 
@@ -199,6 +254,34 @@ namespace Source.Extensions
                     QuestStatus.Discovered => ("|cff00ff00обнаружено|r", CreateSoundFromLabel("Hint", false, false, false, 10000, 10000)),
                     QuestStatus.Getted => ("|cffffcc00получено|r", CreateSoundFromLabel("QuestNew", false, false, false, 10000, 10000)),
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+                };
+            }
+        }
+
+        public static class PlayerMessage
+        {
+
+            public static void DisplayPlayerMessage(player whichPlayer, MessagePlayerType type, string message)
+            {
+                var (statusText, sound) = GetStatusInfo(type);
+                var fullMessage = $"{statusText}: {message}";
+
+                DisplayTextToPlayer(whichPlayer, 0, 0, fullMessage);
+
+                var soundQuest = PlaySound(sound);
+                soundQuest.Start();
+
+
+            }
+
+            private static (string statusText, sound sound) GetStatusInfo(MessagePlayerType type)
+            {
+                return type switch
+                {
+                    MessagePlayerType.Failed => ("|cffff0000Не получилось|r", CreateSoundFromLabel("Sounds\\UI\\Error.wav", false, false, false, 17000, 17000)),
+                    MessagePlayerType.Success => ("|cff00ff00Успешно|r", CreateSoundFromLabel("MagicClick", false, false, false, 17000, 1000)),
+                    MessagePlayerType.Hint => ("|cff00ff00Подсказка|r", CreateSoundFromLabel("Hint", false, false, false, 17000, 17000)),
+                    _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
                 };
             }
         }

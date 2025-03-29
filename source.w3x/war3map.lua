@@ -37,7 +37,17 @@ gg_rct_RegionTreantsSpawn = nil
 gg_rct_RegionSatyrSpawn = nil
 gg_rct_QuestNPCCityGoblin = nil
 gg_rct_NoViolanceAreaTown2 = nil
+gg_snd_Error = nil
+gg_trg_Untitled_Trigger_001 = nil
 function InitGlobals()
+end
+
+function InitSounds()
+gg_snd_Error = CreateSound("Sounds/UI/Error.wav", false, false, false, 0, 0, "DefaultEAXON")
+SetSoundDuration(gg_snd_Error, 516)
+SetSoundChannel(gg_snd_Error, 0)
+SetSoundVolume(gg_snd_Error, 127)
+SetSoundPitch(gg_snd_Error, 1.0)
 end
 
 function CreateAllItems()
@@ -529,6 +539,18 @@ gg_rct_QuestNPCCityGoblin = Rect(576.0, 1024.0, 992.0, 1472.0)
 gg_rct_NoViolanceAreaTown2 = Rect(-13600.0, -17408.0, -10272.0, -13536.0)
 end
 
+function Trig_Untitled_Trigger_001_Actions()
+end
+
+function InitTrig_Untitled_Trigger_001()
+gg_trg_Untitled_Trigger_001 = CreateTrigger()
+TriggerAddAction(gg_trg_Untitled_Trigger_001, Trig_Untitled_Trigger_001_Actions)
+end
+
+function InitCustomTriggers()
+InitTrig_Untitled_Trigger_001()
+end
+
 function InitCustomPlayerSlots()
 SetPlayerStartLocation(Player(0), 0)
 SetPlayerColor(Player(0), ConvertPlayerColor(0))
@@ -644,11 +666,13 @@ NewSoundEnvironment("Default")
 SetAmbientDaySound("CityScapeDay")
 SetAmbientNightSound("CityScapeNight")
 SetMapMusic("Music", true, 0)
+InitSounds()
 CreateRegions()
 CreateAllItems()
 CreateAllUnits()
 InitBlizzard()
 InitGlobals()
+InitCustomTriggers()
 end
 
 function config()

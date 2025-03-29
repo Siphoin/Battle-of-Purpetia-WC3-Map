@@ -190,6 +190,7 @@ namespace Source.Data.Inventory.Windows
         private framehandle _iconFrame;
         private framehandle _button;
         private framehandle _icon;
+        private framehandle _textCharges;
         private trigger _triggerUse;
         private framehandle tolltipTextNameItemDescription;
         private framehandle tolltipTextNameItem;
@@ -234,8 +235,12 @@ namespace Source.Data.Inventory.Windows
 
             _button = BlzCreateFrame("ScoreScreenBottomButtonTemplate", itemFrame, 1, IndexCreate + 1);
             _icon = BlzGetFrameByName("ScoreScreenButtonBackdrop", IndexCreate + 1);
-            
+            _textCharges = BlzCreateFrameByType("TEXT", "name", _button, "", IndexCreate + 1);
+            _textCharges.Text = Item.Charges > 0 ? Item.Charges.ToString() : string.Empty;
+            BlzFrameSetPoint(_textCharges, framepointtype.BottomRight, _button, framepointtype.BottomRight, 0, 0);
+            BlzFrameSetScale(_textCharges, 1.3f);
             BlzFrameSetSize(_button, SCALE_ICON_WIDTH, SCALE_ICON_WIDTH);
+            BlzFrameSetEnable(_textCharges, false);
             BlzFrameSetPoint(_button, framepointtype.Center, itemFrame, framepointtype.Center, 0, 0);;
             BlzFrameSetTexture(_icon, Item.Icon, 0, true);
 
@@ -244,6 +249,20 @@ namespace Source.Data.Inventory.Windows
             BlzTriggerRegisterFrameEvent(_triggerUse, _button, frameeventtype.Click);
             CreateTooltip();
             BlzFrameSetTooltip(_button, itemTolltip);
+
+            if (Item.Charges > 0 && TargetUnit.Owner == player.LocalPlayer)
+            {
+               var localInventory = CustomInventory.LocalPlayerInventory;
+                localInventory.OnUseItem += OnUseItem;
+            }
+        }
+
+        private void OnUseItem(item item)
+        {
+            if (item == Item)
+            {
+                _textCharges.Text = Item.Charges > 0 ? Item.Charges.ToString() : string.Empty;
+            }
         }
 
         private void CreateTooltip ()
@@ -300,6 +319,7 @@ namespace Source.Data.Inventory.Windows
             {
                 return;
             }
+            BlzDestroyFrame(_textCharges);
             BlzDestroyFrame(_button);
             BlzDestroyFrame(_icon);
             DestroyTrigger(_triggerUse);
@@ -309,6 +329,11 @@ namespace Source.Data.Inventory.Windows
             BlzDestroyFrame(goldItemTolltipIconText);
             BlzDestroyFrame(tolltipTextNameItemDescription);
             BlzDestroyFrame(tolltipTextNameItem);
+            if (TargetUnit.Owner == player.LocalPlayer)
+            {
+                var localInventory = CustomInventory.LocalPlayerInventory;
+                localInventory.OnUseItem -= OnUseItem;
+            }
         }
 
         

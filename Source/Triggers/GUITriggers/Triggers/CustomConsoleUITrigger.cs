@@ -29,6 +29,8 @@ namespace Source.Triggers.GUITriggers.Triggers
         private static framehandle localPlayerInventoryButton;
         private static framehandle BackdroplocalPlayerInventoryButton;
         private static InventoryWindow _inventoryWindow;
+        private static unit _lastSelectedHero;
+        private static framehandle textHintAction;
 
         private static trigger TriggerbuttonDungeons { get; set; }
         private static trigger TriggerbuttonMenu { get; set; }
@@ -48,10 +50,13 @@ namespace Source.Triggers.GUITriggers.Triggers
 
         private void CreateGUI()
         {
+            #region TOC load
             BlzLoadTOCFile("tocs.toc");
+            #endregion
+
+            #region Upper Buttons
             BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), true);
-BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), true);
-            #region Buttons
+            BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), true);
             buttonDungeons = BlzCreateFrame("IconButtonTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0);
             BlzFrameSetAbsPoint(buttonDungeons, FRAMEPOINT_TOPLEFT, 0.000220000f, 0.602230f);
             BlzFrameSetAbsPoint(buttonDungeons, FRAMEPOINT_BOTTOMRIGHT, 0.111890f, 0.562080f);
@@ -73,24 +78,25 @@ BlzFrameSetVisible(BlzGetFrameByName("UpperButtonBarFrame", 0), true);
 
 
             buttonMenu = BlzCreateFrame("IconButtonTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0);
-BlzFrameSetAbsPoint(buttonMenu, FRAMEPOINT_TOPLEFT, 0.108710f, 0.601040f);
-BlzFrameSetAbsPoint(buttonMenu, FRAMEPOINT_BOTTOMRIGHT, 0.220380f, 0.560890f);
+            BlzFrameSetAbsPoint(buttonMenu, FRAMEPOINT_TOPLEFT, 0.108710f, 0.601040f);
+            BlzFrameSetAbsPoint(buttonMenu, FRAMEPOINT_BOTTOMRIGHT, 0.220380f, 0.560890f);
 
-BackdropbuttonMenu = BlzCreateFrameByType("BACKDROP", "BackdropbuttonMenu", buttonMenu, "", 0);
+            BackdropbuttonMenu = BlzCreateFrameByType("BACKDROP", "BackdropbuttonMenu", buttonMenu, "", 0);
             BlzFrameSetAllPoints(BackdropbuttonMenu, buttonMenu);
-BlzFrameSetTexture(BackdropbuttonMenu, "CustomConsoleUI/buttonOpenDungeons.blp", 0, true);
+            BlzFrameSetTexture(BackdropbuttonMenu, "CustomConsoleUI/buttonOpenDungeons.blp", 0, true);
             TriggerbuttonMenu = CreateTrigger();
-BlzTriggerRegisterFrameEvent(TriggerbuttonMenu, buttonMenu, FRAMEEVENT_CONTROL_CLICK);
-TriggerAddAction(TriggerbuttonMenu, OpenMenu);
+            BlzTriggerRegisterFrameEvent(TriggerbuttonMenu, buttonMenu, FRAMEEVENT_CONTROL_CLICK);
+            TriggerAddAction(TriggerbuttonMenu, OpenMenu);
 
             buttonMenuText = BlzCreateFrameByType("TEXT", "name", buttonMenu, "", 0);
-BlzFrameSetAbsPoint(buttonMenuText, FRAMEPOINT_TOPLEFT, 0.127090f, 0.589270f);
-BlzFrameSetAbsPoint(buttonMenuText, FRAMEPOINT_BOTTOMRIGHT, 0.197090f, 0.568270f);
+            BlzFrameSetAbsPoint(buttonMenuText, FRAMEPOINT_TOPLEFT, 0.127090f, 0.589270f);
+            BlzFrameSetAbsPoint(buttonMenuText, FRAMEPOINT_BOTTOMRIGHT, 0.197090f, 0.568270f);
             string prefixMenuHotkey = "[" + "F10".Colorize(DEFAULT_WARCRAFT_III_TEXT_HEX) + "]";
             BlzFrameSetText(buttonMenuText, $"|cffffffffМеню|r {prefixMenuHotkey}");
-BlzFrameSetEnable(buttonMenuText, false);
-BlzFrameSetScale(buttonMenuText, 1.00f);
+            BlzFrameSetEnable(buttonMenuText, false);
+            BlzFrameSetScale(buttonMenuText, 1.00f);
             BlzFrameSetTextAlignment(buttonMenuText, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE);
+
 
             #endregion
 
@@ -100,9 +106,6 @@ BlzFrameSetScale(buttonMenuText, 1.00f);
             #endregion
 
             #region Inventory Local Player
-
-
-
 
             localPlayerInventoryButton = BlzCreateFrame("IconButtonTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0);
             BlzFrameSetAbsPoint(localPlayerInventoryButton, FRAMEPOINT_TOPLEFT, 0.738010f, 0.211870f);
@@ -116,14 +119,15 @@ BlzTriggerRegisterFrameEvent(TriggerlocalPlayerInventoryButton, localPlayerInven
 TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
 
 
-            #endregion
 
             TriggerUntSelectHero = trigger.Create();
             TriggerUntSelectHero.RegisterPlayerUnitEvent(player.LocalPlayer, playerunitevent.Selected, Filter(() =>
             {
                 var unit = GetFilterUnit();
                 // Здесь вы можете добавить вашу логику
-                return unit.IsHero() && unit.Owner == player.LocalPlayer;
+                bool condition = unit.IsHero() && unit.Owner == player.LocalPlayer && _lastSelectedHero != unit;
+                _lastSelectedHero = unit;
+                return condition;
             }));
 
             TriggerUntSelectHero.RegisterPlayerUnitEvent(player.LocalPlayer, playerunitevent.HeroRevivable, Filter(() =>
@@ -141,11 +145,29 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
                 var unit = GetFilterUnit();
                 // Здесь вы можете добавить вашу логику
                 return unit.IsHero() && unit.Owner == player.LocalPlayer;
+
             }));
 
             TriggerUnitHeroDied.AddAction(() => SetStateEnabledLocalPlayerInventoryButton(false));
 
             SetStateEnabledLocalPlayerInventoryButton(false);
+
+            #endregion
+
+            #region Widget Hint Action
+
+
+            textHintAction = BlzCreateFrameByType("TEXT", "name", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0);
+            BlzFrameSetAbsPoint(textHintAction, FRAMEPOINT_TOPLEFT, 0.00257000f, 0.196590f);
+            BlzFrameSetAbsPoint(textHintAction, FRAMEPOINT_BOTTOMRIGHT, 0.802020f, 0.140520f);
+            BlzFrameSetEnable(textHintAction, false);
+            BlzFrameSetScale(textHintAction, 1.57f);
+            BlzFrameSetTextAlignment(textHintAction, TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_MIDDLE);
+
+
+            SetStateHintAction(false);
+
+            #endregion
 
 
 
@@ -164,6 +186,7 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
         private void OnExitInventoryWindow()
         {
             _inventoryWindow.OnExit -= OnExitInventoryWindow;
+            Console.WriteLine(55);
             SetStateEnabledLocalPlayerInventoryButton(true);
         }
 
@@ -183,6 +206,21 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
             BlzFrameSetVisible(localPlayerInventoryButton, state);
             BlzFrameSetEnable(BackdroplocalPlayerInventoryButton, state);
             BlzFrameSetEnable(localPlayerInventoryButton, state);
+        }
+
+        private static void SetStateHintAction (bool state)
+        {
+            BlzFrameSetVisible(textHintAction, state);
+
+            if (!state)
+            {
+                SetTextHintAction(string.Empty);
+            }
+        }
+
+        public static void SetTextHintAction (string text)
+        {
+            textHintAction.Text = $"|cffffff00{text}|r";
         }
 
         private void OpenMenu()
@@ -236,6 +274,21 @@ TriggerAddAction(TriggerlocalPlayerInventoryButton, OpenLocalPlayerInventory);
         {
             CurrentShowMode = mode;
             OnModeChanged?.Invoke(CurrentShowMode);
+
+            if (CurrentShowMode == CustomConsoleUIMode.Normal)
+            {
+                SetStateHintAction(false);
+            }
+
+            else if (CurrentShowMode == CustomConsoleUIMode.SelectTarget)
+            {
+                SetStateHintAction(true);
+            }
+
+            else if (CurrentShowMode == CustomConsoleUIMode.SelectLoc)
+            {
+                SetStateHintAction(true);
+            }
         }
     }
 
