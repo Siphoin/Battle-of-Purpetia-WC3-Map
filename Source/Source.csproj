@@ -22,7 +22,7 @@
 		<PackageReference Include="WCSharp.Sync" Version="3.0.0" />
 		<PackageReference Include="WCSharp.W3MMD" Version="3.0.0" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Triggers\CameraTriggers\Triggers\" />
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <Compile Include="Source\Triggers\DebugTriggers\**\*.cs" />
 	</ItemGroup>
 </Project>
