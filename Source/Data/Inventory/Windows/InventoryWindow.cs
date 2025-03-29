@@ -16,7 +16,8 @@ namespace Source.Data.Inventory.Windows
     public class InventoryWindow : WindowGUIBase
     {
         private const float OFFSET_CELLS = 0.027f;
-        private List<InventoryCell> _cells;
+        private List<InventoryCell> _cellsNotEmpty;
+        private List<InventoryCellEmpty> _cellsEmpty;
         private framehandle _inventoryFrame;
         private framehandle BackdropbuttonExit;
         private framehandle buttonExit;
@@ -24,7 +25,8 @@ namespace Source.Data.Inventory.Windows
         public InventoryWindow(CustomInventory targetInventory)
         {
             TargetInventory = targetInventory;
-            _cells = new();
+            _cellsNotEmpty = new();
+            _cellsEmpty = new();
             TargetInventory.OnAddAItem += UpdateCells;
             TargetInventory.OnRemoveItem += UpdateCells;
             CustomConsoleUITrigger.OnModeChanged += OnModeConsoleUIChanged;
@@ -42,12 +44,12 @@ namespace Source.Data.Inventory.Windows
             DestroyTrigger(TriggerbuttonExit);
             DestroyTrigger(TriggerUnitDied);
 
-            foreach (var cell in _cells)
+            foreach (var cell in _cellsNotEmpty)
             {
                 cell.Destroy();
             }
 
-            _cells.Clear();
+            _cellsNotEmpty.Clear();
             BlzDestroyFrame(buttonExit);
             BlzDestroyFrame(BackdropbuttonExit);
             BlzDestroyFrame(_inventoryFrame);
@@ -87,7 +89,7 @@ namespace Source.Data.Inventory.Windows
             TriggerbuttonExit = CreateTrigger();
             BlzTriggerRegisterFrameEvent(TriggerbuttonExit, buttonExit, FRAMEEVENT_CONTROL_CLICK);
             TriggerAddAction(TriggerbuttonExit, Exit);
-
+            CreateSlots();
             CreateCells();
 
         }
@@ -102,12 +104,41 @@ namespace Source.Data.Inventory.Windows
 
         private void CreateCells()
         {
-            var items = TargetInventory as IEnumerable<item>;
+            var _exitsItems = TargetInventory as IEnumerable<item>;
             int columnsPerRow = 8;
             float xOffset = OFFSET_CELLS;
             float yOffset = OFFSET_CELLS;
+            for (int i = 0; i < _exitsItems.Count(); i++)
+            {
+                var item = _exitsItems.ElementAt(i);
+                int column = i % columnsPerRow;
+                int row = i / columnsPerRow;
+                float xPos = column * xOffset;
 
-            for (int i = 0; i < items.Count(); i++)
+                // Инвертируем Y, чтобы ряды шли вниз
+                float yPos = row * -yOffset; // Умножаем на -1
+                InventoryCell cell = new InventoryCell(
+               _exitsItems.ElementAt(i),
+               _inventoryFrame,
+               TargetInventory.TargetUnit,
+               UseItem,
+               xPos,
+               yPos,
+               i
+           );
+                cell.Create();
+                _cellsNotEmpty.Add(cell);
+                
+
+            }
+        }
+
+        private void CreateSlots()
+        {
+            int columnsPerRow = 8;
+            float xOffset = OFFSET_CELLS;
+            float yOffset = OFFSET_CELLS;
+            for (int i = 0; i < TargetInventory.Limititems; i++)
             {
                 int column = i % columnsPerRow;
                 int row = i / columnsPerRow;
@@ -115,21 +146,19 @@ namespace Source.Data.Inventory.Windows
 
                 // Инвертируем Y, чтобы ряды шли вниз
                 float yPos = row * -yOffset; // Умножаем на -1
-
-                InventoryCell cell = new InventoryCell(
-                    items.ElementAt(i),
-                    _inventoryFrame,
-                    TargetInventory.TargetUnit,
-                    UseItem,
-                    xPos,
-                    yPos,
-                    i
+                InventoryCellEmpty cell = new InventoryCellEmpty(
+                _inventoryFrame,
+                xPos,
+                yPos,
+                i
                 );
 
                 cell.Create();
-                _cells.Add(cell);
+                _cellsEmpty.Add(cell);
             }
         }
+
+
 
         private void UseItem(item item)
         {
@@ -138,12 +167,18 @@ namespace Source.Data.Inventory.Windows
 
         private void UpdateCells(item item)
         {
-            foreach (var cell in _cells)
+            foreach (var cell in _cellsEmpty)
+            {
+                cell.Destroy();
+            }
+            foreach (var cell in _cellsNotEmpty)
             {
                 cell.Destroy();
             }
 
-            _cells.Clear();
+            _cellsNotEmpty.Clear();
+            _cellsEmpty.Clear();
+            CreateSlots();
             CreateCells();
 
 
@@ -152,7 +187,7 @@ namespace Source.Data.Inventory.Windows
 
     public class InventoryCell
     {
-
+        private framehandle _iconFrame;
         private framehandle _button;
         private framehandle _icon;
         private trigger _triggerUse;
@@ -162,8 +197,8 @@ namespace Source.Data.Inventory.Windows
         private framehandle goldItemTolltipIconText;
         private framehandle goldItemTolltipIcon;
         private framehandle iconItemTooltip;
+        private framehandle itemFrame;
         private const float SCALE_ICON_WIDTH = 0.029f;
-        private const float DELAY_REMOVE_ITEM = 0.3f;
 
         public item Item { get; set; }
         private framehandle Parent { get; set; }
@@ -186,11 +221,22 @@ namespace Source.Data.Inventory.Windows
 
         public void Create()
         {
-            _button = BlzCreateFrame("ScoreScreenBottomButtonTemplate", Parent, 0, IndexCreate);
-            _icon = BlzGetFrameByName("ScoreScreenButtonBackdrop", IndexCreate);
+            itemFrame = BlzCreateFrame("ScoreScreenBottomButtonTemplate", Parent, 0, IndexCreate);
+            BlzFrameSetPoint(itemFrame, framepointtype.TopLeft, Parent, framepointtype.TopLeft, 0.04f + X, -0.065f + Y);
+            _iconFrame = BlzGetFrameByName("ScoreScreenButtonBackdrop", IndexCreate);
+            BlzFrameSetTexture(_iconFrame, "CustomConsoleUI/inventory_cell.blp", 0, true);
+            BlzFrameSetSize(itemFrame, SCALE_ICON_WIDTH, SCALE_ICON_WIDTH);
+
+            if (Item is null)
+            {
+                return;
+            }
+
+            _button = BlzCreateFrame("ScoreScreenBottomButtonTemplate", itemFrame, 1, IndexCreate + 1);
+            _icon = BlzGetFrameByName("ScoreScreenButtonBackdrop", IndexCreate + 1);
             
             BlzFrameSetSize(_button, SCALE_ICON_WIDTH, SCALE_ICON_WIDTH);
-            BlzFrameSetPoint(_button, framepointtype.TopLeft, Parent, framepointtype.TopLeft, 0.04f + X, -0.065f + Y);;
+            BlzFrameSetPoint(_button, framepointtype.Center, itemFrame, framepointtype.Center, 0, 0);;
             BlzFrameSetTexture(_icon, Item.Icon, 0, true);
 
             _triggerUse = trigger.Create();
@@ -247,6 +293,13 @@ namespace Source.Data.Inventory.Windows
 
         public void Destroy()
         {
+
+            BlzDestroyFrame(itemFrame);
+            BlzDestroyFrame(_iconFrame);
+            if (Item is null)
+            {
+                return;
+            }
             BlzDestroyFrame(_button);
             BlzDestroyFrame(_icon);
             DestroyTrigger(_triggerUse);
@@ -259,6 +312,47 @@ namespace Source.Data.Inventory.Windows
         }
 
         
+
+
+    }
+
+    public class InventoryCellEmpty
+    {
+        private framehandle _iconFrame;
+        private framehandle itemFrame;
+        private const float SCALE_ICON_WIDTH = 0.029f;
+
+        private framehandle Parent { get; set; }
+        private int IndexCreate { get; set; }
+        private float X { get; set; }
+        private float Y { get; set; }
+
+
+        public InventoryCellEmpty(framehandle parent, float x, float y, int indexCreate)
+        {
+            Parent = parent;
+            IndexCreate = indexCreate;
+            X = x;
+            Y = y;
+        }
+
+        public void Create()
+        {
+            itemFrame = BlzCreateFrame("ScoreScreenBottomButtonTemplate", Parent, 0, IndexCreate);
+            BlzFrameSetPoint(itemFrame, framepointtype.TopLeft, Parent, framepointtype.TopLeft, 0.04f + X, -0.065f + Y);
+            _iconFrame = BlzGetFrameByName("ScoreScreenButtonBackdrop", IndexCreate);
+            BlzFrameSetTexture(_iconFrame, "CustomConsoleUI/inventory_cell.blp", 0, true);
+            BlzFrameSetSize(itemFrame, SCALE_ICON_WIDTH, SCALE_ICON_WIDTH);
+            BlzFrameSetEnable(itemFrame, false);
+        }
+
+        public void Destroy()
+        {
+            BlzDestroyFrame(itemFrame);
+            BlzDestroyFrame(_iconFrame);
+        }
+
+
 
 
     }
